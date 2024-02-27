@@ -1,0 +1,43 @@
+<app-sidebar></app-sidebar>
+<div class="container mt-5">
+    <h2 class="mb-4">Anciennes Evaluations</h2>
+    <!-- Tableau Bootstrap pour lister les évaluations -->
+    <div *ngIf="message" [ngClass]="{'alert-success': isSuccess, 'alert-danger': !isSuccess}" class="alert" role="alert">
+        {{ message }}
+    </div>
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>Date d'évaluation</th>
+                <th>Note</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let evaluation of existingEvaluations">
+                <td>{{ evaluation.date_evaluation | date:'mediumDate' }}</td>
+                <td>{{ evaluation.note }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-sm mr-2" (click)="onEditEvaluation(evaluation)" style="background-color: #800020; color: white;">Edit</button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteEvaluation(evaluation.id_evaluation)"  style="background-color: #800020; color: white;">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Formulaire d'édition qui s'affiche lorsqu'une évaluation est sélectionnée -->
+    <div *ngIf="selectedEvaluationId" class="mt-4">
+        <h3>Modifier l'Évaluation</h3>
+        <form [formGroup]="editForm" (ngSubmit)="onUpdate()" class="mt-4">
+            <div class="form-group">
+                <label for="date_evaluation">Date de l'Évaluation</label>
+                <input type="date" id="date_evaluation" formControlName="date_evaluation" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="note">Notes</label>
+                <textarea id="note" formControlName="note" rows="3" class="form-control"></textarea>
+            </div>
+            <!-- Ligne corrigée pour le bouton de soumission -->
+            <button type="submit" class="btn btn-primary" [disabled]="!editForm.valid" style="background-color: #800020; color: white;">Mettre à jour</button>
+        </form>
+    </div>

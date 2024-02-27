@@ -1,0 +1,7 @@
+.logo-img img {
+    max-width: 100%; /* Ensure the image does not exceed the width of its container */
+    max-height: 100%; /* Ensure the image does not exceed the height of its container */
+    width: auto; /* Ensure the image maintains its aspect ratio */
+    height: auto; /* Ensure the image maintains its aspect ratio */
+    margin: -5px; /* Add negative margin to keep the image within its container */
+}

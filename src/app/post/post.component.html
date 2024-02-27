@@ -1,0 +1,51 @@
+<div class="forum-container">
+
+    <!-- Affichage du message de succès -->
+
+  
+    <!-- Section pour l'ajout et la gestion d'un post -->
+    <div class="post-management-container">
+        <h2>Gérer les posts</h2>
+
+        <!-- Section pour l'ajout d'un nouveau post -->
+        <div class="new-post-container">
+            <input [(ngModel)]="newPost.titre" placeholder="Titre du post" class="input-field">
+            <textarea [(ngModel)]="newPost.contenu" placeholder="Contenu du post" class="input-field"></textarea>
+            <button class="btn publish-btn" (click)="addPost()" style="background-color: #800020; color: white;">Publier le post</button>
+        </div>
+
+        <!-- Boutons de modification et de suppression de post (pour le post actuellement édité) -->
+        <div *ngIf="editPost" class="edit-post-actions">
+            <input [(ngModel)]="editPost.titre" placeholder="Titre du post" class="input-field">
+            <textarea [(ngModel)]="editPost.contenu" placeholder="Contenu du post" class="input-field"></textarea>
+            <button class="btn save-btn" (click)="confirmEdit()" style="background-color: #800020; color: white;">Sauvegarder les changements</button>
+            <button class="btn cancel-btn" (click)="cancelEdit()" style="background-color: #800020; color: white;">Annuler l'édition</button>
+            <button class="btn delete-btn" (click)="deletePost(editPost.id_Post)" style="background-color: #800020; color: white;">Supprimer le post</button>
+            <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+        </div>
+    </div>
+    
+    <!-- Liste des posts existants -->
+    <div class="posts-container">
+        <div *ngFor="let post of posts" class="post-container">
+            <div class="post-header">
+                <h3>{{ post.titre }}</h3>
+            </div>
+            <div class="post-content">{{ post.contenu }}</div>
+            <button class="btn action-btn" (click)="editPostInit(post)"  style="background-color: #800020; color: white;">Modifier</button>
+            <!-- Bouton pour ajouter un commentaire à un post spécifique -->
+      
+
+            <!-- Liste des commentaires pour le post courant -->
+            <div class="comments-container">
+                <div *ngFor="let commentaire of post.commentaires" class="comment-container">
+                    <p>{{ commentaire.contenu }}</p>
+                    <button class="btn comment-btn" (click)="deleteCommentairePost(post.id_Post)" style="background-color: #800020; color: white;">Ajouter un commentaire</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

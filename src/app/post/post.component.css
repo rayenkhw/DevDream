@@ -1,0 +1,59 @@
+.forum-container {
+    max-width: 600px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+
+.new-post-container, .posts-container, .post-container {
+    background-color: #f2f3f5;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+    color: #4b4f56;
+}
+
+.input-field, .btn {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccd0d5;
+}
+
+.input-field {
+    background-color: #ffffff;
+}
+
+.btn {
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #8a3ab9; /* Un rouge bordeaux */
+    border: none;
+}
+
+.publish-btn {
+    background-color: #4267b2; /* Un bleu Facebook */
+}
+
+.action-btn {
+    background-color: #e91e63; /* Un rouge bordeaux */
+}
+
+.comment-btn {
+    background-color: #00a400; /* Un vert pour les commentaires */
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-actions {
+    display: flex;
+    gap: 10px;
+}
