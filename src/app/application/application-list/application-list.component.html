@@ -1,0 +1,36 @@
+
+<h2>Application List</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Demande de Stage</th>
+      <th>CV</th>
+      <th>Lettre de Motivation</th>
+      <th>État</th>
+      <!-- 
+      <th>Étudiant</th>-->
+      <!-- 
+      <th>Offre</th>-->
+      <!-- 
+      <th>Keyword</th>-->
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let application of applications">
+      <td>{{ application.id_application }}</td>
+      <td>{{ application.demandeDeStage }}</td>
+      <td>{{ application.cv }}</td>
+      <td>{{ application.lettreMotivation }}</td>
+      <td>{{ application.etat }}</td>
+      <!-- 
+      <td>{{ application.etudiant.firstName }} {{ application.etudiant.lastName }}</td>-->
+      <!-- 
+      <td>{{ application.offre.title }}</td>
+      <td>{{ application.keyword.name }}</td>-->
+      
+    </tr>
+  </tbody>
+</table>
