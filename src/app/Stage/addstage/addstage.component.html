@@ -1,0 +1,26 @@
+<p>addstage works!</p>
+<!-- addstage.component.html -->
+
+<div>
+    <h2>Ajouter un nouveau stage</h2>
+    <form (ngSubmit)="ajouterStage()">
+      <div>
+        <label for="maitrestage">Maître de stage:</label>
+        <input type="text" id="maitrestage" [(ngModel)]="nouveauStage.maitrestage" name="maitrestage" required>
+      </div>
+      <div>
+        <label for="date_debut">Date de début:</label>
+        <input type="date" id="date_debut" [(ngModel)]="nouveauStage.date_debut" name="date_debut" required>
+      </div>
+      <div>
+        <label for="date_fin">Date de fin:</label>
+        <input type="date" id="date_fin" [(ngModel)]="nouveauStage.date_fin" name="date_fin" required>
+      </div>
+      <div>
+        <label for="stagiere">Stagiaire:</label>
+        <input type="text" id="stagiere" [(ngModel)]="nouveauStage.stagiere" name="stagiere" required>
+      </div>
+      <button type="submit" (click)="ajouterStage()">Ajouter</button>
+    </form>
+  </div>
+  

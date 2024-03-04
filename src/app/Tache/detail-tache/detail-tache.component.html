@@ -1,0 +1,64 @@
+<div *ngIf="selectedTache" class="task-details">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title">Détails de la tâche</h2>
+      <div class="detail-item">
+        <p class="detail-label"><strong>Priorité:</strong></p>
+        <p class="detail-value">{{ selectedTache.priorite }}</p>
+      </div>
+      <div class="detail-item">
+        <p class="detail-label"><strong>Statut:</strong></p>
+        <p class="detail-value">{{ selectedTache.status }}</p>
+      </div>
+
+      <!-- Description -->
+      <div class="description-section">
+        <h3 class="card-subtitle mb-2">Description</h3>
+        <p class="detail-value">{{ selectedTache.description }}</p>
+      </div>
+
+      <!-- Performance -->
+      <div class="detail-item">
+        <p class="detail-label"><strong>Performance:</strong></p>
+        <p class="detail-value">{{ selectedTache.performance }}</p>
+      </div>
+
+      <!-- Délai -->
+      <div class="detail-item">
+        <p class="detail-label"><strong>Délai:</strong></p>
+        <p class="detail-value">{{ selectedTache.delai }}</p>
+      </div>
+
+      <!-- Remarque -->
+      <div class="detail-item">
+        <p class="detail-label"><strong>Remarque:</strong></p>
+        <p class="detail-value">{{ selectedTache.remarque }}</p>
+      </div>
+       <!-- Afficher les commentaires -->
+  <div *ngFor="let commentaire of selectedTache.commentaireList">
+    <div class="comment">
+      <p>{{ commentaire.username }}</p> <!-- Afficher le nom de l'utilisateur -->
+      <p>{{ commentaire.contenu }}</p>
+      <button mat-raised-button type="button" matTooltip="Edit commentaire" (click)="openup(commentaire)" [matTooltipPosition]="'above'" class="btn btn-success btn-link btn-sm btn-just-icon">
+        <i class="material-icons">edit</i>
+      </button>
+      
+     
+      <button mat-raised-button type="button" matTooltip="Remove commentaire" [matTooltipPosition]="'above'" (click)="confirmBox(commentaire.id_comment, commentaire.username)" class="btn btn-success btn-link btn-sm btn-just-icon">
+        <i class="material-icons">close</i>
+      </button>
+      <!-- Afficher d'autres détails du commentaire si nécessaire -->
+    </div>
+  </div>
+
+      <!-- Add comment section -->
+      <div class="comment-section">
+        <h3 class="card-subtitle mb-2">Ajouter un commentaire</h3>
+        <form [formGroup]="formCommentaire" (ngSubmit)="ajouterCommentaire()" novalidate>
+          <textarea class="form-control" rows="4" formControlName="contenu" placeholder="Exprimez-vous..."></textarea>
+          <button class="btn btn-primary" type="submit">Publier</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

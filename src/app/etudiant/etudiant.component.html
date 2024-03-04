@@ -1,0 +1,118 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Todo Taches -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Todo</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="text-primary">
+                                    <tr>
+                                        <th>Priorité</th>
+                                        <th>Description</th>
+                                        <th>Délai</th>
+                                        <th></th> <!-- Nouvelle colonne pour les actions -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Pour chaque tâche dans todoTaches -->
+                                    <tr *ngFor="let tache of todoTaches">
+                                        <td>{{ tache.priorite }}</td>
+                                        <td>{{ tache.description }}</td>
+                                        <td>{{ tache.delai }}</td>
+                                        <!-- Ajouter une colonne pour les actions avec un bouton d'icône -->
+                                        <td>
+                                            <button class="btn btn-success btn-link btn-sm btn-just-icon" (click)="showSelectedTaskDetails(tache, 'TODO')" >
+                                                
+                                                <i class="material-icons" style="color: black;">info</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- In Progress Taches -->
+            <div class="col-md-4" >
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">In Progress</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="text-warning">
+                                    <tr>
+                                        <th>Priorité</th>
+                                        <th>Description</th>
+                                        <th>Délai</th>
+                                        <th></th> <!-- Nouvelle colonne pour les actions -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Pour chaque tâche dans inProgressTaches -->
+                                    <tr *ngFor="let tache of inProgressTaches">
+                                        <td>{{ tache.priorite }}</td>
+                                        <td>{{ tache.description }}</td>
+                                        <td>{{ tache.delai }}</td>
+                                        <!-- Ajouter une colonne pour les actions avec un bouton d'icône -->
+                                        <td>
+                                            <button class="btn btn-success btn-link btn-sm btn-just-icon" (click)="showSelectedTaskDetails(tache, 'In Progress')">
+                                                
+                                                <i class="material-icons" style="color: black;">info</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Done Taches -->
+            <div class="col-md-4" >
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title">Done</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="text-success">
+                                    <tr>
+                                        <th>Priorité</th>
+                                        <th>Description</th>
+                                        <th>Délai</th>
+                                        <th></th> <!-- Nouvelle colonne pour les actions -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Pour chaque tâche dans doneTaches -->
+                                    <tr *ngFor="let tache of doneTaches">
+                                        <td>{{ tache.priorite }}</td>
+                                        <td>{{ tache.description }}</td>
+                                        <td>{{ tache.delai }}</td>
+                                        <!-- Ajouter une colonne pour les actions avec un bouton d'icône -->
+                                        <td>
+                                            <button class="btn btn-success btn-link btn-sm btn-just-icon" (click)="showSelectedTaskDetails(tache, 'Done')">
+                                                <i class="material-icons" style="color: black;">info</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

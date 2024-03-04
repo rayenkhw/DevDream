@@ -1,0 +1,80 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="card-body">
+        <form [formGroup]="formTache" (ngSubmit)="updateTache(formTache.value)">
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class="example-full-width">
+                <input type="text" matInput placeholder="Priorité de la tâche" id="priorite" formControlName="priorite">
+                <div *ngIf="formTache.get('priorite').invalid && (formTache.get('priorite').dirty || formTache.get('priorite').touched)" class="error-message">
+                  <div *ngIf="formTache.get('priorite').errors.required">Ce champ est requis</div>
+                  <div *ngIf="formTache.get('priorite').errors.min">La valeur minimale est 0</div>
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class="example-full-width">
+                <input type="text" matInput placeholder="Description de la tâche" id="description" formControlName="description">
+                <div *ngIf="formTache.get('description').invalid && (formTache.get('description').dirty || formTache.get('description').touched)" class="error-message">
+                  <div *ngIf="formTache.get('description').errors.required">Ce champ est requis</div>
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Status de la tâche</mat-label>
+                <select matNativeControl id="status" formControlName="status">
+                  <option value="ToDO">ToDO</option>
+                  <option value="InProgress">InProgress</option>
+                  <option value="Done">Done</option>
+                </select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class="example-full-width">
+                <input type="text" matInput placeholder="Délai de la tâche" id="delai" formControlName="delai">
+                <div *ngIf="formTache.get('delai').invalid && (formTache.get('delai').dirty || formTache.get('delai').touched)" class="error-message">
+                  <div *ngIf="formTache.get('delai').errors.required">Ce champ est requis</div>
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class="example-full-width">
+                <input type="text" matInput placeholder="Performance de la tâche" id="performance" formControlName="performance">
+                <div *ngIf="formTache.get('performance').invalid && (formTache.get('performance').dirty || formTache.get('performance').touched)" class="error-message">
+                  <div *ngIf="formTache.get('performance').errors.required">Ce champ est requis</div>
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class="example-full-width">
+                <input type="text" matInput placeholder="Remarque sur la tâche" id="remarque" formControlName="remarque">
+                <div *ngIf="formTache.get('remarque').invalid && (formTache.get('remarque').dirty || formTache.get('remarque').touched)" class="error-message">
+                  <div *ngIf="formTache.get('remarque').errors.required">Ce champ est requis</div>
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button mat-raised-button type="submit" class="btn btn-primary" [disabled]="formTache.invalid">Mettre à jour</button>
+            
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
