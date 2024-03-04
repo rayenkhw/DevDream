@@ -1,0 +1,28 @@
+
+
+<h2>Reclamations List</h2>
+
+<div style="width: 80%; margin: auto;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 10%;">Id reclamation</th>
+        <th style="width: 20%;">Type reclamation</th>
+        <th style="width: 30%;">Contenu reclamation</th>
+        <th style="width: 20%;">Status reclamation</th>
+        <th style="width: 20%;">Supprimer</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reclamation of reclamations">
+        <td>{{ reclamation.id_Reclamation }}</td>
+        <td>{{ reclamation.typReclamation }}</td>
+        <td>{{ reclamation.contenu }}</td>
+        <td>{{ reclamation.status_reclamation }}</td>
+      <td><button class="btn btn-danger" (click)="removeReclamation(reclamation.id_reclamation)">Supprimer</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

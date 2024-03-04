@@ -1,0 +1,18 @@
+<div>
+    <h2>Réponse réclamation</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label for="Réponse">Réponse:</label>
+            <input type="text" id="reponse" [(ngModel)]="newReponse.reponse" name="reponse" required>
+      </div>
+      <!-- <div>
+        <label for="contenu">Contenu:</label>
+        <input type="text" id="contenu" [(ngModel)]="newReponse.contenu" name="contenu" required>
+      </div> -->
+  
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+  
