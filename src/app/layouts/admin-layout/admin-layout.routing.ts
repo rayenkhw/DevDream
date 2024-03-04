@@ -10,6 +10,10 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { AdminLayoutComponent} from './admin-layout.component';
 import { ApplicationListComponent } from '../../application/application-list/application-list.component';
 import { ApplicationAjoutComponent } from 'app/application/application-ajout/application-ajout.component';
+import { PostComponent } from 'app/post/post.component';
+import { ListEvaluationComponent } from 'app/list-evaluation/list-evaluation.component';
+import { EvaluationComponent } from 'app/evaluation/evaluation.component';
+
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -64,6 +68,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'list-applications-admin',  component: ApplicationListComponent },
     { path: 'ajout-application',  component: ApplicationAjoutComponent },
+    {path:"ajouterEvaluation",component:EvaluationComponent},
+
+    {path:"AfficherEvaluation",component:ListEvaluationComponent},
+    
     // {
     //     path: '',
     //     children: [

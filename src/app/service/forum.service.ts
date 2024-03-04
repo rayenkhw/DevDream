@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable,tap } from 'rxjs';
-import { Post } from 'app/models/forum.model';
+import { Interaction, Post } from 'app/models/forum.model';
 import { CommentairePost } from 'app/models/forum.model';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class ForumService {
   private postapiUrl = 'http://localhost:9000/DevDream/api/post'
   private commentairePostapiUrl = 'http://localhost:9000/DevDream/api/commentairePost'
-
+  private badWordsList = ['badword1', 'badword2', 'badword3'];
   constructor(private http: HttpClient) { }
 
   getPosts(): Observable<Post[]> {
@@ -26,29 +27,84 @@ export class ForumService {
   deletePost(id: number): Observable<any> {
     return this.http.delete(`${this.postapiUrl}/post/${id}`);
   }
-
-
-
-
+  filterText(text: string): string {
+    // Verifie si le texte contient un bad word.
+    const foundBadWord = this.badWordsList.some(badWord => 
+      new RegExp(badWord, 'gi').test(text)
+    );
+  
+    if (foundBadWord) {
+      // Vous pouvez lancer une exception ou retourner un message d'erreur.
+      throw new Error('Le contenu contient des mots inappropriés et a été bloqué.');
+    }
+  
+    return text;
+  }
+  
 
   // CRUD pour les commentairesl
-  getCommentairePosts(): Observable<CommentairePost[]> {
-    return this.http.get<CommentairePost[]>(`${this.commentairePostapiUrl}/allCommentairePosts`);
+  getCommentairesByPostId(id_Post: number): Observable<CommentairePost[]> {
+    const url = `${this.commentairePostapiUrl}/${id_Post}/commentairePosts`; // Construisez l'URL pour accéder à l'API
+    return this.http.get<CommentairePost[]>(url); // Utilisez HttpClient pour effectuer une requête GET
   }
+  
 
-  getCommentairePostById(id: number): Observable<CommentairePost> {
-    return this.http.get<CommentairePost>(`${this.commentairePostapiUrl}/commentairePost/${id}`);
+  addCommentairePost(id_Post: number, commentaire: { contenu: string }): Observable<CommentairePost> {
+    const url = `http://localhost:9000/DevDream/api/commentairePost/posts/${id_Post}/commentaires`;
+    return this.http.post<CommentairePost>(url, commentaire);
   }
+  deleteCommentairePost(id_Post: number): Observable<any> {
+    return this.http.delete(`${this.commentairePostapiUrl}/commentairePost/${id_Post}`);
+}
 
 
-  addCommentairePost(commentairePost: CommentairePost): Observable<CommentairePost> {
-    return this.http.post<CommentairePost>(`${this.commentairePostapiUrl}/addCommentairePost`, commentairePost);
-  }
-  updateCommentairePost(commenatairePost: CommentairePost): Observable<CommentairePost> {
-    return this.http.put<CommentairePost>(`${this.commentairePostapiUrl}/updateCommentairePost`, commenatairePost);
-  }
-  deleteCommentairePost(id: number): Observable<any> {
-    return this.http.delete(`${this.commentairePostapiUrl}/commentairePost/${id}`);
+//////////////// interactions
+toggleLike(id_Post: number, id: number): Observable<any> {
+  const url= `http://localhost:9000/DevDream/api/interactions/like/${id_Post}/${id}`;
+  return this.http.post(url, {}, { responseType: 'text' });
+}
+toggleDislike(id_Post: number, id: number): Observable<any> {
+  const url= `http://localhost:9000/DevDream/api/interactions/dislike/${id_Post}/${id}`;
+  return this.http.post(url, {}, { responseType: 'text' });
+}
+
+toggleLove(id_Post: number, id: number): Observable<any> {
+  const url= `http://localhost:9000/DevDream/api/interactions/love/${id_Post}/${id}`;
+  return this.http.post(url, {}, { responseType: 'text' });
+}
+
+getLikesCount(id_Post: number): Observable<number> {
+  const url = `http://localhost:9000/DevDream/api/interactions/likes/count/${id_Post}`;
+
+  return this.http.get<number>(url).pipe(
+    map(response => {
+      return response; // Aucun besoin de convertir, si le backend renvoie déjà un nombre
+    })
+  );
+}
+
+getDislikesCount(id_Post: number): Observable<number> {
+  const url = `http://localhost:9000/DevDream/api/interactions/dislikes/count/${id_Post}`;
+  
+  // Notez que { responseType: 'text' } doit être passé dans les options d'appel de http.get
+  return this.http.get(url, { responseType: 'text' }).pipe(
+    map(response => {
+      // Convertissez la réponse de texte en nombre
+      return Number(response);
+    })
+  );
+}
+
+getLovesCount(id_Post: number): Observable<number> {
+  const url = `http://localhost:9000/DevDream/api/interactions/loves/count/${id_Post}`;
+  
+  // Notez que { responseType: 'text' } doit être passé dans les options d'appel de http.get
+  return this.http.get(url, { responseType: 'text' }).pipe(
+    map(response => {
+      // Convertissez la réponse de texte en nombre
+      return Number(response);
+    })
+  );
 }
 
 }

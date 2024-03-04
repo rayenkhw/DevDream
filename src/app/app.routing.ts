@@ -22,9 +22,8 @@ const routes: Routes =[
   {path:"home",component:HomeComponent},
   {path:"login",component:LoginComponent},
   {path:"accueil",component:AccueilComponent},
-  {path:"admin/ajouterEvaluation",component:EvaluationComponent},
-  {path:"AfficherEvaluation",component:ListEvaluationComponent},
-  {path:"post", component:PostComponent},
+
+
 
 // ******
 //  {

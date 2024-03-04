@@ -39,6 +39,6 @@ export class EvaluationComponent implements OnInit {
   }
   
   goToAffichage() {
-    this.router.navigate(['/AfficherEvaluation']); // Utilisez le Router pour naviguer
+    this.router.navigate(['/admin/AfficherEvaluation']); // Utilisez le Router pour naviguer
   }
 }

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'app/models/forum.model';
+import { Interaction } from 'app/models/forum.model';
 import { ForumService } from 'app/service/forum.service';
 import { Input} from '@angular/core';
 import { CommentairePost } from 'app/models/forum.model';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -11,7 +14,7 @@ import { CommentairePost } from 'app/models/forum.model';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-  showCommentForm: boolean = false;
+
    newCommentContent: { [key: number]: string } = {};
     showCommentForms: { [postId: number]: boolean } = {};
 
@@ -20,39 +23,60 @@ export class PostComponent implements OnInit {
   newPost: Post = { titre: '', contenu: '' }; // Assurez-vous que cela correspond à votre modèle
   editPost: Post | null = null; // Ajout de la propriété editPost
   nouveauCommentaire: string = '';
+  Id: number = 1;
+  isLikeSelected = false;
+  isDislikeSelected = false;
+  isLoveSelected = false;
+  interactionMessage: { [postId: number]: string } = {};
+  userInput = '';
 
   successMessage: string | null = null;
 
   constructor(private forumService: ForumService) { }
 
   ngOnInit(): void {
-    this.loadPosts();
+    this.loadPostsWithCommentaires();
     
   }
 
 
 //cruddddddddddddddd postt
 
-loadPosts() {
-  this.forumService.getPosts().subscribe({
-    next: (posts) => {
-      this.posts = posts;
-      // Pour chaque post, chargez son commentaire
-      this.posts.forEach(post => {
-        this.forumService.getCommentairePostById(post.id_Post).subscribe({
-          next: (commentaire) => {
-            post.commentaires = [commentaire]; // Mettez le commentaire dans un tableau
-          },
-          error: (error) => console.error("Erreur lors du chargement des commentaires", error)
-        });
+
+loadPostsWithCommentaires() {
+  this.forumService.getPosts().subscribe(posts => {
+    this.posts = posts.map(post => ({ ...post, commentaires: [] })); // Initialisez commentaires comme tableau vide
+
+    this.posts.forEach(post => {
+      // Chargement des commentaires
+      this.forumService.getCommentairesByPostId(post.id_Post).subscribe(commentaires => {
+        post.commentaires = commentaires;
       });
-    },
-    error: (error) => console.error("Erreur lors du chargement des posts", error)
+
+      // Chargement des compteurs d'interactions
+      const likes$ = this.forumService.getLikesCount(post.id_Post);
+      const dislikes$ = this.forumService.getDislikesCount(post.id_Post);
+      const loves$ = this.forumService.getLovesCount(post.id_Post);
+
+      forkJoin([likes$, dislikes$, loves$]).pipe(
+        map(([likesCount, dislikesCount, lovesCount]) => ({
+          likesCount,
+          dislikesCount,
+          lovesCount
+        }))
+      ).subscribe(({ likesCount, dislikesCount, lovesCount }) => {
+        post.likeCount = likesCount;
+        post.dislikeCount = dislikesCount;
+        post.loveCount = lovesCount;
+      });
+    });
   });
 }
 
 
+
 addPost() {
+  this.newPost.contenu = this.forumService.filterText(this.newPost.contenu);
   this.forumService.addPost(this.newPost).subscribe({
     next: (post) => {
       this.posts.push(post); // Ajoute le nouveau post à la liste des posts
@@ -103,34 +127,35 @@ deletePost(postId: number) {
 
 
 //cruddddddddddddd commentaireeeeeeeeeeee
-addCommentairePost(postId: number, commentaireContent: string) {
+addCommentairePost(id_Post: number, commentaireContent: string) {
   if (!commentaireContent) {
-    // Optionnel: afficher un message d'erreur ou une validation si le commentaire est vide
     console.error("Le commentaire ne peut pas être vide");
     return;
   }
 
-  const nouveauCommentaire: CommentairePost = {
-    contenu: commentaireContent,
-    id_Post: postId, // Assurez-vous que cela correspond au nom de la propriété dans votre modèle
+  // Filtrage du contenu du commentaire pour éliminer les mots interdits
+  const filteredContent = this.forumService.filterText(commentaireContent);
+
+  const nouveauCommentaire = {
+    contenu: filteredContent, // Utilisez le contenu filtré ici
   };
 
-  this.forumService.addCommentairePost(nouveauCommentaire).subscribe({
+  // Utiliser l'ID du post dans l'URL
+  this.forumService.addCommentairePost(id_Post, nouveauCommentaire).subscribe({
     next: (commentaireAjoute) => {
-      // Trouvez le post concerné et ajoutez le commentaire à sa liste de commentaires
-      const post = this.posts.find(p => p.id_Post === postId);
+      const post = this.posts.find(p => p.id_Post === id_Post); // Assurez-vous que l'ID du post est correctement référencé ici
       if (post) {
         if (!post.commentaires) {
           post.commentaires = [];
         }
         post.commentaires.push(commentaireAjoute);
       }
-      this.newCommentContent[postId] = ''; // Réinitialise le champ de saisie du commentaire
-      this.showCommentForms[postId] = false; // Ferme le formulaire de commentaire
+      this.newCommentContent[id_Post] = ''; // Réinitialiser le champ de saisie du commentaire
     },
     error: (error) => console.error("Erreur lors de l'ajout du commentaire", error)
   });
 }
+
 
 
 deleteCommentairePost(commentaireId: number) {
@@ -142,6 +167,32 @@ deleteCommentairePost(commentaireId: number) {
   });
 }
 
- 
+ //////////////////interactions
+ onToggleInteraction(id_Post: number, interactionType: 'Like' | 'Dislike' | 'Love') {
+  switch (interactionType) {
+    case 'Like':
+      this.forumService.toggleLike(id_Post, this.Id).subscribe(() => {
+        this.interactionMessage[id_Post] = "Like ajouté";
+      });
+      break;
+    case 'Dislike':
+      this.forumService.toggleDislike(id_Post, this.Id).subscribe(() => {
+        this.interactionMessage[id_Post] = "Dislike ajouté";
+      });
+      break;
+    case 'Love':
+      this.forumService.toggleLove(id_Post, this.Id).subscribe(() => {
+        this.interactionMessage[id_Post] = "Coup de cœur ajouté";
+      });
+      break;
+    default:
+      console.error('Invalid interaction type');
+  }
+}
 
 }
+
+
+
+
+
