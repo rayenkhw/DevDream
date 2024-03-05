@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EvaluationService } from 'app/service/evaluation.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Evaluation } from '../models/Evaluation.model';
+import {  ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-list-evaluation',
@@ -14,6 +15,8 @@ export class ListEvaluationComponent implements OnInit {
   editForm!: FormGroup;
   message: string = '';
   isSuccess: boolean = true;
+
+
 
   constructor(private fb: FormBuilder, private evaluationService: EvaluationService) { }
 
@@ -74,7 +77,6 @@ export class ListEvaluationComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error deleting evaluation', error);
-          // Tentez d'extraire un message d'erreur plus spécifique à partir de la réponse du serveur
           const errorMessage = error.error && error.error.message ? error.error.message : 'Failed to delete evaluation. Please try again later.';
           alert(errorMessage);
         }

@@ -3,10 +3,9 @@ import { Post } from 'app/models/forum.model';
 import { Interaction } from 'app/models/forum.model';
 import { ForumService } from 'app/service/forum.service';
 import { Input} from '@angular/core';
-import { CommentairePost } from 'app/models/forum.model';
-import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
-
+import { CommentairePost } from 'app/models/forum.model';;
+import { forkJoin, of } from 'rxjs';
+import { map, switchMap, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-post',
@@ -41,38 +40,69 @@ export class PostComponent implements OnInit {
 
 
 //cruddddddddddddddd postt
-
-
-loadPostsWithCommentaires() {
-  this.forumService.getPosts().subscribe(posts => {
-    this.posts = posts.map(post => ({ ...post, commentaires: [] })); // Initialisez commentaires comme tableau vide
-
-    this.posts.forEach(post => {
-      // Chargement des commentaires
-      this.forumService.getCommentairesByPostId(post.id_Post).subscribe(commentaires => {
-        post.commentaires = commentaires;
-      });
-
-      // Chargement des compteurs d'interactions
-      const likes$ = this.forumService.getLikesCount(post.id_Post);
-      const dislikes$ = this.forumService.getDislikesCount(post.id_Post);
-      const loves$ = this.forumService.getLovesCount(post.id_Post);
-
-      forkJoin([likes$, dislikes$, loves$]).pipe(
-        map(([likesCount, dislikesCount, lovesCount]) => ({
-          likesCount,
-          dislikesCount,
-          lovesCount
-        }))
-      ).subscribe(({ likesCount, dislikesCount, lovesCount }) => {
-        post.likeCount = likesCount;
-        post.dislikeCount = dislikesCount;
-        post.loveCount = lovesCount;
-      });
-    });
-  });
+updateBadge(id_Post: number): void {
+  this.forumService.updatePostBadge(id_Post).subscribe(
+    () => {
+      console.log('Badge updated successfully');
+      // Mettre à jour l'interface utilisateur ou faire d'autres actions si nécessaire
+    },
+    error => {
+      console.error('Error updating badge:', error);
+      // Gérer l'erreur comme nécessaire
+    }
+  );
 }
 
+loadPostsWithCommentaires() {
+  this.forumService.getPosts().pipe(
+    switchMap(posts => {
+      // Initialisation des posts avec des tableaux de commentaires vides
+      this.posts = posts.map(post => ({ ...post, commentaires: [], likeCount: 0, dislikeCount: 0, loveCount: 0 }));
+
+      // Création d'un tableau pour contenir toutes les opérations asynchrones
+      const allOperations = [];
+
+      // Pour chaque post, préparer les opérations de chargement des commentaires et des compteurs d'interactions
+      this.posts.forEach(post => {
+        const commentairesOperation = this.forumService.getCommentairesByPostId(post.id_Post).pipe(
+          catchError(error => {
+            console.error('Error loading commentaires', error);
+            return of([]); // En cas d'erreur, retourner un tableau vide pour les commentaires
+          })
+        );
+
+        const interactionCountersOperation = forkJoin({
+          likes: this.forumService.getLikesCount(post.id_Post),
+          dislikes: this.forumService.getDislikesCount(post.id_Post),
+          loves: this.forumService.getLovesCount(post.id_Post)
+        }).pipe(
+          catchError(error => {
+            console.error('Error loading interaction counters', error);
+            return of({ likes: 0, dislikes: 0, loves: 0 }); // En cas d'erreur, retourner des compteurs à 0
+          })
+        );
+
+        // Combinaison des opérations de chargement des commentaires et des compteurs d'interactions pour le post courant
+        const combinedOperation = forkJoin({ commentaires: commentairesOperation, counters: interactionCountersOperation }).pipe(
+          map(({ commentaires, counters }) => {
+            post.commentaires = commentaires;
+            post.likeCount = counters.likes;
+            post.dislikeCount = counters.dislikes;
+            post.loveCount = counters.loves;
+          })
+        );
+
+        allOperations.push(combinedOperation);
+      });
+
+      // Attente de la complétion de toutes les opérations
+      return forkJoin(allOperations);
+    })
+  ).subscribe({
+    next: () => console.log('Tous les posts et leurs données associées ont été chargés'),
+    error: error => console.error('Une erreur est survenue lors du chargement des posts', error)
+  });
+}
 
 
 addPost() {
@@ -124,8 +154,6 @@ deletePost(postId: number) {
   });
 }
 
-
-
 //cruddddddddddddd commentaireeeeeeeeeeee
 addCommentairePost(id_Post: number, commentaireContent: string) {
   if (!commentaireContent) {
@@ -140,17 +168,16 @@ addCommentairePost(id_Post: number, commentaireContent: string) {
     contenu: filteredContent, // Utilisez le contenu filtré ici
   };
 
-  // Utiliser l'ID du post dans l'URL
   this.forumService.addCommentairePost(id_Post, nouveauCommentaire).subscribe({
     next: (commentaireAjoute) => {
-      const post = this.posts.find(p => p.id_Post === id_Post); // Assurez-vous que l'ID du post est correctement référencé ici
+      const post = this.posts.find(p => p.id_Post === id_Post); 
       if (post) {
         if (!post.commentaires) {
           post.commentaires = [];
         }
         post.commentaires.push(commentaireAjoute);
       }
-      this.newCommentContent[id_Post] = ''; // Réinitialiser le champ de saisie du commentaire
+      this.newCommentContent[id_Post] = ''; 
     },
     error: (error) => console.error("Erreur lors de l'ajout du commentaire", error)
   });
@@ -168,27 +195,73 @@ deleteCommentairePost(commentaireId: number) {
 }
 
  //////////////////interactions
+ interactionStates: {[id_Post: number]: {isLikeSelected: boolean, isDislikeSelected: boolean, isLoveSelected: boolean}} = {};
+
+ // Initialisation des états par post si nécessaire
+ initializeInteractionState(id_Post: number) {
+   if (!this.interactionStates[id_Post]) {
+     this.interactionStates[id_Post] = { isLikeSelected: false, isDislikeSelected: false, isLoveSelected: false };
+   }
+ }
+ 
  onToggleInteraction(id_Post: number, interactionType: 'Like' | 'Dislike' | 'Love') {
-  switch (interactionType) {
-    case 'Like':
-      this.forumService.toggleLike(id_Post, this.Id).subscribe(() => {
-        this.interactionMessage[id_Post] = "Like ajouté";
-      });
-      break;
-    case 'Dislike':
-      this.forumService.toggleDislike(id_Post, this.Id).subscribe(() => {
-        this.interactionMessage[id_Post] = "Dislike ajouté";
-      });
-      break;
-    case 'Love':
-      this.forumService.toggleLove(id_Post, this.Id).subscribe(() => {
-        this.interactionMessage[id_Post] = "Coup de cœur ajouté";
-      });
-      break;
-    default:
-      console.error('Invalid interaction type');
-  }
+   this.initializeInteractionState(id_Post); // S'assurer que l'état pour ce post est initialisé
+   let isCurrentlySelected: boolean;
+ 
+   switch (interactionType) {
+     case 'Like':
+       isCurrentlySelected = this.interactionStates[id_Post].isLikeSelected;
+       this.forumService.toggleLike(id_Post, this.Id).subscribe(() => {
+         this.interactionMessage[id_Post] = isCurrentlySelected ? "Like supprimé" : "Like ajouté";
+         this.interactionStates[id_Post].isLikeSelected = !isCurrentlySelected; // Inverse l'état de sélection spécifique à ce post
+         this.updateInteractionCounters(id_Post);
+       });
+       break;
+     case 'Dislike':
+       isCurrentlySelected = this.interactionStates[id_Post].isDislikeSelected;
+       this.forumService.toggleDislike(id_Post, this.Id).subscribe(() => {
+         this.interactionMessage[id_Post] = isCurrentlySelected ? "Dislike supprimé" : "Dislike ajouté";
+         this.interactionStates[id_Post].isDislikeSelected = !isCurrentlySelected; // Inverse l'état de sélection spécifique à ce post
+         this.updateInteractionCounters(id_Post);
+       });
+       break;
+     case 'Love':
+       isCurrentlySelected = this.interactionStates[id_Post].isLoveSelected;
+       this.forumService.toggleLove(id_Post, this.Id).subscribe(() => {
+         this.interactionMessage[id_Post] = isCurrentlySelected ? "Coup de cœur supprimé" : "Coup de cœur ajouté";
+         this.interactionStates[id_Post].isLoveSelected = !isCurrentlySelected; // Inverse l'état de sélection spécifique à ce post
+         this.updateInteractionCounters(id_Post);
+       });
+       break;
+     default:
+       console.error('Invalid interaction type');
+   }
+ }
+ 
+
+
+updateInteractionCounters(id_Post: number) {
+  const likes$ = this.forumService.getLikesCount(id_Post);
+  const dislikes$ = this.forumService.getDislikesCount(id_Post);
+  const loves$ = this.forumService.getLovesCount(id_Post);
+
+  forkJoin([likes$, dislikes$, loves$]).pipe(
+    map(([likesCount, dislikesCount, lovesCount]) => ({
+      likesCount,
+      dislikesCount,
+      lovesCount
+    }))
+  ).subscribe(({ likesCount, dislikesCount, lovesCount }) => {
+    const post = this.posts.find(p => p.id_Post === id_Post);
+    if (post) {
+      post.likeCount = likesCount;
+      post.dislikeCount = dislikesCount;
+      post.loveCount = lovesCount;
+    }
+  });
 }
+
+
 
 }
 

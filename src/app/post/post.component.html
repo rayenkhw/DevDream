@@ -6,7 +6,7 @@
         <div class="new-post-container">
             <input [(ngModel)]="newPost.titre" placeholder="Titre du post" class="input-field">
             <textarea [(ngModel)]="newPost.contenu" placeholder="Contenu du post" class="input-field"></textarea>
-            <button class="btn publish-btn" (click)="addPost()">Publier le post</button>
+            <button class="btn publish-btn" (click)="addPost()" style="background-color: #800020; color: white;">Publier le post</button>
         </div>
     </div>
 
@@ -15,17 +15,23 @@
         <h2>Modifier le post</h2>
         <input [(ngModel)]="editPost.titre" placeholder="Titre du post" class="input-field">
         <textarea [(ngModel)]="editPost.contenu" placeholder="Contenu du post" class="input-field"></textarea>
-        <button class="btn save-btn" (click)="confirmEdit()">Sauvegarder les changements</button>
-        <button class="btn cancel-btn" (click)="cancelEdit()">Annuler l'édition</button>
-        <button class="btn delete-btn" (click)="deletePost(editPost.id_Post)">Supprimer le post</button>
+        <button class="btn save-btn" (click)="confirmEdit()" style="background-color: #800020; color: white;">Sauvegarder les changements</button>
+        <button class="btn cancel-btn" (click)="cancelEdit()" style="background-color: #800020; color: white;">Annuler l'édition</button>
+        <button class="btn delete-btn" (click)="deletePost(editPost.id_Post)"style="background-color: #800020; color: white;">Supprimer le post</button>
         <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
     </div>
 
     <!-- Liste des posts existants -->
     <div class="posts-container">
         <div *ngFor="let post of posts; let i = index" class="post-container">
+            <span *ngIf="post.badge" class="badge">
+                🎩 {{ post.badge }}
+              </span>
+              
+              
             <div class="post-header">
                 <h3>{{ post.titre }}</h3>
+               
             </div>
             <div class="post-content">
                 <p>{{ post.contenu }}</p>
@@ -65,8 +71,8 @@
             <!-- Conteneur pour les boutons d'action -->
             <div class="actions-container">
                 <input [(ngModel)]="newCommentContent[post.id_Post]" placeholder="Ajouter un commentaire..." class="input-field">
-                <button class="btn comment-btn" (click)="addCommentairePost(post.id_Post, newCommentContent[post.id_Post])">Commenter</button>
-                <button class="btn action-btn" (click)="editPostInit(post)">Modifier Post</button>
+                <button class="btn comment-btn" (click)="addCommentairePost(post.id_Post, newCommentContent[post.id_Post])"style="background-color: #716c6e; color: white;">Commenter</button>
+                <button class="btn action-btn" (click)="editPostInit(post)" style="background-color: #800020; color: white;">Modifier Post</button>
             </div>
         </div>
     </div>

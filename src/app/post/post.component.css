@@ -93,6 +93,26 @@ h2, h3 {
     color: black; /* Assurez-vous que la couleur contraste avec le fond */
     font-size: 24px; /* Augmentez la taille pour les rendre plus visibles */
 }
-
+ 
+.hat-icon {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 12px solid black;
+    position: relative;
+  }
+  
+  .hat-icon::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: -10px;
+    width: 20px;
+    height: 5px;
+    background-color: black;
+  }
+  
 
 

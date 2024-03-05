@@ -28,17 +28,18 @@ export class ForumService {
     return this.http.delete(`${this.postapiUrl}/post/${id}`);
   }
   filterText(text: string): string {
-    // Verifie si le texte contient un bad word.
     const foundBadWord = this.badWordsList.some(badWord => 
       new RegExp(badWord, 'gi').test(text)
     );
-  
     if (foundBadWord) {
-      // Vous pouvez lancer une exception ou retourner un message d'erreur.
+      
       throw new Error('Le contenu contient des mots inappropriés et a été bloqué.');
     }
-  
     return text;
+  }
+
+  updatePostBadge(id_Post: number): Observable<any> {
+    return this.http.put(`${this.postapiUrl}/${id_Post}/update-badge`, {});
   }
   
 
