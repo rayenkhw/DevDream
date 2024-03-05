@@ -1,0 +1,21 @@
+<h2>List des stages</h2>
+
+<div style="width: 80%; margin: auto;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 10%;">ID stage</th>
+        <th style="width: 25%;">Date debut</th>
+        <th style="width: 20%;">Date fin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stage of stages">
+        <td>{{ stage.id_stage }}</td>
+        <td>{{ stage.date_debut }}</td>
+        <td>{{ stage.date_fin }}</td>
+        
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,28 @@
+<h2>Depots</h2>
+
+<div style="width: 80%; margin: auto;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 10%;">ID_depot</th>
+        <th style="width: 25%;">travail</th>
+        <th style="width: 20%;">rapport De Stage</th>
+        <th style="width: 20%;">Journal De Stage</th>
+        <th style="width: 20%;">Date de depot</th>
+        <th style="width: 20%;">Modifier le Depot</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let depot of depots">
+        <td>{{ depot.id_depot }}</td>
+        <td>{{ depot.travail }}</td>
+        <td>{{ depot.rapportDeStage }}</td>
+        <td>{{ depot.journalDeStage }}</td>
+        <td>{{ depot.date_depot }}</td>
+        <td><button (click)="modifyDepot(depot.id_depot)">Modifier</button></td>
+        
+      </tr>
+    </tbody>
+  </table>
+</div>
+
