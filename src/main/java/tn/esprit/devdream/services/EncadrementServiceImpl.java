@@ -21,7 +21,7 @@ public class EncadrementServiceImpl implements IEncadrementService {
     private IUserRepository userRepository;
 @Override
     public User getEncadrantByEtudiantId(Long etudiantId) {
-        Encadrement encadrement = encadrementRepository.findByEtudiantId(etudiantId);
+        Encadrement encadrement = encadrementRepository.findByEtudiantIdUser(etudiantId);
         if (encadrement != null) {
             return encadrement.getEncadrant();
         }
@@ -30,7 +30,7 @@ public class EncadrementServiceImpl implements IEncadrementService {
     @Override
 
     public List<User> getEtudiantsByEncadrantId(Long encadrantId) {
-        List<Encadrement> encadrements = encadrementRepository.findByEncadrantId(encadrantId);
+        List<Encadrement> encadrements = encadrementRepository.findByEncadrantIdUser(encadrantId);
         // Collecte des étudiants encadrés
         return encadrements.stream()
                 .map(Encadrement::getEtudiant)
@@ -58,7 +58,7 @@ public class EncadrementServiceImpl implements IEncadrementService {
 @Override
     // Méthode pour récupérer la liste des étudiants encadrés par un encadrant
     public List<User> getEtudiantsEncadres(Long encadrantId) {
-        List<Encadrement> encadrements = encadrementRepository.findByEncadrantId(encadrantId);
+        List<Encadrement> encadrements = encadrementRepository.findByEncadrantIdUser(encadrantId);
         List<User> etudiantsEncadres = new ArrayList<>();
         for (Encadrement encadrement : encadrements) {
             etudiantsEncadres.add(encadrement.getEtudiant());

@@ -1,6 +1,6 @@
 package tn.esprit.devdream.entities;
 
-enum Specialte {
+public enum Specialte {
     IT,TC,GC,GE
 }
 

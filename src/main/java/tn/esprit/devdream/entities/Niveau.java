@@ -1,4 +1,4 @@
 package tn.esprit.devdream.entities;
-enum Niveau {
+public enum Niveau {
     Premiere,Deuxiemme,Troisiemme,Quateriemme
 }

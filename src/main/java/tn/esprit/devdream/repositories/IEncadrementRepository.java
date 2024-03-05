@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface IEncadrementRepository extends JpaRepository<Encadrement, Long> {
-    Encadrement findByEtudiantId(Long etudiantId);
+    Encadrement findByEtudiantIdUser(Long etudiantId);
 
-    List<Encadrement> findByEncadrantId(Long encadrantId);
+    List<Encadrement> findByEncadrantIdUser(Long encadrantId);
 }

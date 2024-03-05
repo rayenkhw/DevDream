@@ -3,40 +3,42 @@ package tn.esprit.devdream.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.Email;
-import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="User")
 
-public class User implements Serializable {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private Long id;
+    private Long idUser;
     private String identifiant;
     private String nom;
     private String prenom;
     private String cin;
     @Email(message = "Invalid email address")
     private String email;
-    private String mdp;
+    private String password;
     @Enumerated(EnumType.STRING)
     private Niveau niveau;
     @Enumerated(EnumType.STRING)
     private Specialte specialite;
     @Enumerated(EnumType.STRING)
-    private Role rolee;
+    private Role role;
     private Boolean disponibilite;
     private String image;
     private String chargeTravail;
@@ -158,5 +160,40 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "maitrestage")
     private  List<Stage> stageList;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
 

@@ -8,7 +8,7 @@ import tn.esprit.devdream.services.IUserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/v1/user")
 @CrossOrigin(origins = "*")
 public class UserController {
     @Autowired
@@ -33,10 +33,10 @@ public class UserController {
         iUserService.removeUser(userId);
     }
 
-    @PutMapping("/modify-user/{user-id}")
+   /* @PutMapping("/modify-user/{user-id}")
     public User modifyUser(@PathVariable("user-id") Long userId,@RequestBody User c) {
         c.setId(userId);
         User user = iUserService.modifyUser(c);
         return user;
-    }
+    }*/
 }

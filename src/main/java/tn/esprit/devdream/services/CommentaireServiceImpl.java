@@ -98,8 +98,8 @@ public class CommentaireServiceImpl implements ICommentaireService {
     }
 
     private boolean estEtudiantOuEncadrantDeTache(Tache tache, Long userId) {
-        return tache.getEtudiant() != null && tache.getEtudiant().getId().equals(userId)
-                || tache.getEncadrant() != null && tache.getEncadrant().getId().equals(userId);
+        return tache.getEtudiant() != null && tache.getEtudiant().getIdUser().equals(userId)
+                || tache.getEncadrant() != null && tache.getEncadrant().getIdUser().equals(userId);
     }
 
     @Override
