@@ -1,12 +1,12 @@
+
 package tn.esprit.devdream.controllers;
 
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import tn.esprit.devdream.entities.Role;
 
+@Getter
+@Setter
 @Data
 @Builder
 @AllArgsConstructor
@@ -21,7 +21,11 @@ public class AuthenticationResponse {
     private String email;
     private String password;
     private Role role;
-    private boolean disponibilite;
+
+    private int disponibilite;
+
+
+
 
 }
 

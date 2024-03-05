@@ -1,6 +1,7 @@
 package tn.esprit.devdream.entities;
 
 
+
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-
+@Getter
+@Setter
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,7 +19,6 @@ import java.util.List;
 @Entity
 public class User implements UserDetails
 {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -34,7 +35,7 @@ public class User implements UserDetails
     private Niveau Niveau;
     @Enumerated(EnumType.STRING)
     private Specialte Specialite;
-    private boolean disponibilite;
+    private int disponibilite;
     private String Image;
     private String chargeTravail;
     private boolean Status;
@@ -130,8 +131,7 @@ public class User implements UserDetails
     @OneToMany(mappedBy = "etudiant")
     private List<Encadrement> encadrementsEtudiant;
 
-  @OneToMany(mappedBy = "user")
-   private List<Feedback> feedbacks;
+
 
 
 
@@ -170,8 +170,5 @@ public class User implements UserDetails
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public boolean getDisponibilite() {return true ;
     }
 }

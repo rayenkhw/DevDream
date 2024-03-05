@@ -1,15 +1,13 @@
+
 package tn.esprit.devdream.controllers;
 
 
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import tn.esprit.devdream.entities.Niveau;
 import tn.esprit.devdream.entities.Role;
 import tn.esprit.devdream.entities.Specialte;
-
+@Getter
+@Setter
 @Data
 @Builder
 @AllArgsConstructor
@@ -24,10 +22,13 @@ public class RegisterRequest {
     private Niveau niveau;
     private Specialte specialite;
     private Role role;
-    private Boolean disponibilite;
+    private int disponibilite;
     private String image;
     private String chargeTravail;
 }
+
+
+
 
 
 
