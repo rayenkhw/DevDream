@@ -3,14 +3,9 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header card-header-danger">
-            <h4 class="card-title ">  Liset des utilisateurs</h4>
-            <button mat-raised-button (click)="openAddEditEmpForm()">
-    ADD 
-  </button>
-  <mat-form-field>
-    
-    <input matInput (keyup)="applyFilter($event)" placeholder="Filter" #input>
-  </mat-form-field>
+            <h4 class="card-title ">  Archives utilisateurs</h4>
+           
+  
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -60,8 +55,7 @@
                        <td>{{utilisateurs.specialite}}</td>
                        <td>
                         <!-- Boutons Update et Delete -->
-                        <button (click)="updateUser(utilisateurs)" class="btn btn-success">Update</button>
-                        <button (click)="deleteUser(utilisateurs.idUser)" class="btn btn-danger">Delete</button>
+                        <button (click)="deleteUserArchives(utilisateurs.idUser)" class="btn btn-danger">Restore</button>
                     </td>
                      </tr>   
                      

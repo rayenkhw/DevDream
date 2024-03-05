@@ -10,13 +10,14 @@ import {LoginComponent} from './shared/login/login/login.component';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 import { AdminLayoutRoutes } from './layouts/admin-layout/admin-layout.routing';
 import { UserLayoutRoutes } from './layouts/user-layout/user-layout.routing';
+import { AuthGuard } from './shared/auth.guard';
 
 
 
 
 const routes: Routes =[
   {path:'',redirectTo:'home' ,pathMatch:'full'},
-  {path:"home",component:HomeComponent},
+  {path:"home",component:HomeComponent,canActivate:[AuthGuard]},
   {path:"login",component:LoginComponent},
   {path:"accueil",component:AccueilComponent},
 

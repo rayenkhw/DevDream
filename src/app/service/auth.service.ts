@@ -12,13 +12,12 @@ export class AuthService {
 
 
   constructor(private http: HttpClient) { }
-  // authenticate(request: AuthenticationRequest): Observable<any> {
-  //   return this.http.post<any>(this.apiUrl, request).pipe(
-  //     tap(response => this.saveToken(response.token))
-      
-  //   );
-  //   this.saveUserDetails(response);
-  // }
+  
+IsLoggedIn(){
+return !!localStorage.getItem('token');
+
+}
+
   authenticate(request: AuthenticationRequest): Observable<any> {
     return this.http.post<any>(this.apiUrl, request).pipe(
       tap(response => {
@@ -33,7 +32,6 @@ export class AuthService {
     // Vous pouvez également vouloir stocker d'autres détails ou traiter le token ici
   }
   public saveUserDetails(response: any): void {
-    // Supposons que vous ne voulez pas stocker le mot de passe localement pour des raisons de sécurité
     const userDetails = {
         idUser: response.idUser,
         identifiant: response.identifiant,

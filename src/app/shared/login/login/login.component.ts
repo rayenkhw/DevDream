@@ -33,11 +33,20 @@ export class LoginComponent  {
         this.errorMessage = null;
         this.authService.saveToken(response.token);
         this.authService.saveUserDetails(response);
-        if ( response.role == 'Esprit') {
-          setTimeout(() => this.router.navigate(['/admin']), 1500);
-      } else {
-          setTimeout(() => this.router.navigate(['/user']), 1500);
-      }
+      //   if ( response.role == 'Esprit') {
+      //     setTimeout(() => this.router.navigate(['/admin/user']), 1500);
+      // } else {
+      //     setTimeout(() => this.router.navigate(['/user']), 1500);
+      // }
+      if (response.role == 'Esprit') {
+        setTimeout(() => this.router.navigate(['/admin/user']), 1500);
+    } else if (response.role == 'entreprise') {
+        setTimeout(() => this.router.navigate(['/entreprise']), 1500); // Assurez-vous que la route '/entreprise' est correctement définie dans votre module de routage
+    } else if (response.role == 'etudiant') {
+        setTimeout(() => this.router.navigate(['/etudiant']), 1500); // Assurez-vous que la route '/etudiant' est correctement définie dans votre module de routage
+    } else {
+        setTimeout(() => this.router.navigate(['/user']), 1500); // Fallback pour tous les autres rôles
+    }
 
         // setTimeout(() =>this.router.navigate(['/admin/user']), 1500); // Rediriger l'utilisateur après une authentification réussie
       },

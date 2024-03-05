@@ -14,6 +14,8 @@ import { NotfoundComponent } from './not-found/notfound/notfound.component';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 import { ApplicationListComponent } from './application/application-list/application-list.component';
 import { ApplicationAjoutComponent } from './application/application-ajout/application-ajout.component';
+import { UserAddComponent } from './user-add/user-add.component';
+import { UserArchivesComponent } from './user-archives/user-archives.component';
 
 
 
@@ -46,6 +48,8 @@ import { ApplicationAjoutComponent } from './application/application-ajout/appli
     UserLayoutComponent,
     ApplicationListComponent,
     ApplicationAjoutComponent,
+    UserAddComponent,
+    UserArchivesComponent,
    
     
   
