@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface IReclamationService {
     public Reclamation addReclamation(Reclamation r);
+    //public Reponse affectReponseReclamation(Reponse rep,Long idReclamation);
     public Reclamation modifyReclamation(Reclamation reclamation);
     public List<Reclamation> retrieveAllReclamation();
 

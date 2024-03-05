@@ -43,4 +43,9 @@ public class ReclamationRestController {
         Reponse reponse1 = reclamationService.reclamationtraite(idReclamation);
         return reponse1;
     }
+//    @PostMapping("/affectReponseàReclamation/{idReclamation}")
+//    public Reponse affectReponseReclamation(@RequestBody Reponse rep, @PathVariable("idReclamation") Long idReclamation){
+//     Reponse rep = reclamationService.affectReponseReclamation(idReclamation);
+//     return  rep;
+//    }
 }

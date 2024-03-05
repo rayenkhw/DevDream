@@ -3,6 +3,7 @@ package tn.esprit.devdream.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.devdream.entities.Reponse;
+import tn.esprit.devdream.services.IReclamationService;
 import tn.esprit.devdream.services.IReponseService;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
 public class ReponseRestController {
     @Autowired
     IReponseService reponseService;
+    @Autowired
+    IReclamationService reclamationService;
     @GetMapping("/retrieve-all-reponses")
     public List<Reponse> getReponses() {
         List<Reponse> listReponses = reponseService.retrieveAllReponse();
@@ -23,10 +26,10 @@ public class ReponseRestController {
         Reponse reponse = reponseService.retrieveReponse(idReponse);
         return reponse;
     }
-    @PostMapping("/add-reponse")
-    public Reponse addReponse(@RequestBody Reponse re){
-        Reponse reponse = reponseService.addReponse(re);
-        return reponse;
+    @PostMapping("/addReponseaffectReclamationsendNotification/{idReclamation}")
+    public Reponse addReponseaffectReclamationsendNotification(@RequestBody Reponse re, @PathVariable("idReclamation") Long idReclamation) {
+     Reponse reponse = reponseService.addReponseandaffectReclamationsendNotification(re, idReclamation);
+     return  reponse;
     }
     @DeleteMapping("/remove-reponse/{idReponse}")
     public  void removeReponse(@PathVariable("idReponse")Long idReponse) {

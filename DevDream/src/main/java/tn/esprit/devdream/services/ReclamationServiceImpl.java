@@ -33,6 +33,15 @@ public class ReclamationServiceImpl implements IReclamationService {
 
     }
 
+//    @Override
+//    public Reponse affectReponseReclamation(Reponse rep,Long idReclamation) {
+//        Reclamation reclamation = iReclamationRepository.findReclamationById_Reclamation(idReclamation);
+//        reclamation.setReponse(rep );
+//        rep.setReclamation(reclamation);
+//        return iReponseRepository.save(rep);
+//    }
+
+
     @Override
     public Reclamation modifyReclamation(Reclamation reclamation) {
         return iReclamationRepository.save(reclamation);
