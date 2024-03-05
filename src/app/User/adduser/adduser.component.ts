@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User, Niveau, Specialte, Role } from 'app/Models/user';
+import { User, Niveau, Specialite, Role } from 'app/Models/user';
 import { UserService } from 'app/Services/UserService/user.service';
 
 @Component({

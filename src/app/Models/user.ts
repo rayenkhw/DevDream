@@ -2,7 +2,7 @@ import { Tache } from './tache';
 import { Stage } from './stage';
 import { Encadrement } from './encadrement';
 export class User {
-     id:number;
+    idUser:number;
 
         identifiant:String;
         nom: String;
@@ -11,8 +11,8 @@ export class User {
         email: String;
          mdp: String;
          niveau: Niveau;
-         specialite: Specialte;
-         rolee: Role;
+         specialite: Specialite;
+         role: Role;
          disponibilite: Boolean;
          image: String;
          chargeTravail: String;
@@ -24,12 +24,37 @@ export class User {
          stageList?: Stage[];
     
 }
+
 export enum Niveau {
-    Premiere,Deuxiemme,Troisiemme,Quateriemme
-}
-export enum Specialte {
-    IT,TC,GC,GE
-}
+    Premiere = 'Premiere',
+    Deuxiemme = 'Deuxiemme',
+    Troisiemme = 'Troisiemme',
+    Quateriemme = 'Quateriemme',
+    
+  }
+  export enum Specialite {
+    IT = 'IT',
+    TC = 'TC',
+    GC = 'GC',
+    GE = 'GE',
+    
+  }
+  export interface AuthenticationRequest {
+    email: string;
+    password: string;
+  }
+  export interface AuthenticationResponse {
+    jwtToken: string; 
+  }
+
+
 export enum Role {
-    Esprit,Enseignant,Encadrant,Entreprise,Etudiant
-}
+    Admin = 'Admin',
+    Esprit = 'Esprit',
+    Enseignant = 'Enseignant',
+    Encadrant = 'Encadrant',
+    Entreprise = 'Entreprise',
+    Etudiant = 'Etudiant',
+
+    
+  }

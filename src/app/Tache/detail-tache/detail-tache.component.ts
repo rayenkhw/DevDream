@@ -115,8 +115,8 @@ export class DetailTacheComponent implements OnInit {
   
     const contenu = this.formCommentaire.get('contenu').value;
     const tacheId = this.selectedTache.id_tache;
-    const userId: number = this.userService.currentUser.id; // Supposons que vous récupérez l'ID de l'utilisateur connecté
-    const username = this.userService.currentUser.nom; // Supposons que vous récupérez le nom de l'utilisateur connecté
+    const userId: number = this.userService.currentUser.idUser; 
+    const username = this.userService.currentUser.nom;
   
     this.commentaireService.ajouterCommentaire(tacheId, contenu, userId).subscribe(
       (commentaire) => {
@@ -167,9 +167,43 @@ export class DetailTacheComponent implements OnInit {
 hideUpdateForm() {
   this.showUpdate = false;
 }
+// updateCommentaire(commentaire: Commentaire) {
+//   if (commentaire && commentaire.id_comment) {
+//     this.commentaireService.updateCommentaire(commentaire.id_comment, commentaire).subscribe(
+//       () => {
+//         console.log('Commentaire mis à jour avec succès');
+//         // Appel à la méthode handleCommentaireModification() pour recharger les détails de la tâche après la mise à jour du commentaire
+//         this.handleCommentaireModification();
+//       },
+//       (error) => {
+//         console.error('Erreur lors de la mise à jour du commentaire:', error);
+//         Swal.fire('Error', 'Erreur lors de la mise à jour du commentaire', 'error');
+//       }
+//     );
+//   } else {
+//     console.error('Comment or its ID is undefined');
+//   }
+// }
+
+// Méthode pour recharger les détails de la tâche après la modification d'un commentaire
+handleCommentaireModification(): void {
+  // Rechargez les détails de la tâche pour obtenir les données mises à jour
+  this.fetchSelectedTacheDetails();
+}
 updateCommentaire(commentaire: Commentaire) {
+  // Vérifier si le commentaire et son ID sont définis
   if (commentaire && commentaire.id_comment) {
-    this.commentaireService.updateCommentaire(commentaire.id_comment, commentaire).subscribe(
+    // Récupérer le contenu du commentaire depuis l'entrée utilisateur
+    const nouveauContenu =  this.formCommentaire.get('contenu').value;
+
+    // Récupérer l'identifiant de la tâche associée au commentaire
+    const tacheId = commentaire.tache.id_tache;
+
+    // Récupérer l'identifiant de l'utilisateur actuel
+    const userId: number = this.userService.currentUser.idUser;
+
+    // Appeler le service pour mettre à jour le commentaire
+    this.commentaireService.modifyCommentaire(commentaire.id_comment, nouveauContenu, tacheId, userId).subscribe(
       () => {
         console.log('Commentaire mis à jour avec succès');
         // Appel à la méthode handleCommentaireModification() pour recharger les détails de la tâche après la mise à jour du commentaire
@@ -181,14 +215,8 @@ updateCommentaire(commentaire: Commentaire) {
       }
     );
   } else {
-    console.error('Comment or its ID is undefined');
+    console.error('Commentaire ou son ID non défini');
   }
-}
-
-// Méthode pour recharger les détails de la tâche après la modification d'un commentaire
-handleCommentaireModification(): void {
-  // Rechargez les détails de la tâche pour obtenir les données mises à jour
-  this.fetchSelectedTacheDetails();
 }
 
   

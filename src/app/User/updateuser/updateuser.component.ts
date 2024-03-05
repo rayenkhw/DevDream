@@ -43,7 +43,7 @@ export class UpdateuserComponent implements OnInit {
       mdp: [this.user.mdp, [Validators.required, Validators.minLength(6)]],
       niveau: [this.user.niveau, Validators.required],
       specialite: [this.user.specialite, Validators.required],
-      role: [this.user.rolee, Validators.required],
+      role: [this.user.role, Validators.required],
       disponibilite: [this.user.disponibilite],
       image: [this.user.image],
       chargeTravail: [this.user.chargeTravail]

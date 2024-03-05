@@ -82,7 +82,10 @@ export class CommentaireService {
     }
     
     
-    
+    modifyCommentaire(commentaireId: number, nouveauContenu: string, tacheId: number, userId: number): Observable<Commentaire> {
+      const url = `${this.commentaireUrl}/commentaires/${commentaireId}`;
+      return this.httpClient.put<Commentaire>(url, nouveauContenu, { params: { tacheId: tacheId.toString(), userId: userId.toString() } });
+    }
 
  
  

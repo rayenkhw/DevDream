@@ -35,7 +35,7 @@ Supprimer(id: number) {
   this.userservice.deleteUser(id).subscribe(() => {
       console.log(id)
       this.dataSource.data = this.dataSource.data.filter(
-          (user: User) => user.id !== id
+          (user: User) => user.idUser !== id
       );
   });
 }
