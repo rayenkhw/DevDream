@@ -35,8 +35,16 @@ public class ApplicationServiceImpl  implements IApplicationService {
 
     @Override
     public Application addApplication(Application c) {
+<<<<<<< HEAD
 
 
+=======
+        User applicateur = new User();
+
+
+        c.setEtudiant(applicateur);
+
+>>>>>>> origin/ranimback
 
 
 
@@ -64,6 +72,7 @@ public class ApplicationServiceImpl  implements IApplicationService {
 
     @Override
     public Depot applicationaccept(Application c) {
+<<<<<<< HEAD
         c.setEtat(Etat.Accepte);
         Depot depot = new Depot();
         Stage stage = new Stage();
@@ -93,6 +102,25 @@ public class ApplicationServiceImpl  implements IApplicationService {
     public void applicationrefuser(Application c) {
         c.setEtat(Etat.Refuse);
         c = applicationRepository.save(c);
+=======
+            c.setEtat(Etat.Accepte);
+            Depot depot = new Depot();
+            Stage stage = new Stage();
+
+            stage.setOffre(c.getOffre());
+            stage.setStagiere(c.getEtudiant());
+            stage.setMaitrestage(c.getOffre().getCreator());
+            stage.setStagiere(c.getEtudiant());
+            stage.setDepot(depot);
+
+            depot.setStage(stage);
+            depot.setEtudiant(c.getEtudiant());
+
+            stage = stageRepository.save(stage);
+            depot = depotRepository.save(depot);
+            return depot;
+
+>>>>>>> origin/ranimback
 
     }
 

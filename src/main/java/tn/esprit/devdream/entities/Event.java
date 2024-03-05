@@ -19,8 +19,13 @@ import java.util.List;
 public class Event implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     @Column(name="id_event")
     private Long id_event;
+=======
+    @Column(name="Id_event")
+    private Long Id_event;
+>>>>>>> origin/ranimback
 
 
     private String eventName;

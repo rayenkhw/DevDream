@@ -18,9 +18,15 @@ import java.io.Serializable;
 public class Commentaire implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     @Column(name="id_comment")
     private Long id_comment;
     private String contenu;
+=======
+    @Column(name="Id_comment")
+    private Long Id_comment;
+    private String Contenu;
+>>>>>>> origin/ranimback
 
     @ManyToOne
     private Tache tache;

@@ -19,8 +19,13 @@ import java.util.List;
 public class Reclamation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     @Column(name="id_Reclamation")
     private Long id_Reclamation;
+=======
+    @Column(name="Id_Reclamation")
+    private Long Id_Reclamation;
+>>>>>>> origin/ranimback
 
     //private Long Id_reclamateur;
     //private Long Id_cible_reclamation;

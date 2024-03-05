@@ -1,5 +1,6 @@
 package tn.esprit.devdream.entities;
 
+<<<<<<< HEAD
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,10 +23,36 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
+=======
+
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
+@Getter
+@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class User implements UserDetails
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private long idUser;
+>>>>>>> origin/ranimback
     private String identifiant;
     private String nom;
     private String prenom;
     private String cin;
+<<<<<<< HEAD
     @Email(message = "Invalid email address")
     private String email;
     private String mdp;
@@ -38,6 +65,24 @@ public class User implements Serializable {
     private Boolean disponibilite;
     private String image;
     private String chargeTravail;
+=======
+    private String email;
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    @Enumerated(EnumType.STRING)
+    private Niveau Niveau;
+    @Enumerated(EnumType.STRING)
+    private Specialte Specialite;
+    private int disponibilite;
+    private String Image;
+    private String chargeTravail;
+    private boolean Status;
+    private String Tel;
+
+
+
+>>>>>>> origin/ranimback
 
     @OneToMany(mappedBy = "creator")
     private List<Offre> offreList;
@@ -48,8 +93,11 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "etudiant")
     public List<Tache> taches_etudiant;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/ranimback
     @OneToOne(mappedBy = "envois")
     private Message msgenv;
 
@@ -70,6 +118,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "etudiant")
     private List<Depot> depotList;
 
+<<<<<<< HEAD
 
 
 
@@ -82,16 +131,30 @@ public class User implements Serializable {
     }
     public void setInteractions(List<Interaction> interactions){
 
+=======
+    private List<Interaction> interactions;
+    @OneToMany(mappedBy = "user")
+    public List<Interaction> getInteractions(){
+        return interactions;
+    }
+    public void setInteractions(List<Interaction> interactions){
+>>>>>>> origin/ranimback
         this.interactions=interactions;
     }
 
 
+<<<<<<< HEAD
 
     private List<CommentairePost> commentairePostList;
     @OneToMany(mappedBy = "user")
     public List<CommentairePost> getCommentairePostList(){
 
 
+=======
+    private List<CommentairePost> commentairePostList;
+    @OneToMany(mappedBy = "user")
+    public List<CommentairePost> getCommentairePostList(){
+>>>>>>> origin/ranimback
         return commentairePostList;
     }
     public void setCommentairePostList(List<CommentairePost> commentairePostList){
@@ -125,12 +188,21 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "participantsList")
     private List<Formation> participations_formations; //lista mta3 anehom les formation elli el user hatha charek fehom
 
+<<<<<<< HEAD
 /*
     @OneToMany(mappedBy = "encadreur")
     private List<Encadrement> encadrementList;
 
     @ManyToOne
     private Encadrement encadrement;*/
+=======
+    /*
+        @OneToMany(mappedBy = "encadreur")
+        private List<Encadrement> encadrementList;
+
+        @ManyToOne
+        private Encadrement encadrement;*/
+>>>>>>> origin/ranimback
     @OneToMany(mappedBy = "encadrant")
     private List<Encadrement> encadrementsEncadrant;
 
@@ -139,6 +211,7 @@ public class User implements Serializable {
 
 
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "user")
     private List<Keyword> keywordList;
     @OneToOne
@@ -148,3 +221,44 @@ public class User implements Serializable {
     private  List<Stage> stageList;
 }
 
+=======
+
+
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+}
+>>>>>>> origin/ranimback

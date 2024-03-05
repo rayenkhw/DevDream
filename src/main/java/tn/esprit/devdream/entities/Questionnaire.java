@@ -22,7 +22,11 @@ public class Questionnaire implements Serializable {
     @Column(name="id_Questionnaire")
     private Long id_Questionnaire;
     //etudiant
+<<<<<<< HEAD
     private String probleme;
+=======
+    private String Probleme;
+>>>>>>> origin/ranimback
     @Temporal(TemporalType.DATE)
     private Date date_prob;
     private String eval_communication;

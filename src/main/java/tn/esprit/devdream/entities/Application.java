@@ -21,16 +21,26 @@ public class Application implements Serializable {
     @Column(name="id_application")
     private Long id_application;
 
+<<<<<<< HEAD
 
     private String lettreMotivation;
     private String demandeDeStage;
     @Enumerated(EnumType.STRING)
     private Etat etat;
+=======
+    private String CV;
+    private String LettreMotivation;
+    private String DemandeDeStage;
+
+    @Enumerated(EnumType.STRING)
+    private Etat Etat;
+>>>>>>> origin/ranimback
 
     @ManyToOne
     private User etudiant;
 
     @ManyToOne
+<<<<<<< HEAD
     private Offre offre;
     @ManyToOne
     private Keyword keyword;
@@ -41,3 +51,10 @@ public class Application implements Serializable {
 
     }
 }
+=======
+    @JoinColumn(name = "offre_id")
+    private Offre offre;
+
+
+}
+>>>>>>> origin/ranimback

@@ -18,8 +18,13 @@ import java.io.Serializable;
 public class Interaction implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     @Column(name="id_interaction")
     private Long id_interaction;
+=======
+    @Column(name="Id_interaction")
+    private Long Id_interaction;
+>>>>>>> origin/ranimback
 
     @Enumerated(EnumType.STRING)
     private Type_inter interaction;

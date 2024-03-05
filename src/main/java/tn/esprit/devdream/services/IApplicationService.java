@@ -13,6 +13,9 @@ public interface IApplicationService {
     public Application modifyApplication(Application Application);
 
     public Depot applicationaccept(Application application);
+<<<<<<< HEAD
 
     public void  applicationrefuser(Application application);
+=======
+>>>>>>> origin/ranimback
 }

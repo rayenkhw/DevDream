@@ -18,8 +18,13 @@ import java.io.Serializable;
 public class Reponse implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     @Column(name="id_reponse")
     private Long id_reponse;
+=======
+    @Column(name="Id_reponse")
+    private Long Id_reponse;
+>>>>>>> origin/ranimback
 
 
     private String reponse;

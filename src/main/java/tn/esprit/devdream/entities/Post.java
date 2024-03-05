@@ -19,10 +19,17 @@ import java.util.List;
 public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     @Column(name="id_Post")
     private Long id_Post;
     private String titre;
     private String contenu;
+=======
+    @Column(name="Id_Post")
+    private Long Id_Post;
+    private String titre;
+    private String Contenu;
+>>>>>>> origin/ranimback
 
     @ManyToOne
     private User posteur;

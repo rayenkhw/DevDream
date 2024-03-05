@@ -17,8 +17,13 @@ import java.io.Serializable;
 public class Logistiques implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     @Column(name="id_logistics")
     private Long id_logistics;
+=======
+    @Column(name="Id_logistics")
+    private Long Id_logistics;
+>>>>>>> origin/ranimback
 
     private int chair;
     private int tableCount;

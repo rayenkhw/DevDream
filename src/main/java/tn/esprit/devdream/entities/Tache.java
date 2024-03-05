@@ -22,7 +22,11 @@ public class Tache implements Serializable {
     @Column(name="id_tache")
     private Long id_tache;
     private Integer priorite;
+<<<<<<< HEAD
     private String description;
+=======
+    private String Description;
+>>>>>>> origin/ranimback
 
     @Enumerated(EnumType.STRING)
     private Tache_status Status;

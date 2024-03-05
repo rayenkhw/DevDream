@@ -21,11 +21,19 @@ public class Depot implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_depot")
     private Long id_depot;
+<<<<<<< HEAD
     private String travail;
     private String rapportDeStage;
     private String journalDeStage;
     @Temporal(TemporalType.DATE)
     private Date date_depot;
+=======
+    private String Travail;
+    private String RapportDeStage;
+    private String JournalDeStage;
+    @Temporal(TemporalType.DATE)
+    private Date Date_depot;
+>>>>>>> origin/ranimback
 
     @OneToOne
     private Stage stage;

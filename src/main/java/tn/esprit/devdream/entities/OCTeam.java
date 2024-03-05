@@ -20,8 +20,13 @@ public class OCTeam implements Serializable {
     @Column(name="id_OC")
     private int id_OC;
 
+<<<<<<< HEAD
     private String oCRole;
     private String oCnames;
+=======
+    private String OCRole;
+    private String OCnames;
+>>>>>>> origin/ranimback
 
     @ManyToOne
     private Event event;

@@ -20,7 +20,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-data-jpa</artifactID>	
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -32,10 +32,21 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+>>>>>>> origin/ranimback
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+
+>>>>>>> origin/ranimback
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
@@ -56,13 +67,30 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+		<dependency>
+>>>>>>> origin/ranimback
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
+	    <artifactId>annotations</artifactId>
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>

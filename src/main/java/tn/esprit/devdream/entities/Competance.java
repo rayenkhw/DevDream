@@ -19,12 +19,21 @@ public class Competance implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     @Column(name="id_competance")
     private Long id_competance;
 
     @ElementCollection
     private List<String> languages;
 
+=======
+    @Column(name="Id_competance")
+    private Long id_competance;
+        private String langages;
+
+    @ElementCollection
+    private List<String> languages;
+>>>>>>> origin/ranimback
     private List<Rate> rates;
     @OneToMany(mappedBy = "competance")
     public List<Rate> getRates(){

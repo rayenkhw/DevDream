@@ -23,8 +23,14 @@ public class Offre implements Serializable {
     private Long id_offre;
     private String titre;
     private String skills;
+<<<<<<< HEAD
     private String Duree;
     private String Description;
+=======
+    private String duree;
+    private String description;
+    private String keywords;
+>>>>>>> origin/ranimback
     @ManyToOne
     private User creator;
 
@@ -35,13 +41,19 @@ public class Offre implements Serializable {
     @OneToMany(mappedBy = "offre")
     private List<Stage> stageList;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/ranimback
     private List<Rate> rates;
     @OneToMany(mappedBy = "offre")
     public List<Rate> getRates(){
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/ranimback
         return rates;
     }
     public void setRates(List<Rate> rates){

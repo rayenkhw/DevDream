@@ -21,18 +21,23 @@ import java.util.List;
 public class ApplicationRestController {
 
     @Autowired
+=======
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/application")
+public class ApplicationRestController {
+>>>>>>> origin/ranimback
     IApplicationService applicationService;
 
     @Autowired
     ApplicationRepository applicationRepository;
-
-
     @GetMapping("/retrieve-all-applications")
     public List<Application> getApplications() {
         List<Application> listApplications = applicationService.retrieveAllApplications();
         return listApplications;
     }
-
 
     @GetMapping("/retrieve-application/{application-id}")
     public Application retrieveApplication(@PathVariable("application-id") Long applicationId) {
@@ -40,20 +45,29 @@ public class ApplicationRestController {
         return application;
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/ranimback
     @PostMapping("/add-application")
     public Application addApplication(@RequestBody Application c) {
         Application application = applicationService.addApplication(c);
         return application;
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/ranimback
     @DeleteMapping("/remove-application/{application-id}")
     public void removeApplication(@PathVariable("application-id") Long applicationId) {
         applicationService.removeApplication(applicationId);
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/ranimback
     @PutMapping("/modify-application")
     public Application modifyApplication(@RequestBody Application c) {
         Application application = applicationService.modifyApplication(c);
@@ -61,6 +75,7 @@ public class ApplicationRestController {
     }
 
     @PutMapping("/accepterApplication/{application-id}")
+<<<<<<< HEAD
     public Depot accepterApplication(@PathVariable("application-id") Long applicationId) {
         try {
             System.out.println("Received applicationId: " + applicationId);
@@ -128,3 +143,14 @@ public class ApplicationRestController {
 
     }
 }
+=======
+    public Depot accepterApplication(@PathVariable("application-id") Long applicationId){
+
+        Application application = applicationRepository.findApplicationById_application(applicationId);
+        Depot depot = applicationService.applicationaccept(application);
+
+        return depot ;
+    }
+
+}
+>>>>>>> origin/ranimback

@@ -22,9 +22,15 @@ public class Evaluation implements Serializable {
     @Column(name="id_evaluation")
     private Long id_evaluation;
     @Temporal(TemporalType.DATE)
+<<<<<<< HEAD
     private Date date_ev;
     private String type;
     private String note;
+=======
+    private Date Date_ev;
+    private String Type;
+    private String Note;
+>>>>>>> origin/ranimback
 
     private User user;
     @ManyToOne
