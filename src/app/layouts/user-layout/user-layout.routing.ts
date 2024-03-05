@@ -67,7 +67,7 @@ export const UserLayoutRoutes: Routes = [
             { path: 'ajout-application',  component: ApplicationAjoutComponent },
             { path: 'ajout-reclamation',  component: ReclamationAjoutComponent},
             { path:'list-reclamations',component:ReclamationListComponent},
-            { path: 'ajout-reponse',  component: ReponseAjoutComponent},
+            { path: 'ajout-reponse/:id_Reclamation',  component: ReponseAjoutComponent},
             {path: 'list-reponses',component:ReponseListComponent},
             {path: 'list-notifications',component:NotificationListComponent},
             

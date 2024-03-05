@@ -10,6 +10,7 @@
         <th style="width: 20%;">Type reclamation</th>
         <th style="width: 30%;">Contenu reclamation</th>
         <th style="width: 20%;">Status reclamation</th>
+        <th style="width: 20%;">Répondre</th>
         <th style="width: 20%;">Supprimer</th>
         
       </tr>
@@ -20,7 +21,8 @@
         <td>{{ reclamation.typReclamation }}</td>
         <td>{{ reclamation.contenu }}</td>
         <td>{{ reclamation.status_reclamation }}</td>
-      <td><button class="btn btn-danger" (click)="removeReclamation(reclamation.id_reclamation)">Supprimer</button></td>
+        <td><button (click)="addReponse(reclamation.id_Reclamation)">Repondre</button></td>
+      <td><button class="btn btn-danger" (click)="removeReclamation(reclamation.id_Reclamation)">Supprimer</button></td>
       </tr>
     </tbody>
   </table>

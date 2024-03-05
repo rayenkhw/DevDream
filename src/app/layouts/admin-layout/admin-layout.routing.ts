@@ -71,7 +71,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'ajout-application',  component: ApplicationAjoutComponent },
     //{path :'ajout-reclamation-admin',component:ReclamationAjoutComponent},
     { path:'list-reclamations-admin',component:ReclamationListComponent},
-    {path :'ajout-reponse-admin',component:ReponseAjoutComponent},
+    {path :'ajout-reponse-admin/:id_Reclamation',component:ReponseAjoutComponent},
     {path :'list-reponse-admin',component:ReponseListComponent},
     {path :'ajout-notification-admin',component:NotificationAjoutComponent},
 

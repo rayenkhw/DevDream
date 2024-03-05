@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Reclamation } from '../reclamation.module';
 import { ReclamationService } from '../reclamation.service';
+import { ReponseService } from 'app/dorra/reponse/reponse.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-reclamation-list',
   templateUrl: './reclamation-list.component.html',
@@ -11,8 +13,9 @@ import { ReclamationService } from '../reclamation.service';
 export class ReclamationListComponent implements OnInit {
   
   reclamations: Reclamation[]=[];
+  
 
-  constructor(private reclamationService: ReclamationService) {}
+  constructor(private reclamationService: ReclamationService,private router: Router) {}
 
   ngOnInit(): void {
     this.loadReclamations();
@@ -31,6 +34,21 @@ export class ReclamationListComponent implements OnInit {
     );
     
   }
+  addReponse(id_Reclamation: number): void {
+    this.reclamationService.retrieveReclamation(id_Reclamation).subscribe(
+      (reclamation: Reclamation) => {
+        this.router.navigate(['/admin/ajout-reponse-admin/'+ id_Reclamation]);
+      },
+      (error) => {
+        console.error('Error retrieving reclamation:', error);
+      }
+    );
+  }
+  // addReponse(id_reclamation: number): void {
+  //   this.reclamationService.retrieveReclamation
+  //   // Navigate to the modify-depot page and pass the id_depot as a route parameter
+  //   this.router.navigate(['/admin/ajout-reponse-admin/' + id_reclamation]);
+  // }
   removeReclamation(id_reclamation: number): void {
     this.reclamationService.removeReclamation(id_reclamation).subscribe(
       () => {

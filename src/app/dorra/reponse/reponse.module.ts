@@ -20,5 +20,6 @@ export class Reponse {
 
   id_reponse: number;
   reponse:string;
+  id_Reclamation: number; 
 
 }

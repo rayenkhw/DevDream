@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReclamationListComponent } from './reclamation-list/reclamation-list.component';
 import { ReclamationAjoutComponent } from './reclamation-ajout/reclamation-ajout.component';
+import { ReponseAjoutComponent } from '../reponse/reponse-ajout/reponse-ajout.component';
 
 
 
@@ -11,6 +12,7 @@ import { ReclamationAjoutComponent } from './reclamation-ajout/reclamation-ajout
   declarations: [
     ReclamationAjoutComponent,
     ReclamationListComponent,
+    
 
   ],
   imports: [

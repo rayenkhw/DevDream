@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Reclamation } from './reclamation.module';
+import { Reponse } from '../reponse/reponse.module';
 
 @Injectable({
   providedIn: 'root'
