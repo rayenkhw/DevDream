@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+        <!-- Champ de saisie pour les mots-clés de recherche -->
+        <input type="text" value=""  class="form-control" [(ngModel)]="Keywords" placeholder="Search.." class="mb-2">
+        <!-- Bouton de recherche -->
+           <!-- Bouton de recherche -->
+       <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="searchOffers(Keywords)">
+        <i class="material-icons">search</i>
+        <div class="ripple-container"></div>
+      </button>
+      <button type="submit" class="btn btn-danger"  routerLink="/admin/ajouter-offre">Ajouter</button>
+      <!-- Affichage des offres -->
+      <div class="d-flex flex-wrap">
+        <div *ngFor="let offre of offres" class="card border border-danger mb-3 mr-3" style="max-width: 500px;">
+          <div class="card-body">
+            <h5 class="card-title text-dark">{{ offre.titre }}</h5>
+            <p class="card-text text-dark">Skills: {{ offre.skills }}</p>
+            <p class="card-text text-dark">Durée: {{ offre.duree }}</p>
+            <p class="card-text text-dark">Description: {{ offre.description }}</p>
+            <!-- Remplacez "competence.langages" par la propriété correcte de l'offre -->
+           
+          </div>
+          <div class="card-footer">
+            <!-- Bouton Modifier -->
+            <button class="btn btn-danger mr-2" (click)="modifyOffre(offre)">Modifier</button>
+            <!-- Bouton Supprimer -->
+            <button class="btn btn-danger" (click)="removeOffre(offre.id_offre)">Supprimer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- Formulaire d'édition qui s'affiche lorsqu'une évaluation est sélectionnée -->
+ <!-- Ajoutez une condition *ngIf pour afficher le formulaire uniquement si showModify est vrai -->
+<div *ngIf="showModify">
+  <h3>Modifier l'offre</h3>
+  <form [formGroup]="editForm" (ngSubmit)="onUpdate()" class="mt-4">
+    <div class="form-group">
+      <label for="titre">Titre</label>
+      <input type="text" id="titre" formControlName="titre" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" rows="3" class="form-control"></textarea>
+    </div>
+    <!-- Utilisez la méthode onUpdate() pour soumettre le formulaire -->
+    <button type="submit" class="btn btn-primary" [disabled]="!editForm.valid" style="background-color: #800020; color: white;" (click)="onUpdate()">Mettre à jour</button>
+
+  </form>
+</div>
+</div>
+ 

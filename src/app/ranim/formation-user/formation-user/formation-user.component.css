@@ -1,0 +1,13 @@
+
+  .custom-card {
+    border: 1px solid rgb(109, 2, 2); /* Bordure rouge */
+  }
+  .custom-width {
+    max-width: 700px; /* ou toute autre largeur que vous souhaitez */
+}
+.custom-text-size {
+    font-size:18px; /* ou toute autre taille de police que vous souhaitez */
+}
+.custom-text-color {
+    color: rgb(122, 3, 13); /* ou toute autre couleur de texte que vous souhaitez */
+}

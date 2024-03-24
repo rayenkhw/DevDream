@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #343a40;">
+    <div class="container-fluid">
+        <div class="logo">
+            <a href="" class="">
+                <div class="">
+                    <img src="/assets/img/espritlogo.png"  width="260" height="75"/>
+                </div>
+            </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" routerLink="/offre-user">Offre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/formation-user">Formation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/feedback">FeedBack</a>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form class="navbar-form">
+                <!-- Champ de saisie pour les mots-clés de recherche -->
+  <input type="text" value=""  class="form-control" [(ngModel)]="keywords" placeholder="Search.." class="mb-2">
+  <!-- Bouton de recherche -->
+     <!-- Bouton de recherche -->
+ <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="searchOffers(keywords)">
+  <i class="material-icons">search</i>
+  <div class="ripple-container"></div>
+</button>
+            </form>
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)">
+                    <i class="material-icons">person</i>
+                    <p>
+                        <span class="d-lg-none d-md-block">Account</span>
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+  
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <!-- Affichage des offres -->
+        <div class="d-flex flex-wrap">
+          <div *ngFor="let offre of Offres" class="card border border-danger mb-3 mr-3" style="max-width: 500px;">
+            <div class="card-body ">
+              <h5 class="card-title text-dark custom-text-size custom-text-color ">{{ offre.titre }}</h5>
+              <p class="card-text text-dark">Skills: {{ offre.skills }}</p>
+              <p class="card-text text-dark">Durée: {{ offre.duree }}</p>
+              <p class="card-text text-dark">Description: {{ offre.description }}</p>
+            </div>
+            <div class="card-footer">
+              <!-- Bouton Postuler -->
+              <button class="btn custom-btn-color mr-2" >Postuler</button>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

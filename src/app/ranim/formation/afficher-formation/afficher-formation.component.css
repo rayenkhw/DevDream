@@ -1,0 +1,11 @@
+/* Définir la couleur rouge pour les boutons */
+.btn-danger {
+    background-color: rgb(109, 1, 1);
+    border-color: rgb(109, 1, 1);
+  }
+  
+  /* Définir la bordure rouge pour les cartes */
+  .card.border-danger {
+    border-color: rgb(104, 3, 3);
+  }
+  

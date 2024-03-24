@@ -1,0 +1,29 @@
+<!-- ajouter-offre.component.html -->
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card border-danger" style="max-width: 400px;"> <!-- Ajoutez style="max-width: 400px;" pour limiter la largeur de la carte -->
+    <div class="card-header bg-danger text-white">Ajouter une offre</div>
+    <div class="card-body">
+      <form [formGroup]="validateForm" (ngSubmit)="addOffre()">
+        <div class="form-group">
+          <label for="titre">Titre</label>
+          <input type="text" class="form-control" formControlName="titre" id="titre" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input type="text" class="form-control" formControlName="description" id="description" required>
+        </div>
+        <div class="form-group">
+          <label for="skills">Skills</label>
+          <input type="text" class="form-control" formControlName="skills" id="skills" required>
+        </div>
+        <div class="form-group">
+          <label for="duree">Durée</label>
+          <input type="text" class="form-control" formControlName="duree" id="duree" required>
+        </div>
+        <button type="submit" class="btn btn-danger btn btn-primary float-right " [disabled]="!validateForm.valid" >Ajouter Offre</button>
+        <button type="submit" class="btn btn-danger btn btn-secondary float-left" routerLink="/admin/afficher-offre">Anuller</button>
+      </form>
+    </div>
+  </div>
+</div>

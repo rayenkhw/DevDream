@@ -1,0 +1,98 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #343a40;">
+    <div class="container-fluid">
+      <div class="logo">
+        <a href="" class="">
+          <div class="">
+            <img src="/assets/img/espritlogo.png"  width="260" height="75"/>
+          </div>
+        </a>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/offre-user">Offre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/formation-user">Formation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/feedback">FeedBack</a>
+          </li>
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse justify-content-end" id="navigation">
+        <!-- Vous pouvez ajouter d'autres éléments ici si nécessaire -->
+      </div>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">
+            <i class="material-icons">person</i>
+            <p>
+              <span class="d-lg-none d-md-block">Account</span>
+            </p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Form</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding-top: 50px;
+    }
+    .custom-btn {
+      background-color: #5a0404; /* Orange */
+      color: #ffffff; /* Texte blanc */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="text-center mb-4">Feedback Form</h2>
+        <form [formGroup]="feedback" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="nom">Nom :</label>
+            <input type="text" class="form-control" id="nom" formControlName="nom" required>
+          </div>
+          <div class="form-group">
+            <label for="commentaire">Commentaire :</label>
+            <textarea id="commentaire" class="form-control" formControlName="commentaire" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary custom-btn">Envoyer le Feedback</button>
+          <button type="button" class="btn btn-secondary custom-btn" (click)="feedback.reset()">Annuler</button>
+        </form>
+      </div>
+
+      <div class="col-md-6">
+        <h2 class="text-center mb-4">Liste des Feedbacks</h2>
+        <div class="card">
+          <div class="card-body">
+            <div *ngFor="let feedback of feedbacks" class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">{{ feedback.nom }}</h5>
+                <p class="card-text">{{ feedback.commentaire }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

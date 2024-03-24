@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #343a40;">
+    <div class="container-fluid">
+        <div class="logo">
+            <a href="" class="">
+                <div class="">
+                    <img src="/assets/img/espritlogo.png"  width="260" height="75"/>
+                </div>
+            </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" routerLink="/offre-user">Offre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/formation-user">Formation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/feedback">FeedBack</a>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form class="navbar-form">
+                <!-- Champ de saisie pour les mots-clés de recherche -->
+  <input type="text" value=""  class="form-control" [(ngModel)]="mot_cle" placeholder="Search.." class="mb-2">
+  <!-- Bouton de recherche -->
+     <!-- Bouton de recherche -->
+ <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="searchFormations(mot_cle)">
+  <i class="material-icons">search</i>
+  <div class="ripple-container"></div>
+</button>
+            </form>
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)">
+                    <i class="material-icons">person</i>
+                    <p>
+                        <span class="d-lg-none d-md-block">Account</span>
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+  
+<!-- Affichage des formations -->
+<div class="d-flex flex-wrap justify-content-center">
+  <div *ngFor="let formation of formations" class="card custom-card mx-auto mb-3" style="max-width: 800px;">
+   <div class="card-body custom-text-size ">
+    <p class="card-title text-dark custom-text-color custom-text-size">{{ formation.titre }}</p>
+    <p class="card-text text-dark">Description: {{ formation.description }}</p>
+    <p class="card-text text-dark">Date de début: {{ formation.date_debut_formation }}</p>
+    <p class="card-text text-dark">Date de fin: {{ formation.date_fin_formation }}</p>
+    <p class="card-text text-dark">Disponibilité: {{ formation.disponibilite }}</p>
+    <button (click)="addJadoreToFormation(id_formation)">
+        <i class="fa fa-heart" [style.color]="formation.nombreJadore > 0 ? 'red' : 'black'"></i>
+    </button>
+    <span>{{ formation.nombreJadore }}</span> J'adore
+</div>
+
+    <div class="card-footer">
+    </div>
+  </div>
+</div>
+
+
+  <app-footer></app-footer>  

@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Champ de saisie pour les mots-clés de recherche -->
+      <input type="text" value=""  class="form-control" [(ngModel)]="mot_cle" placeholder="Search.." class="mb-2">
+        <!-- Bouton de recherche -->
+           <!-- Bouton de recherche -->
+       <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="searchFormations(mot_cle)">
+        <i class="material-icons">search</i>
+        <div class="ripple-container"></div>
+      </button>
+        <button type="submit" class="btn btn-danger"  routerLink="/admin/ajouter-formation">Ajouter</button>
+        <!-- Affichage des formations -->
+        <div class="d-flex flex-wrap">
+          <div *ngFor="let formation of formations" class="card border border-danger mb-3 mr-3" style="max-width: 500px;">
+            <div class="card-body">
+              <h5 class="card-title text-dark">{{ formation.titre }}</h5>
+              <p class="card-text text-dark">Description: {{ formation.description }}</p>
+              <p class="card-text text-dark">Date de début: {{ formation.date_debut_formation }}</p>
+              <p class="card-text text-dark">Date de fin: {{ formation.date_fin_formation }}</p>
+              <p class="card-text text-dark">Disponibilité: {{ formation.disponibilite }}</p>
+            </div>
+            <div class="card-footer">
+              <!-- Bouton Modifier -->
+              <button class="btn btn-danger mr-2" (click)="modifyFormation(formations)">Modifier</button>
+              <!-- Bouton Supprimer -->
+              <button class="btn btn-danger" (click)="removeFormation(formation.id_formation)">Supprimer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
