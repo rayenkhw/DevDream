@@ -70,6 +70,7 @@
             <label for="commentaire">Commentaire :</label>
             <textarea id="commentaire" class="form-control" formControlName="commentaire" required></textarea>
           </div>
+       
           <button type="submit" class="btn btn-primary custom-btn">Envoyer le Feedback</button>
           <button type="button" class="btn btn-secondary custom-btn" (click)="feedback.reset()">Annuler</button>
         </form>
@@ -83,6 +84,9 @@
               <div class="card-body">
                 <h5 class="card-title">{{ feedback.nom }}</h5>
                 <p class="card-text">{{ feedback.commentaire }}</p>
+                <div class="date-ajout">
+                  <p> {{ feedback.dateAjout | date: 'medium' }}</p>
+                  </div>
               </div>
             </div>
           </div>

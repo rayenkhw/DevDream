@@ -70,6 +70,7 @@ import { AfficherFeedbackComponent } from './ranim/feedback/afficher-feedback/af
     AfficherFeedbackComponent,
     
     
+    
 
   ],
   providers: [],

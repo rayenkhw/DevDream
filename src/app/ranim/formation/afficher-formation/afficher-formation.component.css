@@ -8,4 +8,6 @@
   .card.border-danger {
     border-color: rgb(104, 3, 3);
   }
-  
+  .date-ajout {
+    text-align: right; /* Aligner le texte à droite */
+  }

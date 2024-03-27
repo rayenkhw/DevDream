@@ -12,13 +12,10 @@ import { Formation } from '../formation.module';
   styleUrls: ['./afficher-formation.component.css']
 })
 export class AfficherFormationComponent implements OnInit {
-mot_cle: any;
-addFormation() {
-throw new Error('Method not implemented.');
-}
+  mot_cle: string = '';
   formations: Formation[] = [];
-  ValidateForm: FormGroup;
-  message: string;
+  validateForm: FormGroup;
+  message: string = '';
 
   constructor(private formationService: FormationService, private route: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
 
@@ -39,7 +36,7 @@ throw new Error('Method not implemented.');
   }
 
   initializeForm(): void {
-    this.ValidateForm = this.fb.group({
+    this.validateForm = this.fb.group({
       titre: [null, [Validators.required]],
       description: [null, [Validators.required]],
       date_debut_formation: [null, [Validators.required]],
@@ -58,21 +55,25 @@ throw new Error('Method not implemented.');
     );
   }
 
-  modifyFormation(formations: Formation): void {
-    if (this.ValidateForm && this.ValidateForm.valid) { // Vérifie que le formulaire est défini et valide
-      const updatedFormation: Formation = {
-        id_formation: formations.id_formation,
-        titre: this.ValidateForm.value.titre,
-        description: this.ValidateForm.value.description,
-        date_debut_formation: this.ValidateForm.value.date_debut_formation,
-        date_fin_formation: this.ValidateForm.value.date_fin_formation,
-        message: undefined,
-        mot_cle: ''
+  modifyFormation(formation: Formation): void {
+    if (this.validateForm.valid) {
+      const modifyFormation: Formation = {
+        id_formation: formation.id_formation,
+        titre: this.validateForm.value.titre,
+        description: this.validateForm.value.description,
+        date_debut_formation: this.validateForm.value.date_debut_formation,
+        date_fin_formation: this.validateForm.value.date_fin_formation,
+        message: '',
+        mot_cle: '',
+        isLiked: false,
+        nombreLikes: 0,
+        nombreJadore: 0
       };
-      this.formationService.modifyFormation(updatedFormation.id_formation, updatedFormation).subscribe(
+      this.formationService.modifyFormation(modifyFormation.id_formation, modifyFormation).subscribe(
         (res) => {
           console.log(res);
           this.message = res.message ? res.message : 'La formation a été modifiée avec succès!';
+          this.loadFormations(); // Recharge les formations après la modification
         },
         error => {
           console.error('Erreur lors de la modification de la formation:', error);
@@ -81,6 +82,8 @@ throw new Error('Method not implemented.');
       );
     }
   }
+  
+
   searchFormations(mot_cle: string): void {
     this.formationService.searchFormations(mot_cle).subscribe(formations => {
       this.formations = formations;

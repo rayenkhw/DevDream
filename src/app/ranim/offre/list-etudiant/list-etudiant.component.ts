@@ -8,7 +8,7 @@ import { OffreService } from '../offre.service';
 })
 export class ListEtudiantComponent implements OnInit {
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
   }
  // etudiants: User[] = [];
  // constructor(private offreService: OffreService) { }

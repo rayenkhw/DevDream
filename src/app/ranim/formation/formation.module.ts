@@ -19,5 +19,9 @@ export class Formation {
   date_fin_formation: Date;
   message: any;
   mot_cle: string;
+  dateAjout?: Date;
+  isLiked: any;
+  nombreLikes: number;
+  nombreJadore: number;
 
  }

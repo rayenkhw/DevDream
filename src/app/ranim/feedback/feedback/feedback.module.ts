@@ -13,4 +13,5 @@ export class Feedback {
   idUser: number;
   commentaire: string;
   nom: string;
+  dateAjout?: Date;
 }

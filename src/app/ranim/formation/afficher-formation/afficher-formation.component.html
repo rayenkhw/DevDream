@@ -20,12 +20,29 @@
               <p class="card-text text-dark">Date de fin: {{ formation.date_fin_formation }}</p>
               <p class="card-text text-dark">Disponibilité: {{ formation.disponibilite }}</p>
             </div>
+            <div class="date-ajout">
+              <p> {{ formation.dateAjout | date: 'medium' }}</p>
+            </div>
             <div class="card-footer">
               <!-- Bouton Modifier -->
-              <button class="btn btn-danger mr-2" (click)="modifyFormation(formations)">Modifier</button>
+              <button class="btn btn-danger mr-2" (click)="modifyFormation(formation)">Modifier</button>
               <!-- Bouton Supprimer -->
               <button class="btn btn-danger" (click)="removeFormation(formation.id_formation)">Supprimer</button>
             </div>
+             <!-- Formulaire de modification (conditionnel) -->
+          <div *ngIf="formation.id_formation === selectedFormationId">
+            <form [formGroup]="ValidateForm" (ngSubmit)="modifyFormation()">
+              <label for="titre">Titre</label>
+              <input type="text" formControlName="titre" class="form-control" />
+              <label for="description">Description</label>
+              <textarea formControlName="description" class="form-control"></textarea>
+              <label for="date_debut_formation">Date de début</label>
+              <input type="date" formControlName="date_debut_formation" class="form-control" />
+              <label for="date_fin_formation">Date de fin</label>
+              <input type="date" formControlName="date_fin_formation" class="form-control" />
+              <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </form>
+          </div>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@
   <div class="card border-danger" style="max-width: 400px;"> <!-- Ajoutez style="max-width: 400px;" pour limiter la largeur de la carte -->
     <div class="card-header bg-danger text-white">Ajouter une offre</div>
     <div class="card-body">
-      <form [formGroup]="validateForm" (ngSubmit)="addOffre()">
+      <form (ngSubmit)="addOffre()">
         <div class="form-group">
           <label for="titre">Titre</label>
           <input type="text" class="form-control" formControlName="titre" id="titre" required>
@@ -21,8 +21,19 @@
           <label for="duree">Durée</label>
           <input type="text" class="form-control" formControlName="duree" id="duree" required>
         </div>
-        <button type="submit" class="btn btn-danger btn btn-primary float-right " [disabled]="!validateForm.valid" >Ajouter Offre</button>
-        <button type="submit" class="btn btn-danger btn btn-secondary float-left" routerLink="/admin/afficher-offre">Anuller</button>
+        <!-- Affichage de l'altitude -->
+        <div *ngIf="offreForm.get('latitude').hasError('required') && offreForm.get('latitude').touched">
+          Latitude est requise.
+        </div>
+        
+        <!-- Affichage de la longitude -->
+        <p>Longitude: {{ offreForm.controls['longitude']?.value }}</p>
+
+        <!-- Intégration de la carte pour la sélection de l'emplacement -->
+        <div id="map" style="height: 100px;"></div>
+
+        <button type="submit" class="btn btn-danger btn btn-primary float-right" [disabled]="!offreForm.valid">Ajouter Offre</button>
+        <button type="submit" class="btn btn-danger btn btn-secondary float-left" routerLink="/admin/afficher-offre">Annuler</button>
       </form>
     </div>
   </div>

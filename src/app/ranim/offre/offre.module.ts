@@ -32,10 +32,10 @@ import { Competence } from '../competence/competence/competence.module';
     titre: string;
     skills: string;
     duree: string;
-  
-    Keywords: string;
+   latitude:  number ;
+   longitude: number;
   message: any;
-
+  dateAjout?: Date;
     
     }
 

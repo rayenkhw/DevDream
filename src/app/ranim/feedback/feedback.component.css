@@ -1,0 +1,13 @@
+.date-ajout {
+    margin-top: 20px; /* Ajustez la marge selon vos besoins */
+    text-align: right; /* Centrez le texte */
+  }
+  .card {
+    background-color: #FFFFFF; /* Fond gris pour le cadre de la carte */
+    border: 1px solid #4e4d4d; /* Bordure de la carte */
+  }
+  
+  .card-title {
+    color: rgb(88, 4, 4); /* Couleur rouge pour le nom */
+  }
+  

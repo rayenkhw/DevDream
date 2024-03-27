@@ -22,23 +22,42 @@ mot_cle: any;
   loadFormations(): void {
     this.formationService.getFormations().subscribe(
       (data: Formation[]) => {
-        this.formations = data;
+        this.formations = data.map(formation => ({
+          ...formation,
+          isLiked: false // Ajoutez la propriété isLiked à chaque formation initialement à false
+        }));
       },
       (error) => {
         console.error('Error fetching formations:', error);
-      },
-      () => {
-        console.log('subscription completed');
       }
     );
   }
-  addJadoreToFormation(id_formation: number): void {
-    this.formationService.getFormations().subscribe(updateFormation => {
-      const index = this.formations.findIndex(formation =>formation.id_formation === updateFormation.id_formation);
-      this.formations[index] = updateFormation;});
 
-    
-  }    
+  toggleJadore(formation: Formation): void {
+    formation.isLiked = !formation.isLiked;
+    if (formation.isLiked) {
+      formation.nombreLikes++;
+    } else {
+      formation.nombreLikes--;
+    }
+
+    this.formationService.modifyFormation(formation.id_formation, formation).subscribe(
+      () => {
+        console.log('Formation updated successfully.');
+      },
+      (error) => {
+        console.error('Error updating formation:', error);
+        // Revert changes on error
+        formation.isLiked = !formation.isLiked;
+        if (formation.isLiked) {
+          formation.nombreLikes--;
+        } else {
+          formation.nombreLikes++;
+        }
+      }
+    );
+  }
+
   searchFormations(mot_cle: string): void {
     this.formationService.searchFormations(mot_cle).subscribe(formations => {
       this.formations = formations;

@@ -11,3 +11,6 @@
 .custom-text-color {
     color: rgb(122, 3, 13); /* ou toute autre couleur de texte que vous souhaitez */
 }
+.date-ajout {
+  text-align: right; /* Aligner le texte à droite */
+}
