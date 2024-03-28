@@ -12,7 +12,7 @@ import { AdminLayoutRoutes } from './layouts/admin-layout/admin-layout.routing';
 import { UserLayoutRoutes } from './layouts/user-layout/user-layout.routing';
 import { EvaluationComponent } from './evaluation/evaluation.component';
 import { ListEvaluationComponent } from './list-evaluation/list-evaluation.component';
-import { PostComponent } from './post/post.component';
+import { StatisticComponent } from './statistic/statistic.component';
 
 
 
@@ -22,7 +22,7 @@ const routes: Routes =[
   {path:"home",component:HomeComponent},
   {path:"login",component:LoginComponent},
   {path:"accueil",component:AccueilComponent},
-
+  {path:"statistic",component:StatisticComponent},
 
 
 // ******

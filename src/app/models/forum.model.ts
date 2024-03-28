@@ -1,17 +1,19 @@
 export interface Post {
-  id_Post?: number; // Rendre id_Post optionnel
+  id_Post?: number;
   titre: string;
   contenu: string;
   commentaires?: CommentairePost[]; 
-  likeCount?: number; // Optionnel pour gérer les cas où ces propriétés ne sont pas fournies
+  likeCount?: number;
   dislikeCount?: number;
   loveCount?: number;
+  badge?: string;
+
 }
 
 
 export interface CommentairePost {
   id_com?: number; 
-  id_Post: number;// Clé étrangère pour identifier le post auquel le commentaire appartient
+  id_Post: number;
   contenu: string;
 }
 

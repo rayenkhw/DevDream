@@ -17,6 +17,7 @@ import { ApplicationAjoutComponent } from './application/application-ajout/appli
 import { EvaluationComponent } from './evaluation/evaluation.component';
 import { ListEvaluationComponent } from './list-evaluation/list-evaluation.component';
 import { PostComponent } from './post/post.component';
+import { StatisticComponent } from './statistic/statistic.component';
 
 
 
@@ -51,6 +52,7 @@ import { PostComponent } from './post/post.component';
     EvaluationComponent,
     ListEvaluationComponent,
     PostComponent,
+    StatisticComponent,
   
     
     
