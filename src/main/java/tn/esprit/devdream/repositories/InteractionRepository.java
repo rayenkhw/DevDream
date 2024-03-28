@@ -1,6 +1,7 @@
 package tn.esprit.devdream.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import tn.esprit.devdream.entities.Interaction;
@@ -19,5 +20,9 @@ public interface InteractionRepository extends JpaRepository<Interaction, Long> 
     @Query("SELECT COUNT(i) FROM Interaction i WHERE i.post.id = :postId AND i.type_interaction = :typeInteraction")
     int countByPostIdAndTypeInteraction(@Param("postId") Long postId, @Param("typeInteraction") Type_interaction typeInteraction);
 
+
+    @Modifying
+    @Query("DELETE FROM Interaction i WHERE i.post.id_Post = :postId")
+    void deleteByPostId(@Param("postId") Long postId);
 
 }

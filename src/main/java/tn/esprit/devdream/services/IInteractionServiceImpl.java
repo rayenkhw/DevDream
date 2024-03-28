@@ -15,5 +15,6 @@ public interface IInteractionServiceImpl {
     int getLikesCount(Long id_Post);
     int getDislikesCount(Long id_Post);
      int getLovesCount(Long id_Post);
+
 }
 

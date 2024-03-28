@@ -73,5 +73,8 @@ public class InteractionServiceImpl implements IInteractionServiceImpl {
             newInteraction.setType_interaction(typeInteraction);
             return Optional.of(interactionRepository.save(newInteraction));
         }
+
     }
+
+
 }

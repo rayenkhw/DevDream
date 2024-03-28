@@ -24,6 +24,7 @@ public class Post implements Serializable {
     private Long id_Post;
     private String titre;
     private String contenu;
+    private String badge;
 
     @ManyToOne
     @JsonIgnore
@@ -32,7 +33,7 @@ public class Post implements Serializable {
 
     @JsonIgnore
     private List<Interaction> interactions;
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL , orphanRemoval = true)
     public List<Interaction> getInteractions(){
 
 
@@ -45,7 +46,7 @@ public class Post implements Serializable {
     }
     @JsonIgnore
     private List<CommentairePost> commentairePostList;
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post" , cascade = CascadeType.ALL, orphanRemoval = true)
     public List<CommentairePost> getCommentairePostList(){
 
 

@@ -14,4 +14,5 @@ public interface IPostServiceImpl {
     Post updatePost(Post post);
 
     void removePost(Long id_Post);
+    public Post updatePostBadge(Post post);
 }
