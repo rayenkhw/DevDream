@@ -8,7 +8,9 @@ import tn.esprit.devdream.entities.Feedback;
 import tn.esprit.devdream.entities.Offre;
 import tn.esprit.devdream.repositories.FeedbackRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -31,5 +33,13 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public Feedback addFeedback(Feedback feedback) {
         return feedbackRepository.save(feedback);
+    }
+
+    @Override
+    public Map<String, Long> getStatisticsfeedback() {
+        Map<String, Long> statistics = new HashMap<>();
+        statistics.put("nombreTotalFeedback",feedbackRepository.count());
+        // Autres statistiques à collecter
+        return statistics;
     }
 }

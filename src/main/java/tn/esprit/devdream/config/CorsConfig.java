@@ -7,6 +7,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
+import static org.springframework.http.CacheControl.maxAge;
+
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
     @Override
@@ -18,6 +20,7 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
                 .exposedHeaders("Authorization") // Expose any custom headers here
-                .allowCredentials(true); // Allow credentials (e.g., cookies)
+                .allowCredentials(true)// Allow credentials (e.g., cookies)
+               .maxAge(3600);
     }
 }

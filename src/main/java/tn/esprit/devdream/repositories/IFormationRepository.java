@@ -13,4 +13,5 @@ public interface IFormationRepository extends JpaRepository<Formation,Long> {
     @Query("SELECT f FROM Formation f WHERE f.id_formation = :id")
     Formation findOffreById_formation(@Param("id") Long id_formation);
     List<Formation> findByTitreOrDescription(String titre, String descritpion);
+
 }

@@ -30,7 +30,7 @@ public class Rate implements Serializable {
         return offre;
     }
     public void setOffre(Offre offre){
-    this.offre = offre;
+        this.offre = offre;
 
     }
 

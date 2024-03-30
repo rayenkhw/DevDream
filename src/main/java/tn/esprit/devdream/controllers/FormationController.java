@@ -1,13 +1,16 @@
 package tn.esprit.devdream.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.devdream.entities.Formation;
+import tn.esprit.devdream.entities.Offre;
 import tn.esprit.devdream.services.IFormationService;
 
 import java.util.List;
-
+import java.util.Map;
+@AllArgsConstructor
 @RestController
 @RequestMapping("/formation")
 @CrossOrigin("*")
@@ -17,7 +20,8 @@ public class FormationController {
 
     @PostMapping("/addformation")
     public Formation addFormation(@RequestBody Formation f){
-        return formationService.addFormation(f) ;
+        Formation formation = formationService.addFormation(f);
+        return formation;
     }
     @DeleteMapping("/remove-formation/{formation-id}")
     public void removeFormation(@PathVariable("formation-id") Long id_formation) {
@@ -39,15 +43,20 @@ public class FormationController {
        Formation formation = formationService.retrieveformation(id_formation);
         return formation;
     }
-@PostMapping("/{formation-id}/jadore")
-    public Formation addJadoreToFormation(@PathVariable long id_formation){
-
-            return  formationService.addJadoreToFormation(id_formation);
+   @PostMapping("/{formation-id}/like")
+    public ResponseEntity<Formation> likeFormation(@PathVariable("formation-id") long id_formation){
+            Formation formation = formationService.likeFormation(id_formation);
+            return  ResponseEntity.ok().body(formation);
         }
 
     @GetMapping("/search/{mot_cle}")
     public ResponseEntity<List<Formation>> searchFormations(@PathVariable String mot_cle){
         List<Formation> formations =formationService.searchFormations(mot_cle);
         return ResponseEntity.ok().body(formations);
+    }
+    @GetMapping("/statsformation")
+    public ResponseEntity<Map<String, Long>> getStatisticsformation() {
+        Map<String, Long> statistics =formationService.getStatisticsformation();
+        return ResponseEntity.ok(statistics);
     }
 }

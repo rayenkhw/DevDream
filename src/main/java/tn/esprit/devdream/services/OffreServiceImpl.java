@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.devdream.entities.Application;
 import tn.esprit.devdream.entities.Offre;
+import tn.esprit.devdream.entities.Rate;
 import tn.esprit.devdream.entities.User;
 import tn.esprit.devdream.repositories.ApplicationRepository;
 import tn.esprit.devdream.repositories.OffreRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -80,6 +83,24 @@ public class OffreServiceImpl  implements IOffreService {
 
     }
 
+    @Override
+    public Offre addOffreWithRates(Offre offre) {
+        for (Rate rate : offre.getRates()) {
+            rate.setOffre(offre);
+        }
+        return offreRepository.save(offre);
+    }
+
+    @Override
+    public Map<String, Long> getStatistics() {
+        Map<String, Long> statistics = new HashMap<>();
+        statistics.put("nombreTotalOffres", offreRepository.count());
+        // Autres statistiques à collecter
+        return statistics;
+    }
+
+}
+
 
 //    public void accepterEtudiant(Long id_offre, Long id) {
 //        Offre offre = offreRepository.findById(id_offre)
@@ -90,4 +111,3 @@ public class OffreServiceImpl  implements IOffreService {
 //    }
 
 
-}

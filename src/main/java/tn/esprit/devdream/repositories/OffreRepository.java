@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import tn.esprit.devdream.entities.Offre;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OffreRepository extends JpaRepository<Offre, Long> {
@@ -14,4 +15,6 @@ public interface OffreRepository extends JpaRepository<Offre, Long> {
      Offre findOffreById_offre(@Param("id") Long id_offre);
 
     List<Offre> findByTitreOrSkillsOrDuree(String titre, String skills, String duree);
+
+
 }

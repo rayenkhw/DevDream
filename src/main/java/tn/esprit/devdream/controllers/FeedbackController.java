@@ -14,6 +14,7 @@ import tn.esprit.devdream.repositories.UserRepository;
 import tn.esprit.devdream.services.FeedbackService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -42,6 +43,11 @@ public class FeedbackController {
     public Feedback retrieveFeedback(@PathVariable("feedback-id") Long id_feedback) {
         Feedback feedback = feedbackService.retrieveFeedback(id_feedback);
         return feedback;
+    }
+    @GetMapping("/statsfeedback")
+    public ResponseEntity<Map<String, Long>> getStatisticsfeedback() {
+        Map<String, Long> statistics =feedbackService.getStatisticsfeedback();
+        return ResponseEntity.ok(statistics);
     }
     }
 

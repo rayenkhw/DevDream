@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -21,6 +23,10 @@ public class Feedback implements Serializable {
     private Long id_feedback;
     private String nom;
     private String commentaire;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_ajout", updatable = false)
+    private Date dateAjout;
     @ManyToOne
     private  User user;
 }

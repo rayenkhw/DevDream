@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -30,7 +31,12 @@ public class Formation implements Serializable {
     private Date date_debut_formation;
     @Temporal(TemporalType.DATE)
     private Date date_fin_formation;
-    private int nombreJadore;
+    @Column(name = "nombre_likes", columnDefinition = "INT DEFAULT 0")
+    private int nombreLikes;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_ajout", updatable = false)
+    private Date dateAjout;
     private String mot_cle;
 
     private Boolean disponiblite;
