@@ -60,6 +60,9 @@
               <p class="card-text text-dark">Skills: {{ offre.skills }}</p>
               <p class="card-text text-dark">Durée: {{ offre.duree }}</p>
               <p class="card-text text-dark">Description: {{ offre.description }}</p>
+              <div class="date-ajout">
+                <p> {{ offre.dateAjout | date: 'medium' }}</p>
+              </div>
             </div>
             <div class="card-footer">
               <!-- Bouton Postuler -->

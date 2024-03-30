@@ -1,3 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #343a40;">
+    <div class="container-fluid">
+        <div class="logo">
+            <a href="" class="">
+                <div class="">
+                    <img src="/assets/img/espritlogo.png"  width="260" height="75"/>
+                </div>
+            </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" routerLink="/dashboard">Dashboard</a>
+          </li>
+              <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" routerLink="/afficher-offre">Offres</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" routerLink="/afficher-formation">Formations</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" routerLink="/afficher-feedback">FeedBack</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/list-etudiant">List Etudiant</a>
+            </li>
+          </ul>
+      </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form class="navbar-form">
+                <!-- Champ de saisie pour les mots-clés de recherche -->
+  <input type="text" value=""  class="form-control"  placeholder="Search.." class="mb-2">
+  <!-- Bouton de recherche -->
+     <!-- Bouton de recherche -->
+  <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" >
+  <i class="material-icons">search</i>
+  <div class="ripple-container"></div>
+  </button>
+            </form>
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)">
+                    <i class="material-icons">person</i>
+                    <p>
+                        <span class="d-lg-none d-md-block">Account</span>
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </div>
+  </nav>
 <div class="row">
     <!-- <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let stat of roleStatistics">
         <div class="card card-stats" >
@@ -21,9 +76,9 @@
     
     <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">
-            <div class="card-header card-header-success card-header-icon">
+            <div class="card-header card-header-danger card-header-icon">
                 <div class="card-icon">
-                    <i class="material-icons">group</i>
+                    <i class="material-icons icon-rouge">group</i>
                 </div>
                 <p class="card-category">Offres De Stage</p>
                 <h3 class="card-title">{{ dashboards?.nombreTotalOffres }}</h3>
@@ -39,7 +94,7 @@
         <div class="card card-stats">
             <div class="card-header card-header-danger card-header-icon">
                 <div class="card-icon">
-                    <i class="material-icons">school</i>
+                    <i class="material-icons icon-rouge">school</i>
                 </div>
                 <p class="card-category">Formations</p>
                 <h3 class="card-title">{{ dashboards1?.nombreTotalFormations }}</h3>
@@ -55,7 +110,7 @@
         <div class="card card-stats">
             <div class="card-header card-header-danger card-header-icon">
                 <div class="card-icon">
-                    <i class="material-icons">feedback</i>
+                    <i class="material-icons icon-rouge">feedback</i>
                 </div>
                 <p class="card-category">Feedback</p>
                 <h3 class="card-title">{{ dashboards2?.nombreTotalFeedback }}</h3>

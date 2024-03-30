@@ -1,14 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #343a40;">
+  <div class="container-fluid">
+      <div class="logo">
+          <a href="" class="">
+              <div class="">
+                  <img src="/assets/img/espritlogo.png"  width="260" height="75"/>
+              </div>
+          </a>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/dashboard">Dashboard</a>
+        </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" routerLink="/afficher-offre">Offres</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/afficher-formation">Formations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/afficher-feedback">FeedBack</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/list-etudiant">List Etudiant</a>
+          </li>
+        </ul>
+    </div>
+      <div class="collapse navbar-collapse justify-content-end" id="navigation">
+          <form class="navbar-form">
+              <!-- Champ de saisie pour les mots-clés de recherche -->
+<input type="text" value=""  class="form-control" [(ngModel)]=" Keywords" placeholder="Search.." class="mb-2">
+<!-- Bouton de recherche -->
+   <!-- Bouton de recherche -->
+<button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="searchOffers( Keywords)">
+<i class="material-icons">search</i>
+<div class="ripple-container"></div>
+</button>
+          </form>
+      </div>
+      <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)">
+                  <i class="material-icons">person</i>
+                  <p>
+                      <span class="d-lg-none d-md-block">Account</span>
+                  </p>
+              </a>
+          </li>
+      </ul>
+  </div>
+</nav>
+
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-        <!-- Champ de saisie pour les mots-clés de recherche -->
-        <input type="text" value=""  class="form-control" [(ngModel)]="Keywords" placeholder="Search.." class="mb-2">
-        <!-- Bouton de recherche -->
-           <!-- Bouton de recherche -->
-       <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="searchOffers(Keywords)">
-        <i class="material-icons">search</i>
-        <div class="ripple-container"></div>
-      </button>
       <button type="submit" class="btn btn-danger"  routerLink="/admin/ajouter-offre">Ajouter</button>
       <!-- Affichage des offres -->
       <div class="d-flex flex-wrap">
@@ -19,7 +67,9 @@
             <p class="card-text text-dark">Durée: {{ offre.duree }}</p>
             <p class="card-text text-dark">Description: {{ offre.description }}</p>
             <!-- Remplacez "competence.langages" par la propriété correcte de l'offre -->
-           
+            <div class="date-ajout">
+              <p> {{ offre.dateAjout | date: 'medium' }}</p>
+            </div>
           </div>
           <div class="card-footer">
             <!-- Bouton Modifier -->

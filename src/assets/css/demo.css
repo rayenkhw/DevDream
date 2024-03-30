@@ -33,3 +33,7 @@
   position: absolute;
   width: 260px;
 }
+body {
+  -webkit-print-color-adjust: exact; /* Pour les navigateurs basés sur WebKit */
+  print-color-adjust: exact;
+}

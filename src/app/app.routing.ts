@@ -15,6 +15,14 @@ import { HomeComponent } from './shared/home/home/home.component';
 import { LoginComponent } from './shared/login/login/login.component';
 import { AccueilComponent } from './shared/accueil/accueil/accueil.component';
 import { FeedbackComponent } from './ranim/feedback/feedback.component';
+import { ListEtudiantComponent } from './ranim/offre/list-etudiant/list-etudiant.component';
+import { AjouterOffreComponent } from './ranim/offre/ajouter-offre/ajouter-offre.component';
+import { AfficherOffreComponent } from './ranim/offre/afficher-offre/afficher-offre.component';
+import { AfficherFormationComponent } from './ranim/formation/afficher-formation/afficher-formation.component';
+import { AjouterFormationComponent } from './ranim/formation/ajouter-formation/ajouter-formation.component';
+import { AfficherFeedbackComponent } from './ranim/feedback/afficher-feedback/afficher-feedback/afficher-feedback.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 
 
 
@@ -27,8 +35,13 @@ const routes: Routes =[
   {path:"formation-user",component:FormationUserComponent},
   {path:"offre-user",component:OffreUserComponent},
   {path:"feedback",component:FeedbackComponent},
-  
-
+  { path: 'list-etudiant',  component:ListEtudiantComponent },
+  { path: 'ajouter-offre',  component:AjouterOffreComponent },
+  { path: 'afficher-offre',  component:AfficherOffreComponent },
+  { path: 'afficher-formation',  component:AfficherFormationComponent },
+  { path: 'ajouter-formation',  component: AjouterFormationComponent   },
+  { path: 'afficher-feedback',  component: AfficherFeedbackComponent   },
+  { path: 'dashboard',      component: DashboardComponent },
 
 // ******
 //  {
