@@ -14,7 +14,8 @@ public interface OffreRepository extends JpaRepository<Offre, Long> {
     @Query("SELECT o FROM Offre o WHERE o.id_offre = :id")
      Offre findOffreById_offre(@Param("id") Long id_offre);
 
-    List<Offre> findByTitreOrSkillsOrDuree(String titre, String skills, String duree);
+    List<Offre> findByTitreOrSkillsOrDureeOrGouvernoratOrVille(String titre, String skills, String duree, String gouvernorat, String ville);
+
 
 
 }

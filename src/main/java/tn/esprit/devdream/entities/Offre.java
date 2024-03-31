@@ -36,8 +36,9 @@ public class Offre implements Serializable {
     private double longitude;
     private String nomVille;
     private String adresse;
-    private String pays;
 
+    private String gouvernorat;
+    private String ville;
     @ManyToOne
     private User creator;
 
@@ -73,7 +74,7 @@ public class Offre implements Serializable {
         this.longitude = longitude;
         this.nomVille = nomVille;
         this.adresse = adresse;
-        this.pays = pays;
+
     }
 
     public Long getId_offre() {
@@ -156,11 +157,5 @@ public class Offre implements Serializable {
         this.adresse = adresse;
     }
 
-    public String getPays() {
-        return pays;
-    }
 
-    public void setPays(String pays) {
-        this.pays = pays;
-    }
 }

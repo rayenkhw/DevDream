@@ -65,7 +65,7 @@ public class OffreServiceImpl  implements IOffreService {
 
     @Override
     public List<Offre> searchOffers(String keywords) {
-        return offreRepository.findByTitreOrSkillsOrDuree(keywords, keywords,keywords);
+        return offreRepository.findByTitreOrSkillsOrDureeOrGouvernoratOrVille(keywords, keywords,keywords,keywords,keywords);
     }
 
     @Override
