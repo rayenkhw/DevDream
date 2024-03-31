@@ -52,13 +52,17 @@
 <div class="d-flex flex-wrap justify-content-center">
   <div *ngFor="let formation of formations" class="card custom-card mx-auto mb-3" style="max-width: 800px;">
    <div class="card-body custom-text-size ">
-    <p class="card-title text-dark custom-text-color custom-text-size">{{ formation.titre }}</p>
-    <p class="card-text text-dark">Description: {{ formation.description }}</p>
-    <p class="card-text text-dark">Date de début: {{ formation.date_debut_formation }}</p>
-    <p class="card-text text-dark">Date de fin: {{ formation.date_fin_formation }}</p>
-    <p class="card-text text-dark">Disponibilité: {{ formation.disponibilite }}</p>
+    <h5 class="card-title text-dark custom-title text-red">{{ formation.titre }}</h5>
+    <p class="card-text text-dark"> 
+      <span class="new-title">Description:</span>
+      <span>{{ formation.description }}</span></p>
+    <p class="card-text text-dark"> 
+      <span class="new-title">Date de début:</span>
+      <span>{{ formation.date_debut_formation }}</span></p>
+    <p class="card-text text-dark"> 
+     <span class="new-title">Date de fin:</span>
+      <span>{{ formation.date_fin_formation }}</span></p>
    
-        <p class="card-text text-dark"> {{ formation.dateAjout | date: 'medium' }}</p>
         <button (click)="toggleJadore(formation)">
             <i class="fa fa-heart" [style.color]="formation.isLiked ? 'red' : 'black'"></i>
           </button>

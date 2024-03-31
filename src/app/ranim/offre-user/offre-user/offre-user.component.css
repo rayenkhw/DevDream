@@ -18,3 +18,16 @@
 .custom-text-color {
     color: rgb(122, 3, 13); /* ou toute autre couleur de texte que vous souhaitez */
 }
+.text-red {
+  color: rgb(109, 1, 1) !important;;
+}
+.custom-title {
+  font-size: 18px; /* Taille de la police */
+  font-weight: bold; /* Gras */
+  color: #800020; /* Couleur personnalisée */
+}
+.new-title {
+  font-size: 14px; /* Taille de la police */
+  font-weight: bold; /* Gras */
+  color: #000000; /* Couleur personnalisée */
+}

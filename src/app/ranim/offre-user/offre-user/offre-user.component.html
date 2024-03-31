@@ -56,14 +56,22 @@
         <div class="d-flex flex-wrap">
           <div *ngFor="let offre of Offres" class="card border border-danger mb-3 mr-3" style="max-width: 500px;">
             <div class="card-body ">
-              <h5 class="card-title text-dark custom-text-size custom-text-color ">{{ offre.titre }}</h5>
-              <p class="card-text text-dark">Skills: {{ offre.skills }}</p>
-              <p class="card-text text-dark">Durée: {{ offre.duree }}</p>
-              <p class="card-text text-dark">Description: {{ offre.description }}</p>
-              <div class="date-ajout">
-                <p> {{ offre.dateAjout | date: 'medium' }}</p>
-              </div>
-            </div>
+                <h5 class="card-title text-dark custom-title text-red">{{ offre.titre }}</h5>
+                <p class="card-text text-dark "><span class="new-title">Skills:</span>
+                                                <span>{{ offre.skills }}</span></p>
+                <p class="card-text text-dark "> <span class="new-title">Durée:</span>
+                                                 <span>{{ offre.duree }}</span> </p>
+                <p class="card-text text-dark"><span class="new-title">Description:</span>
+                                               <span>{{offre.description  }}</span></p>
+                                               <div class="d-flex justify-content-between align-items-center">
+                                                <div class="localisation">
+                                                  <p class="card-text text-dark "><i class="material-icons">location_on</i> Localisation:  <span>{{ offre.gouvernorat }}, {{ offre.ville }}, {{ offre.adresse }}</span></p>
+                                                </div>
+                                                <div class="date-ajout">
+                                                  <p class="card-text text-dark ">{{ offre.dateAjout | date: 'medium' }}</p>
+                                                </div>
+                                              </div>
+                                            </div>
             <div class="card-footer">
               <!-- Bouton Postuler -->
               <button class="btn custom-btn-color mr-2" >Postuler</button>

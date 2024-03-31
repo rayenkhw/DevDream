@@ -36,6 +36,9 @@ import { Competence } from '../competence/competence/competence.module';
    longitude: number;
   message: any;
   dateAjout?: Date;
+  gouvernorat: string;
+  ville: string;
+  adresse: string;
     
     }
 

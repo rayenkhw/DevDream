@@ -24,7 +24,7 @@ export class AjouterFormationComponent implements OnInit {
     if (this.validateForm.valid){
       this.formationService.addFormation(this.validateForm.value).subscribe(res =>{
         console.log(res);
-        this.router.navigate(['/admin/afficher-formation']);
+        this.router.navigate(['/afficher-formation']);
       });
     }else {
       console.log("Veuillez remplir tous les champs du formulaire.");
