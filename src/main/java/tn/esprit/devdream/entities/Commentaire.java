@@ -1,5 +1,6 @@
 package tn.esprit.devdream.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Commentaire implements Serializable {
     private String Contenu;
 
     @ManyToOne
+   @JsonIgnore
     private Tache tache;
 
 

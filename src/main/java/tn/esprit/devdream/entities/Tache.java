@@ -31,16 +31,18 @@ public class Tache implements Serializable {
     private String performance;
     private String remarque;
 
-    @OneToMany(mappedBy = "tache")
+    @OneToMany(mappedBy = "tache",cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     private List<Commentaire> commentaireList;
 
-    @OneToMany(mappedBy = "tache")
+    @OneToMany(mappedBy = "tache",cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     private List<Etiquette> etiquetteList;
 
     @ManyToOne
+            @JoinColumn(name="encadrant_id")
     private User encadrant;
 
     @ManyToOne
+    @JoinColumn(name="etudiant_id")
     private User etudiant;
 
 

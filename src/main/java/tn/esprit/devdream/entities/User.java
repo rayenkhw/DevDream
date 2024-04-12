@@ -37,7 +37,8 @@ public class User implements UserDetails
     private int disponibilite;
     private String Image;
     private String chargeTravail;
-    private boolean Status;
+
+    public int Banss  ;
     private String Tel;
 
 

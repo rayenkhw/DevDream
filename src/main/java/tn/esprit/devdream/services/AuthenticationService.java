@@ -28,13 +28,22 @@ public class AuthenticationService {
                 email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
+                .disponibilite(1)
                 .build();
+
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         // var refreshToken = jwtService.generateRefreshToken(user);
         // saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .nom(savedUser.getNom())
+                .prenom(savedUser.getPrenom())
+                .email(savedUser.getEmail())
+                .password(savedUser.getPassword())
+                .image(savedUser.getImage())
+                .role(savedUser.getRole())
+                .disponibilite(1)
                 .build();
     }
 

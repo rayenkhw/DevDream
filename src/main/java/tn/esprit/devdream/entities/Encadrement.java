@@ -1,5 +1,6 @@
 package tn.esprit.devdream.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,11 +29,13 @@ public class Encadrement implements Serializable {
 
 */
     @ManyToOne
-    @JoinColumn(name = "encadrant_id")
+    @JsonBackReference
+//    @JoinColumn(name = "encadrant_id")
     private User encadrant;
 
     @ManyToOne
-    @JoinColumn(name = "etudiant_id")
+   @JsonBackReference
+//    @JoinColumn(name = "etudiant_id")
     private User etudiant;
 
 
