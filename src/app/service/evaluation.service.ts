@@ -1,33 +1,54 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable,tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Evaluation } from 'app/models/Evaluation.model';
+import {Stage} from 'app/models/stage.model';
+
 @Injectable({
   providedIn: 'root'
 })
 export class EvaluationService {
+  private evaluationBaseUrl = 'http://localhost:9000/DevDream/api/evaluation'; 
 
-  constructor(private http:HttpClient) { }
+  private _quizNote: number = 0;
+
+  constructor(private http: HttpClient) { }
+
+  addEvaluationToStage(idStage: number, evaluation: Evaluation): Observable<Evaluation> {
+    const url = `http://localhost:9000/DevDream/api/evaluation/${idStage}/add`;
+    return this.http.post<Evaluation>(url, evaluation);
+  }
+  
+
+  getEvaluations(): Observable<Evaluation[]> {
+    return this.http.get<Evaluation[]>(`${this.evaluationBaseUrl}/allEvaluations`);
+  }
+  getAllStages(): Observable<Stage[]> {
+    return this.http.get<Stage[]>('http://localhost:9000/DevDream/api/stage/retrieve-all-stages');
+  }
 
 
+  updateEvaluation(evaluation: Evaluation): Observable<Evaluation> {
+    return this.http.put<Evaluation>(`${this.evaluationBaseUrl}/updateEvaluation`, evaluation);
+  }
 
-  private baseUrl = 'http://localhost:9000/DevDream/api/evaluation';
+  removeEvaluation(evaluationId: number): Observable<void> {
+    return this.http.delete<void>(`${this.evaluationBaseUrl}/evaluation/${evaluationId}`);
+  }
+ 
+  getAllScores(): { userId: number; score: number; total: number }[] {
+    let scores = JSON.parse(localStorage.getItem('quizScores') || '{}');
+    return Object.keys(scores).map(userId => ({
+      userId: parseInt(userId, 10),
+      score: scores[userId].score,
+      total: scores[userId].total
+    }));
+  }
+  saveScore(userId: number, score: number, total: number): void {
+    let scores = JSON.parse(localStorage.getItem('quizScores') || '{}');
+    scores[userId] = { score, total };
+    localStorage.setItem('quizScores', JSON.stringify(scores));
+  }
 
-
-createEvaluation(evaluation: any): Observable<any> {
-  return this.http.post(`${this.baseUrl}/addEvaluation`, evaluation);
-}
-
-getEvaluations(): Observable<any[]> {
-  return this.http.get<any[]>(`${this.baseUrl}/allEvaluations`);
-}
-
-// Dans EvaluationService
-updateEvaluation(evaluation: Evaluation): Observable<any> {
-  return this.http.put(`${this.baseUrl}/updateEvaluation`, evaluation);
-}
-
-removeEvaluation(evaluationId: number): Observable<any> {
-  return this.http.delete(`${this.baseUrl}/evaluation/${evaluationId}`);
-}
+  
 }

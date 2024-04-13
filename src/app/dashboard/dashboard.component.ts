@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
-
-
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -10,8 +8,23 @@ import * as Chartist from 'chartist';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
-  startAnimationForLineChart(chart){
+  constructor(private http: HttpClient) { }
+  
+  loadTopContributor() {
+    this.http.get('/top-contributor').subscribe(data => {
+        this.updateTopContributor(data);
+    });
+}
+
+updateTopContributor(data) {
+    document.getElementById('topContributorName').textContent = `${data.name} (${data.comment_count} Comments, ${data.interaction_count} Interactions)`;
+}
+
+
+
+
+
+startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
       delays = 80;
@@ -69,7 +82,8 @@ export class DashboardComponent implements OnInit {
   };
   ngOnInit() {
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
-
+      this.loadTopContributor();
+      // Autres initialisations...
       const dataDailySalesChart: any = {
           labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
           series: [

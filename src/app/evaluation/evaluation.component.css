@@ -15,4 +15,8 @@
     margin-top: 20px; 
   }
   
+  html, body {
+    overflow-y: auto; /* Assurez-vous que le défilement est activé */
+    height: 100%;     /* Ou min-height: 100vh; pour que la page prenne au minimum la hauteur de la fenêtre */
+  }
   

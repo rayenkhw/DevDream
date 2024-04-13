@@ -24,8 +24,8 @@ export class ListEvaluationComponent implements OnInit {
     this.editForm = this.fb.group({
       date_evaluation: ['', Validators.required],
       note: ['', Validators.required]
-      // Add other fields here if necessary
     });
+    
     this.loadExistingEvaluations();
   }
 

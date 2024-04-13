@@ -1,26 +1,71 @@
-
 <div class="container mt-5">
-    <h2 class="mb-4">Evaluation Form</h2>
-    <!-- Formulaire d'évaluation -->
-    <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()" class="border p-4 rounded">
-      
-      <div class="form-group">
-        <label for="date_evaluation">Evaluation Date</label>
-        <input type="date" id="date_evaluation" formControlName="date_evaluation" class="form-control">
+  <div class="row">
+    <!-- Colonne de gauche : Liste des stages -->
+    <div class="col-md-4">
+      <h3>Liste des Stages</h3>
+      <ul class="list-group">
+        <li *ngFor="let stage of stages" 
+            class="list-group-item" 
+            [class.active]="selectedStage?.id_stage === stage.id_stage" 
+            (click)="selectStage(stage)">
+            Stage {{ stage.id_stage }}: du {{ stage.date_debut | date:'shortDate' }} au {{ stage.date_fin | date:'shortDate' }}
+        </li>
+      </ul>
+      <!-- Ici vous pourriez aussi vouloir afficher la note du quiz pour l'utilisateur actuel si pertinent -->
+      <div class="mt-4">
+        <h4>Note du Quiz: {{ quizNote }}</h4>
       </div>
-  
-      <div class="form-group">
-        <label for="note">Note Evaluation</label>
-        <textarea id="note" formControlName="note" rows="3" class="form-control"></textarea>
-      </div>
-      
-    <button type="submit" class="btn" [disabled]="!evaluationForm.valid" style="background-color: #800020; color: white;">Evaluate</button>
-    <button type="button" class="btn btn-secondary" (click)="goToAffichage()"  style="background-color: #800020; color: white;"  >  Voir les évaluations</button>
-      
-    </form>
-
-    <!-- Message de succès ou d'erreur -->
-    <div *ngIf="message" [ngClass]="isSuccess ? 'alert alert-success mt-3' : 'alert alert-danger mt-3'">
-      {{ message }}
     </div>
+  
+    <!-- Colonne de droite : Formulaire d'évaluation et tableau des scores -->
+    <div class="col-md-8">
+      <h2>Formulaire d'évaluation</h2>
+      <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
+        <!-- Champ de sélection pour la date d'évaluation -->
+        <div class="mb-3">
+          <label for="date_evaluation" class="form-label">Date d'évaluation</label>
+          <input type="date" class="form-control" id="date_evaluation" formControlName="date_evaluation">
+        </div>
+  
+        <!-- Champ pour la note d'évaluation -->
+        <div class="mb-3">
+          <label for="note" class="form-label">Note</label>
+          <input type="text" class="form-control" id="note" formControlName="note">
+        </div>
+  
+        <!-- ID du stage sélectionné (caché) -->
+        <input type="hidden" formControlName="stageId">
+  
+        <!-- Boutons d'action -->
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary" [disabled]="!evaluationForm.valid" style="background-color: #800020; color: white;">Évaluer</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="goToAffichage()" style="background-color: #800020; color: white;">Voir les évaluations</button>
+        </div>
+      </form>
+  
+      <!-- Message de succès ou d'erreur -->
+      <div *ngIf="message" class="alert" [class.alert-success]="isSuccess" [class.alert-danger]="!isSuccess">
+        {{ message }}
+      </div>
+
+      <!-- Tableau des scores des utilisateurs -->
+      <h3>Scores des utilisateurs</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Score</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let score of scores">
+            <td>{{ score.userId }}</td>
+            <td>{{ score.score }}</td>
+            <td>{{ score.total }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

@@ -4,6 +4,7 @@ import { Routes } from '@angular/router';
 import { GhofraneComponent } from 'app/ghofrane/ghofrane.component';
 import { ApplicationAjoutComponent } from 'app/application/application-ajout/application-ajout.component';
 import { PostComponent } from 'app/post/post.component';
+import { QuizComponent } from 'app/quiz/quiz.component';
 export const UserLayoutRoutes: Routes = [
 
 
@@ -62,6 +63,7 @@ export const UserLayoutRoutes: Routes = [
             },]},
             { path: 'ajout-application',  component: ApplicationAjoutComponent },
             {path:"post", component:PostComponent},
+            {path:"quiz", component:QuizComponent},
 
             
    // { path: 'ghofrane',      component: GhofraneComponent }
