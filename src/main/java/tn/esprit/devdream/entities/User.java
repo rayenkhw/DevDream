@@ -146,5 +146,7 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "maitrestage")
     private  List<Stage> stageList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Quiz> quizs;
 }
 

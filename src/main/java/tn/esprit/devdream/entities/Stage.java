@@ -1,5 +1,6 @@
 package tn.esprit.devdream.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,9 @@ public class Stage implements Serializable {
     @Column(name="id_stage")
     private Long id_stage;
 
+
     @ManyToOne
+    @JsonIgnore
     private User maitrestage;
 
     @Temporal(TemporalType.DATE)
@@ -32,27 +35,36 @@ public class Stage implements Serializable {
     private Date date_fin;
 
     @OneToMany(mappedBy = "stage")
+    @JsonIgnore
     private List<Pointage> pointages;
 
     @ManyToOne
+    @JsonIgnore
     private Offre offre;
 
     @OneToOne(mappedBy = "stage")
+    @JsonIgnore
     private Depot depot;
 
+    @JsonIgnore
     private List<Evaluation> evaluations;
+
     @OneToMany(mappedBy = "stage")
+    @JsonIgnore
     public List<Evaluation> getEvaluations(){
 
 
         return evaluations;
     }
+    @JsonIgnore
     public void setEvaluations(List<Evaluation> evaluations){
 
         this.evaluations=evaluations;
     }
 
     @OneToOne(mappedBy = "stage")
+ @JsonIgnore
     private User stagiere;
+
 
 }

@@ -11,8 +11,9 @@ public class DevDreamApplication implements WebMvcConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(DevDreamApplication.class, args);
 	}
+	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/api/**") // Spécifiez le chemin de votre API
+		registry.addMapping("/api/**")
 				.allowedOrigins("http://localhost:4200")
 				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 				.allowedHeaders("*")

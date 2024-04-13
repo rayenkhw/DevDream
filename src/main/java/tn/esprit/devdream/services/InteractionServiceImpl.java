@@ -66,7 +66,8 @@ public class InteractionServiceImpl implements IInteractionServiceImpl {
         if (existingInteraction.isPresent()) {
             interactionRepository.delete(existingInteraction.get());
             return Optional.empty();
-        } else {
+        } else
+        {
             Interaction newInteraction = new Interaction();
             newInteraction.setPost(post);
             newInteraction.setUser(user);

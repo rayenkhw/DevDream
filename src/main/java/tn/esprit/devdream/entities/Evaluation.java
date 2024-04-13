@@ -26,7 +26,8 @@ public class Evaluation implements Serializable {
     private Date date_evaluation;
 
     private int note;
-
+    @ManyToOne
+    @JoinColumn(name = "id")
     private User user;
     @JsonIgnore
     @ManyToOne
@@ -44,10 +45,10 @@ public class Evaluation implements Serializable {
         this.user = user;
     }
 
-    private Stage stage;
+
     @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "id_stage", insertable = false, updatable = false)
+    @JoinColumn(name = "stage_id")
+    private Stage stage;
     public Stage getStage(){
 
 

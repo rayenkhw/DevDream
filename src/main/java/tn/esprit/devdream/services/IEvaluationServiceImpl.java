@@ -15,4 +15,5 @@ public interface IEvaluationServiceImpl {
     Evaluation updateEvaluation(Evaluation evaluation);
 
     void removeEvaluation(Long idEvaluation);
+    Evaluation addEvaluationToStage(Evaluation evaluation, Long id_stage);
 }

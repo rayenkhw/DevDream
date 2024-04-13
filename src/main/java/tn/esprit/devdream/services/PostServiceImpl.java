@@ -32,7 +32,6 @@ public class PostServiceImpl implements IPostServiceImpl {
 
         return postRepository.findAll();
     }
-
     @Override
     public Post retrievePost(Long id_Post) {
         return postRepository.findById(id_Post).orElse(null);
