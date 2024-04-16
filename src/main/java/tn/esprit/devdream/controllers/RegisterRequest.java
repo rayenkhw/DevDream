@@ -1,17 +1,16 @@
-
 package tn.esprit.devdream.controllers;
-
 
 import lombok.*;
 import tn.esprit.devdream.entities.Niveau;
 import tn.esprit.devdream.entities.Role;
 import tn.esprit.devdream.entities.Specialte;
-@Getter
-@Setter
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class RegisterRequest {
     private String identifiant;
     private String nom;
@@ -26,9 +25,3 @@ public class RegisterRequest {
     private String image;
     private String chargeTravail;
 }
-
-
-
-
-
-

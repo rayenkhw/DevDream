@@ -5,15 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.devdream.entities.Formation;
-import tn.esprit.devdream.entities.Offre;
 import tn.esprit.devdream.services.IFormationService;
 
 import java.util.List;
 import java.util.Map;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/formation")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class FormationController {
     @Autowired
     IFormationService formationService;

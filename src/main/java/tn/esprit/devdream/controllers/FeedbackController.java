@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import tn.esprit.devdream.entities.Feedback;
-import tn.esprit.devdream.entities.Offre;
-import tn.esprit.devdream.entities.User;
 import tn.esprit.devdream.repositories.FeedbackRepository;
 import tn.esprit.devdream.repositories.UserRepository;
 import tn.esprit.devdream.services.FeedbackService;
@@ -19,7 +16,7 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/feedback")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class FeedbackController {
     @Autowired
     private FeedbackRepository feedbackRepository;
@@ -48,6 +45,10 @@ public class FeedbackController {
     public ResponseEntity<Map<String, Long>> getStatisticsfeedback() {
         Map<String, Long> statistics =feedbackService.getStatisticsfeedback();
         return ResponseEntity.ok(statistics);
+    }
+    @PutMapping("/update-feedback-rating/{feedback-id}")
+    public Feedback updateFeedbackRating(@PathVariable ("feedback-id")Long id_feedback, @RequestParam int rating) {
+        return feedbackService.updateFeedbackRating(id_feedback, rating);
     }
     }
 

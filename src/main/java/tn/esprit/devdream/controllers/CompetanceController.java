@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/competance")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CompetanceController {
     @Autowired
     ICompetanceService competanceService;

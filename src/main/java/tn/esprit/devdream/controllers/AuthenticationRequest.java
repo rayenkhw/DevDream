@@ -1,11 +1,10 @@
-
 package tn.esprit.devdream.controllers;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import lombok.*;
-
-@Getter
-@Setter
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,3 +13,4 @@ public class AuthenticationRequest {
     private String email;
     String password;
 }
+

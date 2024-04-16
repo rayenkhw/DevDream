@@ -1,6 +1,6 @@
 package tn.esprit.devdream.controllers;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.devdream.entities.Depot;
 import tn.esprit.devdream.services.IDepotService;
@@ -8,9 +8,10 @@ import tn.esprit.devdream.services.IDepotService;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/depot")
 public class DepotRestController {
+    @Autowired
     IDepotService depotService;
 
     @GetMapping("/retrieve-all-depots")

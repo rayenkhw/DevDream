@@ -2,22 +2,20 @@
 
     import lombok.AllArgsConstructor;
     import org.springframework.beans.factory.annotation.Autowired;
-
-    import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
     import org.springframework.web.bind.annotation.*;
     import tn.esprit.devdream.entities.Offre;
     import tn.esprit.devdream.entities.User;
     import tn.esprit.devdream.repositories.OffreRepository;
     import tn.esprit.devdream.services.IOffreService;
-    import org.springframework.web.server.ResponseStatusException;
+
     import java.util.List;
     import java.util.Map;
 
     @RestController
     @AllArgsConstructor
     @RequestMapping("/offre")
-    @CrossOrigin("*")
+    @CrossOrigin(origins = "http://localhost:4200")
     public class OffreRestController {
         private  IOffreService offreService;
         @Autowired

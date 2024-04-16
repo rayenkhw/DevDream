@@ -1,4 +1,4 @@
-package com.example.DevTeam.Controllers;
+package tn.esprit.devdream.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
