@@ -14,4 +14,5 @@ export class Feedback {
   commentaire: string;
   nom: string;
   dateAjout?: Date;
+  id: number;
 }

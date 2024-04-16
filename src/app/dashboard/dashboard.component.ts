@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'app/Services/UserService/user.service';
 import * as Chartist from 'chartist';
-import { DashboardService } from './dashboard.service';
 
 
 
@@ -10,17 +10,9 @@ import { DashboardService } from './dashboard.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
-
-  offresStats: any;
-  formationsStats: any;
-  feedbacksStats: any;
-  statistics: any;
-dashboards1: any;
-dashboards: any;
-dashboards2: any;
-
-  constructor(private dashboardService: DashboardService) { }
+  roleStatistics: any[] = [];
+  totalUsers: number = 0;
+  constructor(private userService: UserService) { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -78,9 +70,7 @@ dashboards2: any;
       seq2 = 0;
   };
   ngOnInit() {
-    this.fetchStatistics();
-    this.fetchStatisticsformation();
-    this.fetchStatisticsfeedback();
+    this.loadUserRoleStatistics();
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       const dataDailySalesChart: any = {
@@ -161,40 +151,16 @@ dashboards2: any;
       //start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
   }
-  fetchStatistics(): void {
-    this.dashboardService.getStatistics().subscribe(
-      (data) => {
-        this.dashboards = data;
-        // Traiter les données pour les afficher dans le tableau de bord
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des statistiques : ', error);
-      }
-    );
-  }
+  loadUserRoleStatistics(): void {
+    this.userService.getUserRoleStatistics().subscribe(data => {
+      this.roleStatistics = data;
+      console.log(this.roleStatistics); // Pour déboguer et voir les données reçues
+      this.totalUsers = data.reduce((sum, currentStat) => sum + currentStat.count, 0);
+      
 
-  fetchStatisticsformation(): void {
-    this.dashboardService.getStatisticsformation().subscribe(
-      (data) => {
-        this.dashboards1 = data;
-        // Traiter les données pour les afficher dans le tableau de bord
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des statistiques : ', error);
-      }
-    );
-  }
-
-  fetchStatisticsfeedback(): void {
-    this.dashboardService.getStatisticsfeedback().subscribe(
-      (data) => {
-        this.dashboards2 = data;
-        // Traiter les données pour les afficher dans le tableau de bord
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des statistiques : ', error);
-      }
-    );
+    }, error => {
+      console.error('There was an error!', error);
+    });
   }
 
 }

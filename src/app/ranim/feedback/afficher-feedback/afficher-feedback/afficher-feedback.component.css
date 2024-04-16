@@ -1,0 +1,8 @@
+.fa-star {
+    color: gray; /* Couleur des étoiles non sélectionnées */
+    cursor: pointer;
+  }
+  .fa-star.checked {
+    color: gold; /* Couleur jaune pour les étoiles sélectionnées */
+  }
+  

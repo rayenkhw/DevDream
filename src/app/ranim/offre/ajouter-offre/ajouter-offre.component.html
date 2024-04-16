@@ -75,6 +75,10 @@
           <input type="text" class="form-control" formControlName="duree" id="duree" required>
         </div>
         <div class="mb-3">
+          <label for="nom" class="form-label">Nom de Societé:</label>
+          <input type="text" class="form-control" formControlName="nom" id="nom" required>
+        </div>
+        <div class="mb-3">
           <label for="gouvernorat" class="form-label">Gouvernorat:</label>
           <select formControlName="gouvernorat" (change)="onGovernorateChange()" class="form-select">
             <option value="" disabled selected>Choisissez un gouvernorat</option>

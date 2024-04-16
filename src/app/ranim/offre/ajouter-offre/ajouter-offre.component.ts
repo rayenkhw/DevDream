@@ -58,6 +58,7 @@ export class AjouterOffreComponent implements OnInit{
       gouvernorat: ['', Validators.required],
       ville: ['', Validators.required],
       adresse: ['', Validators.required],
+      nom: ['', Validators.required],
       
     });
     this.filteredVilles = this.villesParGouvernorat[this.gouvernorats[0]];

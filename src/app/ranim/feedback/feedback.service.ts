@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FeedbackService {
-  private apiURL = 'http://localhost:9100/DevDream/feedback';
+  private apiURL = 'http://localhost:9000/DevDream/feedback';
   constructor(private http: HttpClient) { }
   addFeedback(feedbackData: Feedback): Observable<any>{
     return this.http.post<any>(this.apiURL+"/add-feedback", feedbackData);
@@ -18,5 +18,8 @@ export class FeedbackService {
 
   retrieveFeedback(id_feedback: number): Observable<any> {
     return this.http.get<any>(`${this.apiURL}/retrieve-feedback/${id_feedback}`);
+  }
+  updateFeedbackRating(id_feedback: number, rating: number): Observable<any> {
+    return this.http.put<any>(`${this.apiURL}/update-feedback-rating/${id_feedback}`, { rating });
   }
 }

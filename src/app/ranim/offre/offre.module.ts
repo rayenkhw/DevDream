@@ -31,6 +31,7 @@ import { Competence } from '../competence/competence/competence.module';
     description: string;
     titre: string;
     skills: string;
+    nom: string;
     duree: string;
    latitude:  number ;
    longitude: number;

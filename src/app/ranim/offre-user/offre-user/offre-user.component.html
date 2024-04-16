@@ -47,15 +47,10 @@
         </ul>
     </div>
 </nav>
-  
-<div class="container">
-    <div class="row">
-      <div class="col-md-12">
-
         <!-- Affichage des offres -->
-        <div class="d-flex flex-wrap">
-          <div *ngFor="let offre of Offres" class="card border border-danger mb-3 mr-3" style="max-width: 500px;">
-            <div class="card-body ">
+        <div class="d-flex flex-wrap justify-content-center">
+          <div *ngFor="let offre of Offres" class="card border border-danger mb-3 mr-3" style="max-width: 800px;">
+            <div class="card-body custom-text-size">
                 <h5 class="card-title text-dark custom-title text-red">{{ offre.titre }}</h5>
                 <p class="card-text text-dark "><span class="new-title">Skills:</span>
                                                 <span>{{ offre.skills }}</span></p>
@@ -79,7 +74,5 @@
   
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+
   

@@ -10,4 +10,7 @@
   .card-title {
     color: rgb(88, 4, 4); /* Couleur rouge pour le nom */
   }
+  .checked {
+    color: gold; /* ou la couleur que vous préférez */
+  }
   

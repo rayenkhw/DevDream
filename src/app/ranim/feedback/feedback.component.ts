@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FeedbackService } from './feedback.service';
 import { Feedback } from './feedback/feedback.module';
-import { response } from 'express';
 
 @Component({
   selector: 'app-feedback',
@@ -11,9 +10,9 @@ import { response } from 'express';
 })
 export class FeedbackComponent implements OnInit {
   feedback: FormGroup;
-feedbacks: any;
-commentaire: any;
-nom: any;
+  feedbacks: Feedback[] = []; // Initialisation de feedbacks comme un tableau vide
+
+  rating: number = 0;
 
   constructor(private formBuilder: FormBuilder, private feedbackService: FeedbackService) { 
     this.feedback = this.formBuilder.group({
@@ -21,31 +20,48 @@ nom: any;
       commentaire: ['', Validators.required],
     });
   }
+
   ngOnInit(): void {
-    this.loadFeedbacks();
-   
+    this.loadFeedback();
   }
-  onSubmit(): void{
+
+  onSubmit(): void {
     if (this.feedback.valid) {
       const feedbackData = this.feedback.value;
-        this.feedbackService.addFeedback(feedbackData).subscribe(
-          (response) => {
-            console.log('Feedback ajouté avec succés:', response);
-            this.feedback.reset();
-            this.loadFeedbacks();
-          },
-          (error) => {
-            console.error('Erreur lors de l\'ajout du feedback:', error);
-          }
-        );
-      
+      feedbackData.rating = this.rating;
+      this.feedbackService.addFeedback(feedbackData).subscribe(
+        (response) => {
+          console.log('Feedback ajouté avec succès:', response);
+          this.feedback.reset();
+          this.loadFeedback();
+          this.rating = 0;
+        },
+        (error) => {
+          console.error('Erreur lors de l\'ajout du feedback:', error);
+          // Gérer l'erreur ici, par exemple afficher un message à l'utilisateur
+        }
+      );
     }
   }
-  loadFeedbacks(): void {
-    this.feedbackService.getFedbacks()
-      .subscribe(feedbacks => this.feedbacks = feedbacks);
+
+  loadFeedback(): void {
+    this.feedbackService.getFedbacks().subscribe(
+      (feedbacks) => {
+        this.feedbacks = feedbacks; // Mettre à jour la liste des feedbacks
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des feedbacks:', error);
+        // Gérer l'erreur ici, par exemple afficher un message à l'utilisateur
+      }
+    );
   }
 
+  updateRating(rating: number): void {
+    this.rating = rating;
   }
 
-
+  resetForm(): void {
+    this.feedback.reset();
+    this.rating = 0;
+  }
+}

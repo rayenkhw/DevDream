@@ -1,14 +1,11 @@
-/* Change la couleur du header de la carte en rouge */
-.card-header-danger {
-    background-color: rgb(255, 254, 254);
-    color: white; /* Change la couleur du texte en blanc pour contraster */
-  }
-  
-  /* Change la couleur de l'icône du header en rouge */
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Ajoute un peu d'espace entre les cartes */
+    justify-content: space-around; /* Centre les cartes avec un espacement autour */
+}
 
-  
-
-  .icon-rouge {
-    color: rgb(85, 3, 3); /* Change la couleur de l'icône en rouge */
-  }
-  
+.card {
+    flex-basis: calc(33.333% - 20px); /* Ajuste cette valeur pour changer la largeur des cartes */
+    /* Le calcul ci-dessus suppose un gap de 20px et crée 3 cartes par ligne. Ajustez selon vos besoins. */
+}
