@@ -4,8 +4,8 @@ import { Encadrement } from './encadrement';
 export class User {
     idUser:number;
 
-        identifiant:String;
-        nom: String;
+        identifiant:string;
+        nom: string;
         prenom: String;
         cin: String;
         email: String;
@@ -13,7 +13,7 @@ export class User {
          niveau: Niveau;
          specialite: Specialite;
          role: Role;
-         disponibilite: Boolean;
+         disponibilite: number;
          image: String;
          chargeTravail: String;
          taches_encadrant?: Tache[];
@@ -44,7 +44,15 @@ export enum Niveau {
     password: string;
   }
   export interface AuthenticationResponse {
-    jwtToken: string; 
+    jwtToken: string;
+    idUser: number;
+    identifiant: string;
+    nom: string;
+    prenom: string;
+    image: string;
+    email: string;
+    role: Role;
+    disponibilite: number;
   }
 
 

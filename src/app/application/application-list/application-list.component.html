@@ -1,0 +1,84 @@
+<div>
+  <h2>Application List</h2>
+  
+  <div style="width: 80%; margin: auto; height: 400px; overflow-y: auto;">
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width: 10%;">ID</th>
+          <th style="width: 25%;">Demande de Stage</th>
+          <th style="width: 20%;">CV</th>
+          <th style="width: 25%;">Lettre de Motivation</th>
+          <th style="width: 20%;" (click)="sortApplicationsByEtat()" class="etat-header">
+            État
+            <span class="tooltip">cliquer pour trier la table</span>
+          </th>
+          
+          <th style="width: 20%;">accepter application</th>
+          <th style="width: 20%;">refuser application</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let application of applications">
+          <td>{{ application.id_application }}</td>
+          <td>
+            <button (click)="openFile(application.demandeDeStage)">demande de stage</button>
+          </td>
+          <td>
+            <button (click)="openFile(application.cv)">cv</button>
+          </td>
+          <td>
+            <button (click)="openFile(application.lettreMotivation)">lettre de motivation</button>
+          </td>
+          <td [ngClass]="{ 'red-cell': application.etat === 'Refuse', 'green-cell': application.etat === 'Accepte' }">{{ application.etat }}</td>
+          <td>
+            <button (click)="acceptApplication(application.id_application)">Accepter</button> <!-- Button to accept application -->
+          </td>
+          <td>
+            <button (click)="refuserApplication(application.id_application)">refuser</button> <!-- Button to accept application -->
+          </td>
+        </tr>
+      </tbody>    
+    </table>
+    
+  
+  </div>
+  
+  <button (click)="openPopup()">Show Statistics</button>
+  <div class="popup" [style.display]="isPopupVisible ? 'block' : 'none'">
+    <div class="popup-content">
+      <span class="close" (click)="closePopup()">&times;</span>
+      <h2>Statistics</h2>
+      <div class="donut-chart">
+        <div class="pie-container">
+          <div class="pie-wrapper">
+            <div class="pie animate" [style.--p]="acceptedPercentage" style="--c: hsl(120, 100%, 90%); font-size: 18px;">accepté <br> {{ acceptedPercentage }}%</div>
+            <div class="value">{{ accepted }} accepté</div>
+          </div>
+          <div class="pie-wrapper">
+            <div class="pie animate" [style.--p]="refusedPercentage" style="--c: hsl(0, 61%, 64%); font-size: 18px;">refusé <br> {{ refusedPercentage }}%</div>
+            <div class="value">{{ refused }} refusé</div>
+          </div>
+          <div class="pie-wrapper">
+            <div class="pie animate" [style.--p]="pendingPercentage" style="--c: hsl(0, 0%, 87%); font-size: 18px;">En cours <br> {{ pendingPercentage }}%</div>
+            <div class="value">{{ pending }} en attente</div>
+          </div>
+          <div class="pie-wrapper" style="font-size: 18px">
+            <br>
+            <br>
+            {{totalApplications}} Total
+          </div>
+        </div>
+      </div>
+      
+      
+      
+    </div>
+  </div>
+  
+  
+  
+  </div>
+  
+  
+  

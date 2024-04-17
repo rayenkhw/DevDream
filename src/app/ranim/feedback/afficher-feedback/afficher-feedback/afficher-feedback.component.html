@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste des Feedbacks</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  body {
+    background-color: #f8f9fa;
+  }
+  .feedback-container {
+    max-width: 800px;
+    margin: 50px auto;
+  }
+  .table th, .table td {
+    border-top: none;
+  }
+  .table th {
+    border-bottom: 2px solid #dee2e6;
+  }
+</style>
+</head>
+<body>
+
+<div class="container feedback-container">
+  <h2 class="text-center mb-4">Liste des Feedbacks</h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Nom</th>
+          <th scope="col">Commentaire</th>
+             <th scope="col">Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let feedback of feedbacks">
+          <td>{{ feedback.nom }}</td>
+          <td>{{ feedback.commentaire }}</td>
+          <td>
+            <div class="rating-stars">
+              <span *ngFor="let star of [1, 2, 3, 4, 5]" class="fa fa-star"
+                [ngClass]="{'checked': feedback.rating >= star}"></span> <!-- Utilisation de feedback.rating pour afficher le rating -->
+            </div>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>

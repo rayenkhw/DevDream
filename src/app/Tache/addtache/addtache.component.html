@@ -68,6 +68,18 @@
             </div>
           </div>
           <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="fill">
+                <mat-label>Identifiant Etudiant</mat-label>
+                <input matInput type="text" placeholder="identifiantEtudiant" formControlName="identifiantEtudiant">
+                <mat-error *ngIf="identifiantEtudiant.invalid && (identifiantEtudiant.dirty || identifiantEtudiant.touched)">
+                  <div *ngIf="identifiantEtudiant.errors.required">Ce champ est requis</div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          
+          </div>
+          <div class="row">
             <div class="col-md-12">
               <button mat-raised-button type="submit" [disabled]="tacheForm.invalid">Envoyer</button>
               <button mat-raised-button type="button" (click)="reloadComponent()">Annuler</button>
@@ -78,3 +90,4 @@
     </div>
   </div>
 </div>
+

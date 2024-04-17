@@ -1,0 +1,14 @@
+/* Change la couleur du header de la carte en rouge */
+.card-header-danger {
+    background-color: rgb(255, 254, 254);
+    color: white; /* Change la couleur du texte en blanc pour contraster */
+  }
+  
+  /* Change la couleur de l'icône du header en rouge */
+
+  
+
+  .icon-rouge {
+    color: rgb(85, 3, 3); /* Change la couleur de l'icône en rouge */
+  }
+  

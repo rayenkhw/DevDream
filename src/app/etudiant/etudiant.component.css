@@ -1,0 +1,132 @@
+.example-container {
+  width: 400px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.example-list {
+  border: solid 1px #ccc;
+  min-height: 60px;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+}
+
+.example-box {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.task-details-sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: -700px; /* Le panneau est initialement caché */
+  width: 700px;
+  max-width: 80%;
+  background: #fff;
+  z-index: 1000;
+  /* display: none; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease; /* Animation de transition */
+}
+
+.task-details-sidebar.open {
+  right: 0; /* Affiche le panneau lorsque la classe open est présente */
+}
+
+.sidebar-content {
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.card-header-grey .card-title {
+  color: #333; /* Couleur du texte en noir */
+  font-weight: bold; /* Texte en gras */
+}
+.card-header-burgundy {
+background-color: #800020; /* Rouge bourgogne */
+}
+
+/* Rendre les éléments th en gras */
+table th {
+font-weight: 600;
+
+}
+/* Styles pour la carte ChatBot */
+.chatbot-card {
+position: fixed; /* Position fixe */
+top: 50%; /* Centre verticalement */
+right: 20px; /* Espacement depuis la droite */
+transform: translateY(-50%); /* Ajustement pour centrer verticalement */
+width: 300px; /* Largeur de la carte */
+z-index: 1000; /* Assure que la carte est au-dessus du contenu */
+}
+
+/* Styles pour l'icône de chatbot */
+.chatbot-icon {
+position: fixed; /* Position fixe */
+top: 50%; /* Centre verticalement */
+right: 340px; /* Espacement depuis la droite (largeur de la carte + espace supplémentaire) */
+transform: translateY(-50%); /* Ajustement pour centrer verticalement */
+width: 50px; /* Largeur de l'icône */
+height: 50px; /* Hauteur de l'icône */
+border-radius: 50%; /* Pour obtenir une forme circulaire */
+background-color: #ffffff; /* Couleur de fond blanche */
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Ombre douce */
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer; /* Curseur indiquant que c'est cliquable */
+}
+
+/* Styles pour l'icône de chatbot */
+.chatbot-icon i {
+color: #333333; /* Couleur du symbole de l'icône */
+}

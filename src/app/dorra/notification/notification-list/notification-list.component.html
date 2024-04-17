@@ -1,0 +1,21 @@
+
+
+<h2>notification List</h2>
+
+<div style="width: 80%; margin: auto; height: 400px; overflow-y: auto;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 10%;">Id Notification</th>
+        <th style="width: 30%;">Contenu</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let notification of notifications">
+        <td>{{ notification.id_notification }}</td>
+        <td>{{ notification.contenu }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Commentaire } from 'app/Models/commentaire';
 import {environment} from "../../../environments/environment";
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { forkJoin,of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { UserService } from '../UserService/user.service';
+import { AuthService } from '../UserService/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,10 @@ export class CommentaireService {
   private commentaireUrl: string;
   commentaires:Commentaire[]=[];
 
-  constructor(private httpClient: HttpClient,private userService:UserService) {
+  constructor(private httpClient: HttpClient,
+    private userService:UserService,
+    private authservice:AuthService) {
+      
     this.commentaireUrl=environment.baseUrl+"commentaire/" }
 
     getAllCommentaires(request): Observable<Commentaire[]> {
@@ -41,38 +45,55 @@ export class CommentaireService {
       return this.httpClient.post<any>(`tache/${tacheId}`, commentaire);
     }
   
-    getCommentsWithUsersByTacheId(tacheId: number): Observable<any> {
-      return this.httpClient.get<any>(`${this.commentaireUrl}${tacheId}`).pipe(
-        switchMap(comments => {
-          // Pour chaque commentaire, récupérer les informations de l'utilisateur associé à la tâche
-          const observables = comments.map(comment => {
-            let userId: number;
-            if (comment.tache && comment.tache.etudiant) {
-              userId = comment.tache.etudiant.id;
-            } else if (comment.tache && comment.tache.encadrant) {
-              userId = comment.tache.encadrant.id;
-            }
-            if (userId) {
-              return this.userService.getUserById(userId).pipe(
-                map(user => {
-                  return {
-                    ...comment,
-                    user: user
-                  };
-                })
-              );
-            } else {
-              // Gérer le cas où aucun utilisateur associé n'est trouvé
-              console.error('Aucun utilisateur associé trouvé pour le commentaire :', comment);
-              return of(comment); // Retourner le commentaire tel quel
-            }
+    getCommentsWithUsersByTacheId(tacheId: number): Observable<Commentaire[]> {
+      //const userId = this.authservice.getCurrentUserDetails().idUser;
+      return this.httpClient.get<Commentaire[]>(`${this.commentaireUrl}${tacheId}`).pipe(
+        map(comments => {
+          return comments.map(comment => {
+            return {
+              ...comment,
+              user: this.getUserForComment(comment)
+            };
           });
-          // Combiner tous les observables en un seul
-          return forkJoin(observables);
+        }),
+        catchError(error => {
+          console.error('Error fetching comments:', error);
+          return throwError(error);
         })
       );
     }
+    private getUserForComment(comment: Commentaire): Observable<any> {
+      if (!comment || !comment.tache) {
+        console.error('Invalid comment or task:', comment);
+        return of(null);
+      }
     
+      const tache = comment.tache;
+    
+      if (this.authservice.isAuthenticated()) {
+        if (tache.etudiant && tache.etudiant.idUser) {
+          return this.userService.getUserById(tache.etudiant.idUser).pipe(
+            catchError(error => {
+              console.error('Error fetching user for comment:', error);
+              return of(null);
+            })
+          );
+        } else if (tache.encadrant && tache.encadrant.idUser) {
+          return this.userService.getUserById(tache.encadrant.idUser).pipe(
+            catchError(error => {
+              console.error('Error fetching user for comment:', error);
+              return of(null);
+            })
+          );
+        } else {
+          console.error('No associated user found for the comment:', comment);
+          return of(null);
+        }
+      } else {
+        console.error('User is not authenticated.');
+        return of(null);
+      }
+    }
     
     
     
@@ -81,10 +102,12 @@ export class CommentaireService {
       return this.httpClient.post<Commentaire>(`${this.commentaireUrl}${tacheId}/utilisateurs/${userId}`, contenu);
     }
     
-    
-    modifyCommentaire(commentaireId: number, nouveauContenu: string, tacheId: number, userId: number): Observable<Commentaire> {
-      const url = `${this.commentaireUrl}/commentaires/${commentaireId}`;
-      return this.httpClient.put<Commentaire>(url, nouveauContenu, { params: { tacheId: tacheId.toString(), userId: userId.toString() } });
+  
+
+    modifyCommentaire(tacheId: number, commentaireId: number, userId: number, nouveauContenu: string): Observable<Commentaire> {
+      const url = `${this.commentaireUrl}${tacheId}/commentaires/${commentaireId}/utilisateurs/${userId}`;
+      const body = { contenu: nouveauContenu }; // Créez un objet JSON avec le contenu du commentaire
+      return this.httpClient.put<Commentaire>(url, body);
     }
 
  

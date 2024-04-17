@@ -1,0 +1,37 @@
+
+  
+<!-- Affichage des formations -->
+<input type="text" value=""  class="form-control" [(ngModel)]="mot_cle" placeholder="Search.." class="mb-2">
+
+ 
+<button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="searchFormations(mot_cle)">
+<i class="material-icons">search</i>
+<div class="ripple-container"></div>
+</button>
+<div class="d-flex flex-wrap justify-content-center">
+  <div *ngFor="let formation of formations" class="card custom-card mx-auto mb-3" style="max-width: 800px;">
+   <div class="card-body custom-text-size ">
+    <h5 class="card-title text-dark custom-title text-red">{{ formation.titre }}</h5>
+    <p class="card-text text-dark"> 
+      <span class="new-title">Description:</span>
+      <span>{{ formation.description }}</span></p>
+    <p class="card-text text-dark"> 
+      <span class="new-title">Date de début:</span>
+      <span>{{ formation.date_debut_formation }}</span></p>
+    <p class="card-text text-dark"> 
+     <span class="new-title">Date de fin:</span>
+      <span>{{ formation.date_fin_formation }}</span></p>
+   
+        <button (click)="toggleJadore(formation)">
+            <i class="fa fa-heart" [style.color]="formation.isLiked ? 'red' : 'black'"></i>
+          </button>
+         
+</div>
+
+
+    <div class="card-footer">
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,33 @@
+/* Définir la couleur rouge pour les boutons */
+.btn-danger {
+    background-color: rgb(109, 1, 1);
+    border-color: rgb(109, 1, 1);
+  }
+  
+  /* Définir la bordure rouge pour les cartes */
+  .card.border-danger {
+    border-color: rgb(104, 3, 3);
+  }
+  .custom-btn-color {
+    background-color: rgb(97, 4, 4); /* ou toute autre couleur de fond que vous souhaitez */
+    color: white; /* ou toute autre couleur de texte que vous souhaitez */
+}
+.custom-text-size {
+    font-size:18px; /* ou toute autre taille de police que vous souhaitez */
+}
+.custom-text-color {
+    color: rgb(122, 3, 13); /* ou toute autre couleur de texte que vous souhaitez */
+}
+.text-red {
+  color: rgb(109, 1, 1) !important;;
+}
+.custom-title {
+  font-size: 18px; /* Taille de la police */
+  font-weight: bold; /* Gras */
+  color: #800020; /* Couleur personnalisée */
+}
+.new-title {
+  font-size: 14px; /* Taille de la police */
+  font-weight: bold; /* Gras */
+  color: #000000; /* Couleur personnalisée */
+}

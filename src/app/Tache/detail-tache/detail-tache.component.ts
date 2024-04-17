@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject ,Output, EventEmitter} from '@angular/core';
 import { Tache } from 'app/Models/tache';
 import { TacheService } from 'app/Services/TacheService/tache.service';
 import { ActivatedRoute } from '@angular/router';
@@ -6,8 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Commentaire } from 'app/Models/commentaire';
 import { CommentaireService } from 'app/Services/CommentaireService/commentaire.service';
 import { UserService } from 'app/Services/UserService/user.service';
-import { User } from 'app/Models/user';
-import { Observable } from 'rxjs';
+import { AuthenticationResponse } from 'app/Models/user';
+import { AuthService } from 'app/Services/UserService/auth.service';
 import { DOCUMENT } from '@angular/common';
 import Swal from 'sweetalert2';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
@@ -28,78 +28,135 @@ export class DetailTacheComponent implements OnInit {
   dataSource = new MatTableDataSource<Commentaire>();
 
   @Input() selectedTacheId: number;
-  selectedTache: Tache;
+  @Input() selectedTache: Tache;
   formCommentaire: FormGroup;
-  user: User;
+  user: AuthenticationResponse;
   fileNameDialogRefup: MatDialogRef<UpdatecommentaireComponent>;
- 
+  @Output() close = new EventEmitter<void>();
 
-  constructor(private dialog: MatDialog,private tacheService: TacheService,
+  constructor(private dialog: MatDialog,
+              private tacheService: TacheService,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private userService: UserService,
+              private authService: AuthService,
               private commentaireService: CommentaireService,
               @Inject(DOCUMENT) private doc: Document) {
     this.initializeFormCommentaire();
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.selectedTacheId = +params['id'];
-      this.fetchSelectedTacheDetails();
-    });
+    if (!isNaN(this.selectedTacheId)) {
+      // Fetch task details only if selectedTacheId is valid
+      this.authService.getCurrentUser().subscribe(
+        (user: AuthenticationResponse) => {
+          this.user = user;
+          if (user) {
+            this.getEncadrantIdentifiant();
+          } else {
+            console.error('Current user not found.');
+          }
+        },
+        (error) => {
+          console.error('Error fetching current user:', error);
+        }
+      );
+    } else {
+      console.error('Invalid task ID provided:', this.selectedTacheId);
+    }
+    
   }
-
-  fetchSelectedTacheDetails(): void {
-    this.tacheService.getTacheById(this.selectedTacheId).subscribe(task => {
-      this.selectedTache = task;
-      this.commentaireService.getCommentsWithUsersByTacheId(task.id_tache).subscribe(comments => {
-        console.log(comments);
-        this.selectedTache.commentaireList = comments.map(comment => {
-          // Extrayez le nom d'utilisateur de chaque objet de commentaire
-          const user = comment.find(obj => obj.hasOwnProperty('nom')); // Assurez-vous que 'nom' est la clé contenant le nom d'utilisateur
-          // Retournez un nouvel objet de commentaire avec le nom d'utilisateur ajouté
-          return {
-            ...comment[0], // Supposons que le premier objet dans le tableau comment contient les détails du commentaire
-            username: user ? user['nom'] : 'Utilisateur inconnu' // Si aucun nom d'utilisateur n'est trouvé, affichez "Utilisateur inconnu"
-          };
-        });
-      });
-    });
+  getEncadrantIdentifiant(): void {
+    if (this.selectedTache && this.selectedTache.etudiant.identifiant) {
+      this.tacheService.getEncadrantIdentifiantForEtudiant(this.selectedTache.etudiant.identifiant)
+        .subscribe(
+          (encadrantIdentifiant: string) => {
+            this.fetchSelectedTacheDetails(encadrantIdentifiant);
+          },
+          (error) => {
+            console.error('Error fetching encadrant identifiant:', error);
+          }
+        );
+    } else {
+      console.error('Selected task or student ID is missing.');
+    }
   }
   
-  deleteCommentaire(id_comment: number): void {
-    this.commentaireService.deleteCommentaire(id_comment).subscribe(
-      () => {
-        console.log('Commentaire supprimé avec succès:', id_comment);
-        this.fetchSelectedTacheDetails(); // Rafraîchir la liste des commentaires après la suppression
-      },
-      (error) => {
-        console.error('Erreur lors de la suppression du commentaire:', error);
-      }
-    );
+  fetchSelectedTacheDetails(encadrantIdentifiant: string): void {
+    const etudiantIdentifiant = this.user.identifiant;
+    this.tacheService.getTacheDetailsByIdAndEncadrantAndEtudiant(this.selectedTacheId, encadrantIdentifiant, etudiantIdentifiant)
+      .subscribe(
+        (task: Tache) => {
+          if (task) {
+            this.selectedTache = task;
+            this.commentaireService.getCommentsWithUsersByTacheId(task.id_tache)
+              .subscribe(
+                (comments: Commentaire[]) => {
+                  this.commentaires = comments.map(comment => {
+                    const user1 = comment.tache && comment.tache.etudiant ? comment.tache.etudiant.nom : 'Unknown User';
+                    const user2 = comment.tache && comment.tache.encadrant ? comment.tache.encadrant.nom : 'Unknown User';
+                    return {
+                      ...comment,
+                      username1: user1,
+                      username2: user2,
+                      tache: task
+                    };
+                  });
+                },
+                (error) => {
+                  console.error('Error fetching comments:', error);
+                }
+              );
+          } else {
+            console.error('No task found with ID:', this.selectedTacheId);
+          }
+        },
+        (error) => {
+          console.error('Error fetching task details:', error);
+        }
+      );
   }
+  
+  
+
+  deleteCommentaire(id_comment: number): void {
+    if (this.selectedTache && this.selectedTache.etudiant && this.selectedTache.etudiant.identifiant) {
+      // Pass the encadrantIdentifiant argument to fetchSelectedTacheDetails
+      const encadrantIdentifiant = this.user.identifiant;
+      this.commentaireService.deleteCommentaire(id_comment).subscribe(
+        () => {
+          console.log('Comment deleted successfully:', id_comment);
+          this.fetchSelectedTacheDetails(encadrantIdentifiant); // Pass encadrantIdentifiant here
+        },
+        (error) => {
+          console.error('Error deleting comment:', error);
+        }
+      );
+    } else {
+      console.error('Selected task or student ID is missing or not a string.');
+    }
+  }
+  
 
   confirmBox(id_comment: any, nom: any): void {
     Swal.fire({
       title: 'Confirmation',
-      text: `Êtes-vous sûr de vouloir supprimer ce commentaire ?`,
+      text: `Are you sure you want to delete this comment?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, supprimer',
-      cancelButtonText: 'Annuler'
+      confirmButtonText: 'Yes, delete',
+      cancelButtonText: 'Cancel'
     }).then((result) => {
       if (result.isConfirmed) {
         this.deleteCommentaire(id_comment);
       }
     });
   }
+
   refresh(): void {
     this.doc.defaultView.location.reload();
   }
-  
 
   initializeFormCommentaire(): void {
     this.formCommentaire = this.formBuilder.group({
@@ -108,119 +165,69 @@ export class DetailTacheComponent implements OnInit {
   }
 
   ajouterCommentaire(): void {
-    if (this.formCommentaire.invalid || !this.selectedTache) {
-      console.error('Le formulaire est invalide ou la tâche sélectionnée est manquante.');
+    if (this.formCommentaire.invalid || !this.selectedTache ) {
+      console.error('Form is invalid or selected task is missing.');
       return;
     }
   
-    const contenu = this.formCommentaire.get('contenu').value;
-    const tacheId = this.selectedTache.id_tache;
-    const userId: number = this.userService.currentUser.idUser; 
-    const username = this.userService.currentUser.nom;
+    if (this.authService.isAuthenticated()) {
+      this.authService.getCurrentUser().subscribe(
+        (currentUser: AuthenticationResponse) => {
+          if (currentUser && currentUser.idUser && currentUser.nom) {
+            const userId: number = currentUser.idUser;
+            const username = currentUser.nom;
   
-    this.commentaireService.ajouterCommentaire(tacheId, contenu, userId).subscribe(
-      (commentaire) => {
-        console.log('Commentaire ajouté avec succès !', commentaire);
+            const contenu = this.formCommentaire.get('contenu').value;
+            const tacheId = this.selectedTache.id_tache;
   
-        // Créer un nouvel objet avec le commentaire et le nom d'utilisateur
-        const commentaireAvecUsername = {
-          ...commentaire,
-          username: username // Ajouter le nom d'utilisateur à l'objet
-        };
+            this.commentaireService.ajouterCommentaire(tacheId, contenu, userId).subscribe(
+              (commentaire) => {
+                console.log('Comment added successfully!', commentaire);
   
-        // Ajouter le commentaire à la liste des commentaires de la tâche sélectionnée
-        this.selectedTache.commentaireList.push(commentaireAvecUsername);
+                const commentaireAvecUsername = {
+                  ...commentaire,
+                  username: username
+                };
   
-        // Réinitialiser le formulaire sans récupérer à nouveau les commentaires
-        this.initializeFormCommentaire();
-      },
-      (error) => {
-        console.error('Erreur lors de l\'ajout du commentaire :', error);
-      }
-    );
-  }
-  openup(commentaire: Commentaire) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.width = "25%";
-    dialogConfig.data = {
-      commentaireId: commentaire.id_comment,
-      commentaire: commentaire
-    };
-    this.fileNameDialogRefup = this.dialog.open(UpdatecommentaireComponent, dialogConfig);
-  }
-  
-  
-
-  showUpdateForm(f: any) {
-    this.commBinding = f;
-    this.showUpdate = true;
-  }
-  confirmDialog(id_comment: any) {
-    if (confirm(`Are you sure you want to do this?`)) {
-        this.commentaireService.deleteCommentaire(id_comment).subscribe((d) => {
-            this.fetchSelectedTacheDetails();
-            console.log("done");
-        });
+                this.selectedTache.commentaireList.push(commentaireAvecUsername);
+                this.initializeFormCommentaire();
+              },
+              (error) => {
+                console.error('Error adding comment:', error);
+              }
+            );
+          } else {
+            console.error('Current user details are not available.');
+          }
+        },
+        (error) => {
+          console.error('Error fetching current user:', error);
+        }
+      );
+    } else {
+      console.error('User is not authenticated.');
     }
-}
-hideUpdateForm() {
-  this.showUpdate = false;
-}
-// updateCommentaire(commentaire: Commentaire) {
-//   if (commentaire && commentaire.id_comment) {
-//     this.commentaireService.updateCommentaire(commentaire.id_comment, commentaire).subscribe(
-//       () => {
-//         console.log('Commentaire mis à jour avec succès');
-//         // Appel à la méthode handleCommentaireModification() pour recharger les détails de la tâche après la mise à jour du commentaire
-//         this.handleCommentaireModification();
-//       },
-//       (error) => {
-//         console.error('Erreur lors de la mise à jour du commentaire:', error);
-//         Swal.fire('Error', 'Erreur lors de la mise à jour du commentaire', 'error');
-//       }
-//     );
-//   } else {
-//     console.error('Comment or its ID is undefined');
-//   }
-// }
-
-// Méthode pour recharger les détails de la tâche après la modification d'un commentaire
-handleCommentaireModification(): void {
-  // Rechargez les détails de la tâche pour obtenir les données mises à jour
-  this.fetchSelectedTacheDetails();
-}
-updateCommentaire(commentaire: Commentaire) {
-  // Vérifier si le commentaire et son ID sont définis
-  if (commentaire && commentaire.id_comment) {
-    // Récupérer le contenu du commentaire depuis l'entrée utilisateur
-    const nouveauContenu =  this.formCommentaire.get('contenu').value;
-
-    // Récupérer l'identifiant de la tâche associée au commentaire
-    const tacheId = commentaire.tache.id_tache;
-
-    // Récupérer l'identifiant de l'utilisateur actuel
-    const userId: number = this.userService.currentUser.idUser;
-
-    // Appeler le service pour mettre à jour le commentaire
-    this.commentaireService.modifyCommentaire(commentaire.id_comment, nouveauContenu, tacheId, userId).subscribe(
-      () => {
-        console.log('Commentaire mis à jour avec succès');
-        // Appel à la méthode handleCommentaireModification() pour recharger les détails de la tâche après la mise à jour du commentaire
-        this.handleCommentaireModification();
-      },
-      (error) => {
-        console.error('Erreur lors de la mise à jour du commentaire:', error);
-        Swal.fire('Error', 'Erreur lors de la mise à jour du commentaire', 'error');
-      }
-    );
-  } else {
-    console.error('Commentaire ou son ID non défini');
-  }
-}
-
-  
-  
   }
   
 
+  openup(commentaire: Commentaire) {
+    console.log('Selected commentaire:', commentaire);
+    if (commentaire && commentaire.tache) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.width = "25%";
+      dialogConfig.data = {
+        commentaireId: commentaire.id_comment,
+        commentaire: commentaire,
+        tache: commentaire.tache
+      };
+      this.fileNameDialogRefup = this.dialog.open(UpdatecommentaireComponent, dialogConfig);
+    } else {
+      console.error('The "tache" property of "commentaire" object is undefined.');
+    }
+  }
+
+  closeTaskDetails() {
+    this.close.emit();
+  }
+}

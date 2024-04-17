@@ -1,118 +1,133 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Todo Taches -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header card-header-primary">
-                        <h4 class="card-title">Todo</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="text-primary">
-                                    <tr>
-                                        <th>Priorité</th>
-                                        <th>Description</th>
-                                        <th>Délai</th>
-                                        <th></th> <!-- Nouvelle colonne pour les actions -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Pour chaque tâche dans todoTaches -->
-                                    <tr *ngFor="let tache of todoTaches">
-                                        <td>{{ tache.priorite }}</td>
-                                        <td>{{ tache.description }}</td>
-                                        <td>{{ tache.delai }}</td>
-                                        <!-- Ajouter une colonne pour les actions avec un bouton d'icône -->
-                                        <td>
-                                            <button class="btn btn-success btn-link btn-sm btn-just-icon" (click)="showSelectedTaskDetails(tache, 'TODO')" >
-                                                
-                                                <i class="material-icons" style="color: black;">info</i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Todo Taches -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-burgundy" >
+            <h4 class="card-title">Todo</h4>
+          </div>
+          <div class="card-body" cdkDropList #todoList="cdkDropList" (cdkDropListDropped)="drop($event, 'todo')" [cdkDropListData]="todoTaches" [cdkDropListConnectedTo]="[inProgressList, doneList]">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-grey">
+                  <tr>
+                    <th>Priorité</th>
+                    <th>Description</th>
+                    <th>Délai</th>
+                    <th>Action</th> <!-- Nouvelle colonne pour les actions -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Utiliser une boucle pour afficher les tâches -->
+                  <tr *ngFor="let tache of todoTaches" cdkDrag>
+                    <td>{{ tache.priorite }}</td>
+                    <td>{{ tache.description }}</td>
+                    <td>{{ tache.delai }}</td>
+                    <td>
+                      <button class="btn btn-success btn-link btn-sm btn-just-icon" (click)="showSelectedTaskDetails(tache, 'Todo')">
+                        <i class="material-icons" style="color: black;">info</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-
-            <!-- In Progress Taches -->
-            <div class="col-md-4" >
-                <div class="card">
-                    <div class="card-header card-header-warning">
-                        <h4 class="card-title">In Progress</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="text-warning">
-                                    <tr>
-                                        <th>Priorité</th>
-                                        <th>Description</th>
-                                        <th>Délai</th>
-                                        <th></th> <!-- Nouvelle colonne pour les actions -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Pour chaque tâche dans inProgressTaches -->
-                                    <tr *ngFor="let tache of inProgressTaches">
-                                        <td>{{ tache.priorite }}</td>
-                                        <td>{{ tache.description }}</td>
-                                        <td>{{ tache.delai }}</td>
-                                        <!-- Ajouter une colonne pour les actions avec un bouton d'icône -->
-                                        <td>
-                                            <button class="btn btn-success btn-link btn-sm btn-just-icon" (click)="showSelectedTaskDetails(tache, 'In Progress')">
-                                                
-                                                <i class="material-icons" style="color: black;">info</i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Done Taches -->
-            <div class="col-md-4" >
-                <div class="card">
-                    <div class="card-header card-header-success">
-                        <h4 class="card-title">Done</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="text-success">
-                                    <tr>
-                                        <th>Priorité</th>
-                                        <th>Description</th>
-                                        <th>Délai</th>
-                                        <th></th> <!-- Nouvelle colonne pour les actions -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Pour chaque tâche dans doneTaches -->
-                                    <tr *ngFor="let tache of doneTaches">
-                                        <td>{{ tache.priorite }}</td>
-                                        <td>{{ tache.description }}</td>
-                                        <td>{{ tache.delai }}</td>
-                                        <!-- Ajouter une colonne pour les actions avec un bouton d'icône -->
-                                        <td>
-                                            <button class="btn btn-success btn-link btn-sm btn-just-icon" (click)="showSelectedTaskDetails(tache, 'Done')">
-                                                <i class="material-icons" style="color: black;">info</i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
+
+      <!-- In Progress Taches -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-burgundy">
+            <h4 class="card-title">In Progress</h4>
+          </div>
+          <div class="card-body" cdkDropList #inProgressList="cdkDropList" (cdkDropListDropped)="drop($event, 'inProgress')" [cdkDropListData]="inProgressTaches" [cdkDropListConnectedTo]="[todoList, doneList]">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-grey">
+                  <tr>
+                    <th>Priorité</th>
+                    <th>Description</th>
+                    <th>Délai</th>
+                    <th>Action</th> <!-- Nouvelle colonne pour les actions -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Utiliser une boucle pour afficher les tâches -->
+                  <tr *ngFor="let tache of inProgressTaches" cdkDrag>
+                    <td>{{ tache.priorite }}</td>
+                    <td>{{ tache.description }}</td>
+                    <td>{{ tache.delai }}</td>
+                    <td>
+                      <button class="btn btn-success btn-link btn-sm btn-just-icon" (click)="showSelectedTaskDetails(tache, 'InProgress')">
+                        <i class="material-icons" style="color: black;">info</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Done Taches -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-burgundy">
+            <h4 class="card-title">Done</h4>
+          </div>
+          <div class="card-body" cdkDropList #doneList="cdkDropList" (cdkDropListDropped)="drop($event, 'done')" [cdkDropListData]="doneTaches" [cdkDropListConnectedTo]="[todoList, inProgressList]">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-grey">
+                  <tr>
+                    <th >Priorité</th>
+                    <th >Description</th>
+                    <th>Délai</th>
+                    <th >Action</th> <!-- Nouvelle colonne pour les actions -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Utiliser une boucle pour afficher les tâches -->
+                  <tr *ngFor="let tache of doneTaches" cdkDrag>
+                    <td>{{ tache.priorite }}</td>
+                    <td>{{ tache.description }}</td>
+                    <td>{{ tache.delai }}</td>
+                    <td>
+                      <button class="btn btn-success btn-link btn-sm btn-just-icon" (click)="showSelectedTaskDetails(tache, 'Done')">
+                        <i class="material-icons" style="color: black;">info</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar for task details -->
+<div class="task-details-sidebar" [ngClass]="{'open': showTaskDetails}">
+<div class="sidebar-content">
+  <button class="close-btn" (click)="closeTaskDetails()">&times;</button>
+  <div *ngIf="selectedTacheId !== undefined">
+    <app-detail-tache [selectedTache]="selectedTask" [selectedTacheId]="selectedTacheId"></app-detail-tache>
+  </div>
+</div>
+</div>
     </div>
+  </div>
+</div>
+<div class="container">
+  <!-- Icône de chatbot -->
+  <button class="chatbot-icon" (click)="toggleChatbot()">
+    <i class="material-icons">chat</i>
+  </button>
+
+  <!-- Composant ChatBot -->
+  <div class="chatbot-container" *ngIf="showChatbot">
+    <app-chatboot></app-chatboot>
+  </div>
 </div>

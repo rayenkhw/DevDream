@@ -1,0 +1,9 @@
+.btn-bordeaux {
+    background-color: #800020; /* Rouge bordeaux */
+    color: white; /* Texte blanc pour une meilleure lisibilité */
+    border: none; /* Supprimer la bordure par défaut des boutons */
+  }
+  
+  .btn-bordeaux:hover {
+    background-color: #5d0015; /* Une teinte légèrement plus foncée au survol */
+  }

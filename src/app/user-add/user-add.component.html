@@ -1,0 +1,43 @@
+
+
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card border-danger" style="max-width: 500px;margin-bottom: 80px;"> <!-- Ajoutez style="max-width: 400px;" pour limiter la largeur de la carte -->
+    <div class="card-header bg-danger text-white">Ajouter un Utilisateur</div>
+    <div class="card-body">
+      <form [formGroup]="validateForm" (ngSubmit)="addUser()">
+          <div class="form-group">
+              <label for="Nom">Nom</label>
+              <input type="text" class="form-control" formControlName="nom" id="nom" required>
+            </div>
+            <div class="form-group">
+              <label for="Prenom">Prenom</label>
+              <input type="text" class="form-control" formControlName="prenom" id="prenom" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" formControlName="email" id="email" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Mot de passe</label>
+              <input type="password" class="form-control" formControlName="password" id="password" required>
+            </div>
+           
+            <!-- Ajoutez d'autres champs de formulaire ici de la même manière -->
+            <div class="form-group">
+              <label for="role">Role</label>
+              <select class="form-control" formControlName="role" id="role">
+                <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+              </select>
+            </div>
+            <!-- <div class="form-group">
+<label for="imageUpload">Upload Image</label>
+<input type="file" class="form-control" formControlName="imageUpload" id="imageUpload" accept="image/*" required>
+</div> -->
+
+        <button type="submit" class="btn btn-danger btn-block" [disabled]="!validateForm.valid" >Ajouter Offre</button>
+        <button type="submit" class="btn btn-danger btn-block" routerLink="/admin/afficher-offre">Anuller</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,117 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-8">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Details Tache</h4>
+                      <p class="card-category">View details taches</p>
+                  </div>
+                  <div class="card-body">
+                    <form *ngIf="selectedTache">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <div class="form-group">
+                              <label class="bmd-label-static"><strong>Priorité:</strong></label><br>
+                              <span class="badge" [ngClass]="{
+                                'badge-danger': selectedTache?.priorite >= 80,
+                                'badge-warning': selectedTache?.priorite >= 50 && selectedTache?.priorite < 80,
+                                'badge-info': selectedTache?.priorite < 50
+                              }">{{ getPriorityLabel(selectedTache?.priorite) }}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-static"><strong>Statut:</strong></label>
+                            <p class="form-control-static">{{ selectedTache?.status }}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="bmd-label-static"><strong>Description:</strong></label>
+                            <textarea class="form-control" rows="8" [value]="selectedTache?.description" readonly></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-static"><strong>Performance:</strong></label>
+                            <p class="form-control-static">{{ selectedTache?.performance }}</p>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-static"><strong>Délai:</strong></label>
+                            <p class="form-control-static">{{ selectedTache?.delai }}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <mat-form-field class="example-full-width">
+                              <label class="bmd-label-static"><strong>Remarque:</strong></label>
+                              <p class="form-control-static">{{ selectedTache?.remarque }}</p>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    
+                          
+                      </form>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="card card-profile">
+                  <div class="card-avatar">
+                      <a href="javascript:void(0)">
+                          <img class="img" src="./assets/img/faces/marc.jpg" />
+                      </a>
+                  </div>
+                  <div class="card-body">
+                      <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                      <h4 class="card-title">Alec Thompson</h4>
+                      <p class="card-description">
+                          Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                      </p>
+                      <div *ngIf="commentaires && commentaires.length > 0">
+                        <h5>Commentaires :</h5>
+                        <ul>
+                          <li *ngFor="let commentaire of commentaires">
+                            <p *ngIf="!getUserName(commentaire)">Aucun utilisateur associé pour ce commentaire.</p>
+                            <p *ngIf="getUserName(commentaire)">Commentaire de {{ getUserName(commentaire) }} : {{ commentaire.contenu }}</p>
+                            <p><small>Posté le {{ commentaire.dateCreation }}</small></p>
+                            <button (click)="openup(commentaire)">Modifier</button>
+                            <button (click)="confirmBox(commentaire.id_comment, commentaire.contenu)">Supprimer</button>
+                          </li>
+                          
+                        </ul>
+                      </div>
+                      <div *ngIf="commentaires && commentaires.length === 0">
+                        <p>Aucun commentaire pour le moment.</p>
+                      </div>
+                      <form [formGroup]="formCommentaire" (ngSubmit)="ajouterCommentaire()">
+                        <div class="form-group" [ngClass]="{'has-error': controlErrorState()}">
+                          <label for="contenu" class="bmd-label-static">Contenu:</label>
+                          <textarea matInput formControlName="contenu" placeholder="Contenu" rows="4"></textarea>
+                          <div *ngIf="controlErrorState()" class="text-danger">Contenu is required</div>
+                        </div>
+                        
+                        
+                        <button mat-raised-button type="submit" class="btn btn-danger btn-round">Add Comment</button>
+                      
+                        
+                    </form>
+                      
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

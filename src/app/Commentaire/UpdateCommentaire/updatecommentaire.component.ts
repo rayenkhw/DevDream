@@ -1,8 +1,10 @@
-import { Component, Inject,OnInit,Input } from '@angular/core';
+import { Component, Inject, OnInit, Input } from '@angular/core';
 import { Commentaire } from 'app/Models/commentaire';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommentaireService } from 'app/Services/CommentaireService/commentaire.service';
+import { UserService } from 'app/Services/UserService/user.service';
+import { AuthService } from 'app/Services/UserService/auth.service';
 
 @Component({
   selector: 'app-updatecommentaire',
@@ -12,28 +14,18 @@ import { CommentaireService } from 'app/Services/CommentaireService/commentaire.
 export class UpdatecommentaireComponent implements OnInit {
   commentaireId: number;
   commentaire: Commentaire;
-  @Input()comm:any
-  commentaires: Commentaire[] = []; // Liste des commentaires disponibles
-  commentaireSelectionne: Commentaire | null = null; // Commentaire sélectionné pour la modification
-
-  
 
   formCommentaire: FormGroup;
 
-  @Input()
-  cancelLabel = 'Cance'
-  @Input()
-  showCancelButton
-
-  constructor( @Inject(MAT_DIALOG_DATA) public data: { commentaireId: number, commentaire: Commentaire }
-  ,private formBuilder: FormBuilder, 
-  private commentaireService: CommentaireService) { 
-
-    this.commentaireId =  data.commentaireId;
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { commentaireId: number, commentaire: Commentaire },
+    private formBuilder: FormBuilder,
+    private commentaireService: CommentaireService,
+    private authService: AuthService,
+  ) {
+    this.commentaireId = data.commentaireId;
     this.commentaire = data.commentaire;
   }
- 
-
 
   ngOnInit(): void {
     this.initializeForm();
@@ -45,13 +37,29 @@ export class UpdatecommentaireComponent implements OnInit {
     });
   }
 
-  updateCommentaire(c:Commentaire){
-    this.commentaireService.updateCommentaire(this.commentaire.id_comment,c).subscribe((data)=>{
-      console.log("DONE !")
-    })
+  updateCommentaire(c: Commentaire) {
+    const nouveauContenu = this.formCommentaire.get('contenu').value;
     
-    }
-
-    
+    // Check if the 'tache' property is defined in the 'commentaire' object and not null
+    if (this.commentaire && this.commentaire.tache && this.commentaire.tache.id_tache) {
+      const tacheId = this.commentaire.tache.id_tache;
+      const userId: number = this.authService.getCurrentUserDetails().idUser;
   
+      // Call the service to update the comment
+      this.commentaireService.modifyCommentaire(tacheId, this.commentaire.id_comment, userId, nouveauContenu)
+        .subscribe(
+          (data) => {
+            console.log("Comment updated successfully!");
+            // Add any additional logic here after comment update
+          },
+          (error) => {
+            console.error("An error occurred while updating the comment:", error);
+            // Handle the error here
+          }
+        );
+    } else {
+      console.error("The 'tache' property of the 'commentaire' object is undefined or null.");
+      // Handle this situation by displaying an error message or taking other necessary action.
+    }
+  }
 }

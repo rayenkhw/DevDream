@@ -1,9 +1,11 @@
-import { Component,EventEmitter, Input, OnInit, Output  } from '@angular/core';
+import { Component,EventEmitter, Inject, Input, OnInit, Output  } from '@angular/core';
 import { FormGroup,FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Tache, Tache_status } from 'app/Models/tache';
 import { TacheService } from 'app/Services/TacheService/tache.service';
 import {ActivatedRoute, Router } from '@angular/router';
 import { map, Observable, startWith } from 'rxjs';
+import { AuthService } from 'app/Services/UserService/auth.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-addtache',
@@ -12,7 +14,7 @@ import { map, Observable, startWith } from 'rxjs';
 })
 export class AddtacheComponent implements OnInit {
   @Output()notif=new EventEmitter();
- 
+  @Output() tacheAdded: EventEmitter<Tache> = new EventEmitter<Tache>();
   myControl = new FormControl('');
   tacheForm: FormGroup;
   options: string[] = ['ToDO', 'InProgress', 'Done'];
@@ -22,7 +24,7 @@ export class AddtacheComponent implements OnInit {
   clicked : boolean = false;
   date:string;
 
-  constructor(private formBuilder: FormBuilder, private tacheService: TacheService, 
+  constructor(@Inject(DOCUMENT) private doc: Document,private authService: AuthService,private formBuilder: FormBuilder, private tacheService: TacheService, 
     private _activatedRoute: ActivatedRoute, private router: Router) {
 
 
@@ -42,8 +44,32 @@ export class AddtacheComponent implements OnInit {
       map(value => this._filter(value || '')),);
 
     this.initializeForm();
+    this.loadTaches();
   }
-
+  loadTaches(): void {
+   
+      // Appel du service d'authentification pour récupérer l'ID de l'encadrant
+      this.authService.getEncadrantId().subscribe(
+        encadrantId => {
+          // Utilisation de l'ID de l'encadrant pour récupérer les tâches des étudiants encadrés
+          this.tacheService.getTasksForSupervisor(encadrantId).subscribe(
+            tasks => {
+              this.taches = tasks;
+            },
+            error => {
+              console.error('Une erreur s\'est produite lors de la récupération des tâches : ', error);
+            }
+          );
+        },
+        error => {
+          console.error('Une erreur s\'est produite lors de la récupération de l\'ID de l\'encadrant : ', error);
+        }
+      );
+      
+  }
+  refresh(): void {
+    this.doc.defaultView.location.reload();
+}
   initializeForm(): void {
     this.tacheForm = this.formBuilder.group({
       priorite: ["", [Validators.required, Validators.min(0)]],
@@ -51,7 +77,8 @@ export class AddtacheComponent implements OnInit {
       status: [Tache_status.Todo,Validators.required],
       delai: ['',Validators.required],
       performance: ['',Validators.required],
-      remarque: ['',Validators.required]
+      remarque: ['',Validators.required],
+      identifiantEtudiant: ['', Validators.required]
     });
   }
   addTache(){
@@ -75,15 +102,22 @@ export class AddtacheComponent implements OnInit {
   get remarque(){
     return this.tacheForm.get('remarque');
   }
+  get identifiantEtudiant(){
+    return this.tacheForm.get('identifiantEtudiant');
+  }
 
   onSubmit(): void {
     if (this.tacheForm.valid) {
       const tache: Tache = this.tacheForm.value;
-      this.tacheService.saveTache(tache).subscribe(
+      const identifiantEncadrant = this.authService.getIdentifiant(); 
+
+      this.tacheService.assignerTacheByIdentifiant(identifiantEncadrant, this.tacheForm.value.identifiantEtudiant, tache).subscribe(
         data => {
           console.log('response', data);
-          this.notif.emit(this.tacheForm.value);
-          this.router.navigateByUrl("/user/alltache");
+          // Émettre l'événement tacheAdded avec la nouvelle tâche ajoutée
+          this.tacheAdded.emit(tache);
+          // Rediriger vers la page Ghofrane
+          this.router.navigateByUrl('/user/ghofrane');
         },
         error => {
           console.error('Error adding tache: ', error);
@@ -91,6 +125,8 @@ export class AddtacheComponent implements OnInit {
       );
     }
   }
+
+
 
   activeNote: string;
   enter(i) {
@@ -106,7 +142,7 @@ export class AddtacheComponent implements OnInit {
   reloadComponent() {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['/user/alltache']);
+    this.router.navigate(['/user/ghofrane']);
   }
   getErrorMessage(controlName: string) {
     const control = this.tacheForm.get(controlName);
@@ -114,5 +150,6 @@ export class AddtacheComponent implements OnInit {
       control.hasError('min') ? 'La valeur minimale est 0' :
         '';
   }
+  
   
 }

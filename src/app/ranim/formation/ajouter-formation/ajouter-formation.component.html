@@ -1,0 +1,47 @@
+
+<form class="container" [formGroup]="validateForm">
+    <div class="card border-danger mx-auto mt-5" style="max-width: 500px;">
+      <div class="card-body">
+        <h5 class="card-title text-dark">Ajouter Formation</h5>
+        <div class="mb-3">
+          <label for="titre" class="form-label text-dark">Titre</label>
+          <input type="text" class="form-control" id="titre" formControlName="titre" >
+          <!-- Afficher le message d'erreur si le champ titre est invalide -->
+          <div *ngIf="validateForm.get('titre')?.invalid && (validateForm.get('titre')?.dirty || validateForm.get('titre')?.touched)" class="text-danger">
+            <div *ngIf="validateForm.get('titre')?.errors.required">Le titre est invalide .</div>
+          </div>
+        </div>
+    
+        <div class="mb-3">
+          <label for="description" class="form-label text-dark">Description</label>
+          <input type="text" class="form-control" id="description" formControlName="description" >
+          <!-- Afficher le message d'erreur si le champ description est invalide -->
+          <div *ngIf="validateForm.get('description')?.invalid && (validateForm.get('description')?.dirty || validateForm.get('description')?.touched)" class="text-danger">
+            <div *ngIf="validateForm.get('description')?.errors.required">La description est invalide.</div>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="date_debut_formation" class="form-label text-dark">Date_Debut_Formation</label>
+          <input type="date" class="form-control" id="date_debut_formation" formControlName="date_debut_formation">
+          <!-- Afficher le message d'erreur si le champ description est invalide -->
+          <div *ngIf="validateForm.get('date_debut_formation')?.invalid && (validateForm.get('date_debut_formation')?.dirty || validateForm.get('date_debut_formation')?.touched)" class="text-danger">
+            <div *ngIf="validateForm.get('date_debut_formation')?.errors.required">date_debut_formation est invalide.</div>
+          </div>
+        </div>
+              
+        <div class="mb-3">
+          <label for="date_fin_formation" class="form-label text-dark">Date_Fin_Formation</label>
+          <input type="date" class="form-control" id="date_fin_formation" formControlName="date_fin_formation" >
+          <!-- Afficher le message d'erreur si le champ description est invalide -->
+          <div *ngIf="validateForm.get('date_fin_formation')?.invalid && (validateForm.get('date_fin_formation')?.dirty || validateForm.get('date_fin_formation')?.touched)" class="text-danger">
+            <div *ngIf="validateForm.get('date_fin_formation')?.errors.required">date_fin_formation est invalide.</div>
+          </div>
+        </div>
+    
+        <button type="submit" class="btn btn-danger btn btn-primary float-left" (click)="addFormation()" [disabled]="!validateForm.valid" >Ajouter</button>
+        <button type="submit" class="btn btn-danger btn btn-secondary float-right" routerLink="/user/afficher-formation">Anuller</button>
+      </div>
+    </div>
+  </form>
+  

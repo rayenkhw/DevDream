@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserLayoutRoutes } from './user-layout.routing';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,16 +14,16 @@ import { GhofraneComponent } from 'app/ghofrane/ghofrane.component';
 import { NavbarComponent } from 'app/components/navbar/navbar.component';
 import { AddEtiquetteComponent } from 'app/Etiquette/add-etiquette/add-etiquette.component';
 import { AddtacheComponent } from 'app/Tache/addtache/addtache.component';
-import { AddUserComponent } from 'app/User/adduser/adduser.component';
+
 import { AddstageComponent } from 'app/Stage/addstage/addstage.component';
 import { AddcommentaireComponent } from 'app/Commentaire/AddCommentaire/addcommentaire.component';
 import { UpdateEtiquetteComponent } from 'app/Etiquette/update-etiquette/update-etiquette.component';
 import { UpdatecommentaireComponent } from 'app/Commentaire/UpdateCommentaire/updatecommentaire.component';
 import { UpdatestageComponent } from 'app/Stage/updatestage/updatestage.component';
-import { UpdateuserComponent } from 'app/User/updateuser/updateuser.component';
+
 import { AllEtiquetteComponent } from 'app/Etiquette/all-etiquette/all-etiquette.component';
 import { AllstageComponent } from 'app/Stage/allstage/allstage.component';
-import { AlluserComponent } from 'app/User/alluser/alluser.component';
+
 import { ListcommentaireComponent } from 'app/Commentaire/ListeOfCommentaire/listcommentaire.component';
 import { AlltacheComponent } from 'app/Tache/alltache/alltache.component';
 import { UpdateTacheComponent } from 'app/Tache/updatetache/updatetache.component';
@@ -34,6 +35,15 @@ import { EncadrantComponent } from 'app/encadrant/encadrant.component';
 import { EtudiantComponent } from 'app/etudiant/etudiant.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DetailTacheComponent } from 'app/Tache/detail-tache/detail-tache.component';
+import { SidebartaskComponent } from 'app/Tache/sidebartask/sidebartask.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { DetailtachencadrantComponent } from 'app/Tache/detailtachencadrant/detailtachencadrant.component';
+import { DetailetudianttacheComponent } from 'app/Tache/detailetudianttache/detailetudianttache.component';
+import { ChatbootComponent } from 'app/chatboot/chatboot.component';
+import { ProfileComponent } from 'app/profile/profile.component';
+
+   
 
 @NgModule({
   imports: [
@@ -54,29 +64,37 @@ import { DetailTacheComponent } from 'app/Tache/detail-tache/detail-tache.compon
     MatPaginatorModule,
     MatInputModule,
     ReactiveFormsModule,
-    DragDropModule
+    DragDropModule,
+    MatSidenavModule,
+    MatIconModule
   ],
   declarations: [
     AddtacheComponent,
     AddEtiquetteComponent,
-    AddUserComponent,
+    
     AddstageComponent,
     AddcommentaireComponent,
     UpdateEtiquetteComponent,
     UpdateTacheComponent, // Ajouter le composant ici
     UpdatecommentaireComponent,
     UpdatestageComponent,
-    UpdateuserComponent,
+   
     AllEtiquetteComponent,
     AllstageComponent,
-    AlluserComponent,
+   
     ListcommentaireComponent,
     AlltacheComponent,
     GhofraneComponent,
     ErrorsComponent,
     EncadrantComponent,
     EtudiantComponent,
-    DetailTacheComponent
+    DetailTacheComponent,
+    SidebartaskComponent,
+    ChatbootComponent,
+    ProfileComponent,
+        DetailtachencadrantComponent,
+        
+        DetailetudianttacheComponent
   ]
 })
 

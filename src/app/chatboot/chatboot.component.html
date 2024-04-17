@@ -1,0 +1,36 @@
+<div class="container">
+    <!-- Carte ChatBoot -->
+    <div class="card">
+      <!-- En-tête de la carte -->
+      <div class="card-header text-center">
+        <h1>ChatBoot</h1>
+      </div>
+      <!-- Corps de la carte -->
+      <div class="card-body">
+        <!-- Liste des messages -->
+        <ng-container *ngFor="let message of messages">
+          <div class="message" [ngClass]="{'from': message.author === 'bot', 'to': message.author === 'user'}">
+            {{ message.content }}
+          </div>
+        </ng-container>
+      </div>
+      <!-- Pied de la carte -->
+      <div class="card-footer">
+        <!-- Libellé des messages -->
+        <label *ngIf="messages.length == 0; else dialogInfoBlock" for="nameField"> Your Messages</label>
+        <ng-template #dialogInfoBlock>
+          <!-- Contenu à afficher lorsque messages.length > 0 -->
+        </ng-template>
+        
+        <!-- Champ de saisie du message -->
+        <input [(ngModel)]="value" (keyup.enter)="sendMessage()" type="text" class="form-control">
+        <!-- Bouton pour envoyer le message -->
+        <button class="btn btn-primary" (click)="sendMessage()">Ask IA</button>
+        <!-- Affichage du nombre total de messages -->
+        <ng-template [ngIf]="messages.length > 0">
+          <span class="float-right">Total Messages: {{ messages.length }}</span>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  

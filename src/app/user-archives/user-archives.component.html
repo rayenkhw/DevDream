@@ -1,0 +1,67 @@
+
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-danger">
+            <h4 class="card-title ">  Archives utilisateurs</h4>
+           
+  
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                        <th>
+                            Identifiant
+                        </th>
+                        <th>
+                            Nom
+                        </th>
+                        <th>
+                            Prenom
+                        </th>
+                        <th>
+                            Cin
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <!-- <th>
+                            Password
+                        </th> -->
+                        <th>
+                            Role
+                        </th>
+                        <th>
+                            Niveau
+                        </th>
+                        <th>
+                            Specialite
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </thead>
+                    <tbody *ngFor="let utilisateurs of userss">
+                     <tr >
+                       <td>{{ utilisateurs.identifiant }}</td>
+                       <td>{{ utilisateurs.nom }}</td>
+                       <td>{{utilisateurs.prenom}}</td>
+                       <td>{{utilisateurs.cin}}</td>
+                       <td>{{utilisateurs.email}}</td>
+                       <!-- <td>{{utilisateurs.password}}</td> -->
+                       <td>{{utilisateurs.role}}</td>
+                       <td>{{utilisateurs.niveau}}</td>
+                       <td>{{utilisateurs.specialite}}</td>
+                       <td>
+                        <!-- Boutons Update et Delete -->
+                        <button (click)="deleteUserArchives(utilisateurs.idUser)" class="btn btn-danger">Restore</button>
+                    </td>
+                     </tr>   
+                     
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

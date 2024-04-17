@@ -1,0 +1,16 @@
+<form (ngSubmit)="sendDepot()">
+    <div>
+      <label for="travail">votre Projet de stage</label>
+      <input type="file" id="travail" (change)="onFileSelected($event, 'travail')"  />
+    </div>
+    <div>
+      <label for="rapportDeStage">rapport de stage:</label>
+      <input type="file" id="rapportDeStage" (change)="onFileSelected($event, 'rapportDeStage')" accept=".pdf,.doc,.docx" />
+    </div>
+    <div>
+      <label for="journalDeStage">journal de stage:</label>
+      <input type="file" id="journalDeStage" (change)="onFileSelected($event, 'journalDeStage')" accept=".pdf,.doc,.docx" />
+    </div>
+    <button type="button" (click)="sendDepot()">Submit</button>
+  </form>
+  
