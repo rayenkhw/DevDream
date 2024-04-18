@@ -1,0 +1,18 @@
+<configuration>
+
+    <!-- Définir le niveau de log pour le package tn.esprit.devdream.services -->
+    <logger name="tn.esprit.devdream.services" level="DEBUG" />
+
+    <!-- Spécifier le format de sortie pour les logs -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Activer la sortie des logs vers la console -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
