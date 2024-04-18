@@ -1,0 +1,90 @@
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+</script>
+<div class="container mt-5">
+  <div class="row">
+   <!-- Column for additional stages where stages can be dropped -->
+<div class="col-md-3" (dragover)="allowDrop($event)" (drop)="onStageDrop($event)">
+  <div class="card">
+    <div class="card-header">
+      <h3>Stages Additionnels</h3>
+    </div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li *ngFor="let additionalStage of additionalStages" class="list-group-item">
+          Stage {{ additionalStage.id_stage }}: from {{ additionalStage.date_debut | date:'shortDate' }} to {{ additionalStage.date_fin | date:'shortDate' }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+   
+<div class="col-md-3">
+  <div class="card">
+    <div class="card-header">
+      <h3>Liste des Stages</h3>
+    </div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li *ngFor="let stage of stages" 
+            class="list-group-item" 
+            [class.active]="selectedStage?.id_stage === stage.id_stage" 
+            (click)="selectStage(stage)"
+            draggable="true"
+            (dragstart)="dragStart($event, stage)"
+            (dragend)="dragEnd()">
+          Stage {{ stage.id_stage }}: du {{ stage.date_debut | date:'shortDate' }} au {{ stage.date_fin | date:'shortDate' }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <!-- Column for the evaluation form and user scores -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2>Formulaire d'évaluation</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="date_evaluation" class="form-label">Date d'évaluation</label>
+              <input type="date" class="form-control" id="date_evaluation" formControlName="date_evaluation">
+            </div>
+            <div class="mb-3">
+              <label for="note" class="form-label">Note</label>
+              <input type="text" class="form-control" id="note" formControlName="note">
+            </div>
+            <input type="hidden" formControlName="stageId">
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary" [disabled]="!evaluationForm.valid" style="background-color: #800020; color: white;">Évaluer</button>
+              <button type="button" class="btn btn-outline-secondary" (click)="goToAffichage()" style="background-color: #800020; color: white;">Voir les évaluations</button>
+            </div>
+          </form>
+          <div *ngIf="message" class="alert" [class.alert-success]="isSuccess" [class.alert-danger]="!isSuccess">
+            {{ message }}
+          </div>
+          <h3>Scores des utilisateurs</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Score</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let score of scores">
+                <td>{{ score.userId }}</td>
+                <td>{{ score.score }}</td>
+                <td>{{ score.total }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

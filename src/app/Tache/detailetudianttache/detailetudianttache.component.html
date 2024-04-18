@@ -1,0 +1,32 @@
+<div class="modal-body">
+    <button type="button" class="close" aria-label="Close" mat-icon-button (click)="closeDialog()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    <h2 class="text-center mb-4">Détails de l'étudiant</h2>
+  
+    
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        Informations personnelles
+      </div>
+      <div class="card-body">
+        <p><strong>Nom:</strong> {{ etudiant.nom }}</p>
+        <p><strong>Prénom:</strong> {{ etudiant.prenom }}</p>
+        <p><strong>Email:</strong> {{ etudiant.email }}</p>
+        <!-- Ajoutez d'autres détails de l'étudiant ici -->
+      </div>
+    </div>
+  
+    <div class="card mt-3" *ngIf="nombreTachesAffectees !== undefined">
+      <div class="card-header bg-success text-white">
+        Statistiques
+      </div>
+      <div class="card-body">
+        <p><strong>Nombre de tâches affectées:</strong> {{ nombreTachesAffectees }}</p>
+        <!-- Ajoutez d'autres statistiques ici si nécessaire -->
+      </div>
+    </div>
+  
+  
+  </div>
+  

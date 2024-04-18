@@ -1,0 +1,24 @@
+<div>
+    <h2>Add New Reclamation</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label for="typReclamation">Type of Reclamation:</label>
+        <select id="typReclamation" [(ngModel)]="newReclamation.typReclamation" name="typReclamation" required>
+          <option *ngFor="let type of reclamationTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+      <div>
+        <label for="contenu">Contenu:</label>
+        <input type="text" id="contenu" [(ngModel)]="newReclamation.contenu" name="contenu" required>
+      </div>
+      <!-- Add more form fields as needed -->
+  
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+  </div>
+  

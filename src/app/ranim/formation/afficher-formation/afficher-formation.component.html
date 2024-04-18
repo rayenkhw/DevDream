@@ -1,0 +1,61 @@
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+       
+        <button type="submit" class="btn btn-danger"  routerLink="/user/ajouter-formation">Ajouter</button>
+        <!-- Affichage des formations -->
+          
+              <!-- Champ de saisie pour les mots-clés de recherche -->
+<input type="text" value=""  class="form-control" [(ngModel)]="mot_cle" placeholder="Search.." class="mb-2">
+
+ 
+<button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="searchFormations(mot_cle)">
+<i class="material-icons">search</i>
+<div class="ripple-container"></div>
+</button>
+          
+      </div>
+        <div class="d-flex flex-wrap">
+          <div *ngFor="let formation of formations" class="card border border-danger mb-3 mr-3" style="max-width: 500px;">
+            <div class="card-body">
+              <h5 class="card-title text-dark custom-title text-red">{{ formation.titre }}</h5>
+              <p class="card-text text-dark"> 
+                <span class="new-title">Description:</span>
+                <span>{{ formation.description }}</span></p>
+              <p class="card-text text-dark"> 
+                <span class="new-title">Date de début:</span>
+                <span>{{ formation.date_debut_formation }}</span></p>
+              <p class="card-text text-dark"> 
+               <span class="new-title">Date de fin:</span>
+                <span>{{ formation.date_fin_formation }}</span></p>
+             
+            <div class="date-ajout">
+              <p> {{ formation.dateAjout | date: 'medium' }}</p>
+            </div>
+            <div class="card-footer">
+              <!-- Bouton Modifier -->
+              <button class="btn btn-danger mr-2" (click)="modifyFormation(formation)">Modifier</button>
+              <!-- Bouton Supprimer -->
+              <button class="btn btn-danger" (click)="removeFormation(formation.id_formation)">Supprimer</button>
+            </div>
+             <!-- Formulaire de modification (conditionnel) -->
+          <div *ngIf="formation.id_formation === selectedFormationId">
+            <form [formGroup]="ValidateForm" (ngSubmit)="modifyFormation()">
+              <label for="titre">Titre</label>
+              <input type="text" formControlName="titre" class="form-control" />
+              <label for="description">Description</label>
+              <textarea formControlName="description" class="form-control"></textarea>
+              <label for="date_debut_formation">Date de début</label>
+              <input type="date" formControlName="date_debut_formation" class="form-control" />
+              <label for="date_fin_formation">Date de fin</label>
+              <input type="date" formControlName="date_fin_formation" class="form-control" />
+              <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </form>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

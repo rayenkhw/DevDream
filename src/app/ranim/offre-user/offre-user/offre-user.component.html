@@ -1,0 +1,37 @@
+
+        <!-- Affichage des offres -->
+        <input type="text" value=""  class="form-control" [(ngModel)]="keywords" placeholder="Search.." class="mb-2">
+
+ 
+<button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="searchOffers(keywords)">
+<i class="material-icons">search</i>
+<div class="ripple-container"></div>
+</button>
+        <div class="d-flex flex-wrap justify-content-center">
+          <div *ngFor="let offre of Offres" class="card border border-danger mb-3 mr-3" style="max-width: 800px;">
+            <div class="card-body custom-text-size">
+                <h5 class="card-title text-dark custom-title text-red">{{ offre.titre }}</h5>
+                <p class="card-text text-dark "><span class="new-title">Skills:</span>
+                                                <span>{{ offre.skills }}</span></p>
+                <p class="card-text text-dark "> <span class="new-title">Durée:</span>
+                                                 <span>{{ offre.duree }}</span> </p>
+                <p class="card-text text-dark"><span class="new-title">Description:</span>
+                                               <span>{{offre.description  }}</span></p>
+                                               <div class="d-flex justify-content-between align-items-center">
+                                                <div class="localisation">
+                                                  <p class="card-text text-dark "><i class="material-icons">location_on</i> Localisation:  <span>{{ offre.gouvernorat }}, {{ offre.ville }}, {{ offre.adresse }}</span></p>
+                                                </div>
+                                                <div class="date-ajout">
+                                                  <p class="card-text text-dark ">{{ offre.dateAjout | date: 'medium' }}</p>
+                                                </div>
+                                              </div>
+                                            </div>
+            <div class="card-footer">
+              <!-- Bouton Postuler -->
+              <button class="btn custom-btn-color mr-2" routerLink="/user/ajout-application">Postuler</button>
+            </div>
+  
+          </div>
+        </div>
+
+  

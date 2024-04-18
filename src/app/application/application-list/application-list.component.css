@@ -1,0 +1,217 @@
+h2 {text-align: center;}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .table tbody tr:hover {
+    background-color: hsl(0, 0%, 87%);
+  }
+  
+  button.show-statistics {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button.show-statistics:hover {
+    background-color: #0056b3;
+  }
+/* CSS for the etat header */
+.etat-header {
+  cursor: pointer; /* Change cursor shape to pointer */
+  position: relative; /* Set position to relative for absolute positioning of tooltip */
+}
+
+/* CSS for the tooltip */
+.tooltip {
+  visibility: hidden; /* Hide tooltip by default */
+  background-color: black; /* Tooltip background color */
+  color: white; /* Tooltip text color */
+  text-align: center; /* Center-align text */
+  padding: 5px; /* Add padding */
+  border-radius: 6px; /* Add border radius */
+  position: absolute; /* Set position to absolute */
+  z-index: 1; /* Ensure tooltip appears above other elements */
+  bottom: 125%; /* Position tooltip above the header */
+  left: 50%; /* Center tooltip horizontally */
+  transform: translateX(-50%); /* Center tooltip horizontally */
+  width: max-content; /* Set tooltip width based on content */
+}
+
+/* Show tooltip when hovering over etat header */
+.etat-header:hover .tooltip {
+  visibility: visible; /* Show tooltip on hover */
+}
+button {
+  display: flex;
+  border: none;
+  border-radius: 5px; /* Adjust the radius as needed */
+  padding: 10px 20px; /* Adjust padding as needed */
+  background-color: #eef1f3; /* Button background color */
+  color: #000000; /* Button text color */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition effect */
+  justify-content: center;
+  align-items: center;
+}
+
+button:hover {
+  background-color: #ac2424; /* Change background color on hover */
+  color: #ffffff;
+}
+
+.red-cell {
+  background-color: hsl(0, 61%, 64%); /* Red color */
+}
+
+.green-cell {
+  background-color: hsl(120, 100%, 90%); /* Green color */
+}
+
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+  background-color: #fefefe;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+
+
+
+.legend {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.legend div {
+  display: flex;
+  align-items: center;
+}
+
+.legend div span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+}
+
+.accepted { background-color: green; }
+.refused { background-color: red; }
+.pending { background-color: yellow; }
+
+.close{
+
+  cursor: pointer; /* Change cursor shape to pointer */
+  position: relative; /* Set position to relative for absolute positioning of tooltip */
+}
+
+
+@property --p{
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.pie {
+  --p:20;
+  --b:22px;
+  --c:darkred;
+  --w:150px;
+  
+  width:var(--w);
+  aspect-ratio:1;
+  position:relative;
+  display:inline-grid;
+  margin:5px;
+  place-content:center;
+  font-size:25px;
+  font-weight:bold;
+  font-family:sans-serif;
+}
+.pie:before,
+.pie:after {
+  content:"";
+  position:absolute;
+  border-radius:50%;
+}
+.pie:before {
+  inset:0;
+  background:
+    radial-gradient(farthest-side,var(--c) 98%,#0000) top/var(--b) var(--b) no-repeat,
+    conic-gradient(var(--c) calc(var(--p)*1%),#0000 0);
+  -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+          mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+}
+.pie:after {
+  inset:calc(50% - var(--b)/2);
+  background:var(--c);
+  transform:rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
+}
+.animate {
+  animation:p 1s .5s both;
+}
+.no-round:before {
+  background-size:0 0,auto;
+}
+.no-round:after {
+  content:none;
+}
+@keyframes p {
+  from{--p:0}
+}
+.donut-chart {
+  display: flex;
+  justify-content: center;
+}
+
+.pie-container {
+  display: flex;
+  gap: 20px; /* Adjust the gap between pies */
+}
+/* Add margin to the value divs for spacing */
+
+.pie-container {
+  display: flex;
+  justify-content: space-between; /* Adjust as needed */
+}
+
+.pie-wrapper {
+  text-align: center;
+}

@@ -1,0 +1,50 @@
+
+<div class="container-fluid d-flex justify-content-center align-items-center vh-300">
+  <div class="card border-danger" style="max-width: 800px; overflow-y: auto; max-height:500px;">
+    <div class="card-header bg-danger text-white">Ajouter une offre</div>
+    <div class="card-body">
+      <form (ngSubmit)="addOffre()" [formGroup]="offreForm">
+        <div class="mb-3">
+          <label for="titre" class="form-label">Titre</label>
+          <input type="text" class="form-control" formControlName="titre" id="titre" required>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <input type="text" class="form-control" formControlName="description" id="description" required>
+        </div>
+        <div class="mb-3">
+          <label for="skills" class="form-label">Skills</label>
+          <input type="text" class="form-control" formControlName="skills" id="skills" required>
+        </div>
+        <div class="mb-3">
+          <label for="duree" class="form-label">Durée</label>
+          <input type="text" class="form-control" formControlName="duree" id="duree" required>
+        </div>
+        <div class="mb-3">
+          <label for="nom" class="form-label">Nom de Societé:</label>
+          <input type="text" class="form-control" formControlName="nom" id="nom" required>
+        </div>
+        <div class="mb-3">
+          <label for="gouvernorat" class="form-label">Gouvernorat:</label>
+          <select formControlName="gouvernorat" (change)="onGovernorateChange()" class="form-select">
+            <option value="" disabled selected>Choisissez un gouvernorat</option>
+            <option *ngFor="let gouvernorat of gouvernorats" [value]="gouvernorat">{{ gouvernorat }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="ville" class="form-label">Ville:</label>
+          <select formControlName="ville" id="ville" required class="form-select">
+            <option value="" disabled selected>Choisissez une ville</option>
+            <option *ngFor="let ville of filteredVilles" [value]="ville">{{ ville }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="adresse" class="form-label">Adresse</label>
+          <input type="text" class="form-control" formControlName="adresse" id="adresse" required>
+        </div>
+        <button type="submit" class="btn btn-danger btn btn-primary float-right"  [disabled]="!offreForm.valid">Ajouter Offre</button>
+        <button type="button" class="btn btn-danger btn btn-secondary float-left"  routerLink="/user/afficher-offre">Anuller</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  border: 1px solid #dee2e6;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.table th {
+  background-color: #f8f9fa;
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table thead th {
+  background-color: #007bff;
+  color: white;
+}
+@media (max-width: 768px) {
+  .col-md-3, .col-md-6 {
+      flex: 0 0 100%;
+      max-width: 100%;
+  }
+}
+.form-control {
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+}
+
+.btn-primary, .btn-outline-secondary {
+  border-radius: 0.25rem;
+  padding: 10px 15px;
+}
+
+.btn-primary:hover, .btn-outline-secondary:hover {
+  opacity: 0.9;
+}
+.scores-container {
+  max-height: 400px; /* Adjust height as necessary */
+  overflow-y: auto; /* Adds a scrollbar when content overflows */
+}

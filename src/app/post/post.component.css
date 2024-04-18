@@ -1,0 +1,118 @@
+.forum-container {
+    max-width: 600px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+    background-color: #e9ebee; /* Couleur de fond légère pour le conteneur principal */
+}
+.posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacement entre les posts */
+}
+
+.new-post-container, .posts-container, .post-container {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+    color: #4b4f56;
+}
+
+.input-field, .btn {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccd0d5;
+}
+
+.input-field {
+    background-color: #ffffff;
+}
+
+.btn {
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #8a3ab9; /* Un rouge bordeaux */
+    border: none;
+}
+
+.publish-btn {
+    background-color: #4267b2; /* Un bleu Facebook */
+}
+
+.action-btn {
+    background-color: #e91e63; /* Un rouge bordeaux */
+}
+
+.comment-btn {
+    background-color: #00a400; /* Un vert pour les commentaires */
+}
+
+.post-header {
+    display: flex;
+    flex-direction: column; /* Les éléments de l'en-tête du post sont maintenant en colonne */
+    align-items: flex-start; /* Alignement à gauche */
+}
+
+.posts-container .post-container {
+    margin-top: 20px;
+}
+
+.comments-container {
+    background-color: #f2f3f5; /* Légère différence de couleur pour les conteneurs de commentaires */
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.comment-container {
+    background-color: #ffffff;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+
+.interaction-container span {
+    display: inline-block;
+    width: 25px; /* Ajustez la taille de l'icône selon vos besoins */
+    height: 25px; /* Ajustez la taille de l'icône selon vos besoins */
+    font-size: 20px; /* Taille de l'icône */
+    text-align: center;
+    line-height: 25px; /* Assurez-vous que l'icône est centrée verticalement */
+    margin-right: 5px; /* Espacement entre l'icône et le texte */
+    cursor: pointer;
+}
+
+.like-icon, .dislike-icon, .love-icon {
+    color: black; /* Assurez-vous que la couleur contraste avec le fond */
+    font-size: 24px; /* Augmentez la taille pour les rendre plus visibles */
+}
+ 
+.hat-icon {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 12px solid black;
+    position: relative;
+  }
+  
+  .hat-icon::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: -10px;
+    width: 20px;
+    height: 5px;
+    background-color: black;
+  }
+  
+
+

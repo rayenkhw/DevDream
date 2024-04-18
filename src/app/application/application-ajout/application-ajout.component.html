@@ -1,0 +1,26 @@
+<br>
+<br>
+<br>
+<!-- src/main/resources/static/js/app/components/application-ajout/application-ajout.component.html -->
+<!-- src/main/resources/static/js/app/components/application-ajout/application-ajout.component.html -->
+<form (ngSubmit)="sendApplication()" class="application-form">
+  <table class="centered-table">
+    <tr>
+      <td><label for="lettreMotivation">Lettre de motivation:</label></td>
+      <td><input type="file" id="lettreMotivation" (change)="onFileSelected($event, 'lettreMotivation')" accept=".pdf,.doc,.docx" /></td>
+    </tr>
+    <tr>
+      <td><label for="demandeDeStage">Demande de stage:</label></td>
+      <td><input type="file" id="demandeDeStage" (change)="onFileSelected($event, 'demandeDeStage')" accept=".pdf,.doc,.docx" /></td>
+    </tr>
+    <tr>
+      <td><label for="cv">CV:</label></td>
+      <td><input type="file" id="cv" (change)="onFileSelected($event, 'cv')" accept=".pdf,.doc,.docx" /></td>
+    </tr>
+  </table>
+  <button type="submit">Submit</button>
+</form>
+<div *ngIf="successMessage" class="alert alert-success">
+  {{ successMessage }}
+</div>
+

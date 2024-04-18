@@ -1,0 +1,81 @@
+
+  <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Form</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding-top: 50px;
+    }
+    .custom-btn {
+      background-color: #5a0404; /* Orange */
+      color: #ffffff; /* Texte blanc */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="text-center mb-4">Feedback Form</h2>
+        <form [formGroup]="feedback" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="rating">Note :</label>
+            <div class="rating-stars">
+              <span class="fa fa-star" [ngClass]="{'checked': rating >= 1}" (click)="updateRating(1)"></span>
+              <span class="fa fa-star" [ngClass]="{'checked': rating >= 2}" (click)="updateRating(2)"></span>
+              <span class="fa fa-star" [ngClass]="{'checked': rating >= 3}" (click)="updateRating(3)"></span>
+              <span class="fa fa-star" [ngClass]="{'checked': rating >= 4}" (click)="updateRating(4)"></span>
+              <span class="fa fa-star" [ngClass]="{'checked': rating >= 5}" (click)="updateRating(5)"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nom">Nom :</label>
+            <input type="text" class="form-control" id="nom" formControlName="nom" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="commentaire">Commentaire :</label>
+            <textarea id="commentaire" class="form-control" formControlName="commentaire" required></textarea>
+          </div>
+         
+          
+          <button type="submit" class="btn btn-primary custom-btn">Envoyer le Feedback</button>
+          <button type="button" class="btn btn-secondary custom-btn" (click)="resetForm()">Anuller</button>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <h2 class="text-center mb-4">Liste des feedback</h2>
+        <div class="card">
+          <div class="card-body">
+            <div *ngFor="let f of feedbacks" class="card mb-3"> <!-- Utilisation de feedbacks ici -->
+              <div class="form-group">
+                <label for="rating">Note :</label>
+                <div class="rating-stars">
+                  <span *ngFor="let star of [1, 2, 3, 4, 5]" class="fa fa-star"
+                    [ngClass]="{'checked': f.rating >= star}" (click)="updateRating(star)"></span> <!-- Utilisation de f.rating au lieu de rating -->
+                </div>
+              </div>              
+              <div class="card-body">
+                <h5 class="card-title">{{ f.nom }}</h5> <!-- Utilisation de f.nom -->
+                <p class="card-text">{{ f.commentaire }}</p> <!-- Utilisation de f.commentaire -->
+                <div class="date-ajout">
+                  <p>{{ f.dateAjout | date: 'medium' }}</p> <!-- Utilisation de f.dateAjout -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      </div></div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<h2>chats</h2>
+
+<div style="width: 80%; margin: auto; height: 400px; overflow-y: auto;">
+  <table class="table">
+    
+    <tbody>
+      <tr *ngFor="let chat of chats" (click)="openPopup(chat)">
+        <td style="text-align: center;">{{ chat.sender }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="popup" [style.display]="isPopupVisible ? 'block' : 'none'">
+  <div class="popup-content">
+    <span class="close" (click)="closePopup()">&times;</span>
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width: 20%; text-align: center;">envoyeur</th>
+          <th style="width: 20%; text-align: center;">message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let message of messages" >
+          <td style="text-align: center;">{{ message.envois.nom }}</td>
+          <td style="text-align: center;">{{ message.msg }}</td>
+          
+          
+        </tr>
+      </tbody>
+    </table>
+    
+    
+      
+        
+        
+      </div>
+    </div>

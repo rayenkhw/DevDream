@@ -1,0 +1,62 @@
+
+<div class="d-flex flex-wrap">
+    <div *ngFor="let offre of offres" class="card border border-danger mb-3 mr-3" style="max-width: 500px;">
+      <div class="card-body">
+        <h5 class="card-title text-dark custom-title text-red">{{ offre.titre }}</h5>
+        <p class="card-text text-dark "><span class="new-title">Skills:</span>
+                                        <span>{{ offre.skills }}</span></p>
+        <p class="card-text text-dark "> <span class="new-title">Durée:</span>
+                                         <span>{{ offre.duree }}</span> </p>
+        <p class="card-text text-dark"><span class="new-title">Description:</span>
+                                       <span>{{offre.description  }}</span></p>
+                                       <div class="d-flex justify-content-between align-items-center">
+                                        <div class="localisation">
+                                          <p class="card-text text-dark "><i class="material-icons">location_on</i> Localisation:  <span>{{ offre.gouvernorat }}, {{ offre.ville }}, {{ offre.adresse }}</span></p>
+                                        </div>
+                                        <div class="date-ajout">
+                                          <p class="card-text text-dark ">{{ offre.dateAjout | date: 'medium' }}</p>
+                                        </div>
+                                      </div>
+                                    </div>
+      <div class="card-footer">
+        <!-- Bouton Modifier -->
+        <button class="btn btn-danger mr-2" (click)="modifyOffre(offre)">Modifier</button>
+        <!-- Bouton Supprimer -->
+        <button class="btn btn-danger" (click)="removeOffre(offre.id_offre)">Supprimer</button>
+      </div>
+    </div>
+  </div>
+
+
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card border-danger" style="max-width: 500px;margin-bottom: 80px;">
+      <div class="card-header bg-danger text-white">Profil</div>
+      <div class="card-body">
+          <form [formGroup]="userProfileForm" (ngSubmit)="updateUserProfile()">
+            <div class="form-group">
+                <label for="nom">Nom</label>
+                <input type="text" class="form-control" id="nom" formControlName="nom" required>
+              </div>
+              <div class="form-group">
+                <label for="prenom">Prenom</label>
+                <input type="text" class="form-control" id="prenom" formControlName="prenom" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" formControlName="email" required>
+              </div>
+              <div class="form-group">
+                <label for="role">Role</label>
+                <select class="form-control" id="role" formControlName="role">
+                  <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+                </select>
+              </div>
+             
+  
+          <button type="submit" class="btn btn-danger btn-block" [disabled]="userProfileForm.invalid">Modifier</button>
+          <a class="btn btn-danger btn-block" routerLink="/admin/afficher-offre">Annuler</a>
+        </form>
+      </div>
+    </div>
+  </div>

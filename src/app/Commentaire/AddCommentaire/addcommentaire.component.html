@@ -1,0 +1,32 @@
+
+
+<div class="example-container"><br><br>
+  <div class="form-container">
+    <form [formGroup]="formCommentaire" (ngSubmit)="ajouterCommentaire()" novalidate>
+      <h1 mat-dialog-title>Ajouter Un commentaire !</h1>
+      <mat-dialog-content>
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Your message</mat-label>
+          <textarea matInput #message maxlength="256" placeholder="Ex. I want to say..."
+            formControlName="contenu" required></textarea>
+          <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
+          <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+          <mat-error *ngIf="formCommentaire.controls.contenu.touched && formCommentaire.controls.contenu.invalid">
+            <span *ngIf="formCommentaire.controls.contenu.errors.required">Veuillez saisir votre commentaire !</span>
+          </mat-error>
+          <mat-error *ngIf="formCommentaire.get('contenu').hasError('minLength')">
+            <span>Vous avez un minimum de 50 lettres !</span>
+          </mat-error>
+        </mat-form-field>
+        <br><br>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <div>
+          <button class="log" mat-flat-button [disabled]="formCommentaire.invalid" type="submit">Valider</button>
+          <button mat-raised-button [mat-dialog-close] class="log">Cancel</button>
+        </div>
+      </mat-dialog-actions>
+    </form>
+    <br><br><br>
+  </div>
+</div>

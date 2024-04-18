@@ -1,0 +1,25 @@
+.center-text {
+    text-align: center;
+  }
+  
+  .bold {
+    font-weight: bold;
+  }
+  .large-badge {
+    font-size: 16px; /* ajustez la taille de police selon vos préférences */
+}
+  .extra-bold {
+    font-weight: 800; /* ou toute autre valeur correspondant à une épaisseur de texte plus importante */
+  }
+  
+  .bold:first-child {
+    font-weight: normal; /* annule le poids de la police pour la première occurence */
+  }
+  
+  .larger {
+    font-size: 1.5em; /* Ajustez la taille selon vos besoins */
+  }
+  .card-header-burgundy {
+    background-color: #800020; /* Rouge bourgogne */
+  }
+  

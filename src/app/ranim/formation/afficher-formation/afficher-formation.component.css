@@ -1,0 +1,26 @@
+/* Définir la couleur rouge pour les boutons */
+.btn-danger {
+    background-color: rgb(109, 1, 1);
+    border-color: rgb(109, 1, 1);
+  }
+  
+  /* Définir la bordure rouge pour les cartes */
+  .card.border-danger {
+    border-color: rgb(104, 3, 3);
+  }
+  .date-ajout {
+    text-align: right; /* Aligner le texte à droite */
+  }
+  .custom-title {
+    font-size: 18px; /* Taille de la police */
+    font-weight: bold; /* Gras */
+    color: #800020; /* Couleur personnalisée */
+  }
+  .new-title {
+    font-size: 14px; /* Taille de la police */
+    font-weight: bold; /* Gras */
+    color: #000000; /* Couleur personnalisée */
+  }
+  .text-red {
+    color: rgb(109, 1, 1) !important;;
+  }

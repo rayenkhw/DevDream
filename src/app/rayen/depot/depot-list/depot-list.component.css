@@ -1,0 +1,75 @@
+h2 {text-align: center;}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #ddd;
+  }
+  button {
+    display: flex;
+    border: none;
+    border-radius: 5px; /* Adjust the radius as needed */
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #f3faff; /* Button background color */
+    color: #000000; /* Button text color */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  button:hover {
+    background-color: #ac2424; /* Change background color on hover */
+    color: #ffffff; /* Button text color */
+  }
+  .custom-dropdown {
+  margin: 0 auto;
+  display: block;
+  padding: 8px 12px; /* Adjust padding as needed */
+  font-size: 14px; /* Adjust font size as needed */
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 4px; /* Add border radius for rounded corners */
+  background-color: #fff; /* Add background color */
+  color: #333; /* Set text color */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  outline: none; /* Remove outline on focus */
+}
+
+/* Style for dropdown options */
+.custom-dropdown option {
+  font-size: 14px; /* Adjust font size as needed */
+  padding: 8px 12px; /* Adjust padding as needed */
+  background-color: #fff; /* Add background color */
+  color: #333; /* Set text color */
+}
+
+/* Style for the date input */
+.custom-date-input {
+  margin: 0 auto;
+  display: block;
+  padding: 8px 12px; /* Adjust padding as needed */
+  font-size: 14px; /* Adjust font size as needed */
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 4px; /* Add border radius for rounded corners */
+  background-color: #fff; /* Add background color */
+  color: #333; /* Set text color */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  outline: none; /* Remove outline on focus */
+}

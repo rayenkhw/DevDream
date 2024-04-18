@@ -1,0 +1,55 @@
+.submit-button {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: darkred;
+}
+button {
+  display: flex;
+  border: none;
+  border-radius: 5px; /* Adjust the radius as needed */
+  padding: 10px 20px; /* Adjust padding as needed */
+  background-color: #eef1f3; /* Button background color */
+  color: #000000; /* Button text color */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition effect */
+  justify-content: center;
+  align-items: center;
+}
+
+button:hover {
+  background-color: #ac2424; /* Change background color on hover */
+  color: #ffffff;
+}
+input {
+  display: flex;
+  border: none;
+  border-radius: 5px; /* Adjust the radius as needed */
+  padding: 10px 20px; /* Adjust padding as needed */
+  background-color: #eef1f3; /* Button background color */
+  color: #000000; /* Button text color */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition effect */
+  justify-content: center;
+  align-items: center;
+}
+
+input:hover {
+  background-color: #ac2424; /* Change background color on hover */
+  color: #ffffff;
+}
+.centered-table {
+  margin: 0 auto;
+}
+.application-form button[type="submit"] {
+  display: block;
+  margin: 20px auto;
+}
+
+
